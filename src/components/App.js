@@ -1,7 +1,16 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+
+import Landing from './Landing/Landing';
 
 function App() {
-  return <div className="App">Hello World</div>;
+  return (
+    <>
+      <Switch>
+        <Route exact path="/" component={Landing} />
+      </Switch>
+    </>
+  );
 }
 
 export default App;
