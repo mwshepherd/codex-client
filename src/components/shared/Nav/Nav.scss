@@ -16,41 +16,37 @@
         display: flex;
         align-items: center;
         background: #676767;
+        color: #7bc5ca;
         margin-bottom: 10px;
         padding: 10px;
         border-radius: 7px;
         height: 40px;
         transition: all 0.2s;
+        cursor: pointer;
 
         &:hover {
           background: #eee;
         }
 
-        a {
+        .icon {
           display: flex;
-          align-items: center;
-          color: #7bc5ca;
+          // align-items: center;
+          justify-content: center;
+          width: 22px;
+          height: 18px;
+        }
 
-          .icon {
+        .nav-link {
+          // display: none;
+          display: flex;
+          justify-content: center;
+          opacity: 0;
+          margin-left: 10px;
+          transition: all 0.6s;
+
+          &.show {
+            opacity: 1;
             display: flex;
-            // align-items: center;
-            justify-content: center;
-            width: 22px;
-            height: 18px;
-          }
-
-          .nav-link {
-            // display: none;
-            display: flex;
-            justify-content: center;
-            opacity: 0;
-            margin-left: 10px;
-            transition: all 0.6s;
-
-            &.show {
-              opacity: 1;
-              display: flex;
-            }
           }
         }
       }
