@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './TopPanel.scss';
 
 class TopPanel extends Component {
   render() {
