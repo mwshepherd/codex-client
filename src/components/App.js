@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
+import ProtectedRoute from './ProtectedRoute';
 import Landing from './Landing/Landing';
 import Dashboard from './Dashboard/Dashboard';
 
@@ -9,7 +9,7 @@ function App() {
     <>
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route exact path="/dashboard" component={Dashboard} />
+        <ProtectedRoute exact path="/dashboard" component={Dashboard} />
       </Switch>
     </>
   );
