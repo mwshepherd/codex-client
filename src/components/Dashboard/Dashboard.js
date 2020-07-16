@@ -9,6 +9,8 @@ import TopPanel from '../shared/TopPanel/TopPanel';
 import Home from '../Home/Home';
 import NewJournal from '../NewJournal/NewJournal';
 import Journals from '../Journals/Journals';
+import Bookmarks from '../Bookmarks/Bookmarks';
+import Goals from '../Goals/Goals';
 
 class Dashboard extends Component {
   constructor() {
@@ -50,6 +52,12 @@ class Dashboard extends Component {
         break;
       case 'journals':
         mainWindow = <Journals />;
+        break;
+      case 'bookmarks':
+        mainWindow = <Bookmarks />;
+        break;
+      case 'goals':
+        mainWindow = <Goals />;
         break;
       default:
         mainWindow = <div>Content not found</div>;

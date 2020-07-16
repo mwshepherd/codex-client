@@ -9,16 +9,28 @@ class Nav extends Component {
         <nav className="nav-main">
           <ul>
             <li onClick={() => this.props.setCurrentPage('new-journal')}>
-              <div className="icon">
-                <i className="far fa-edit"></i>
+              <div className="link-wrapper">
+                <div className="icon">
+                  <i className="far fa-edit"></i>
+                </div>
+                <div className={navExpanded ? `nav-link show` : `nav-link`}>New Journal</div>
               </div>
-              <div className={navExpanded ? `nav-link show` : `nav-link`}>Journal</div>
             </li>
             <li onClick={() => this.props.setCurrentPage('bookmarks')}>
-              <div className="nav-link">Bookmarks</div>
+              <div className="link-wrapper">
+                <div className="icon">
+                  <i className="far fa-bookmark"></i>
+                </div>
+                <div className={navExpanded ? `nav-link show` : `nav-link`}>New Bookmark</div>
+              </div>
             </li>
             <li onClick={() => this.props.setCurrentPage('goals')}>
-              <div className="nav-link">New Goal</div>
+              <div className="link-wrapper">
+                <div className="icon">
+                  <i className="far fa-calendar-check"></i>
+                </div>
+                <div className={navExpanded ? `nav-link show` : `nav-link`}>New Goal</div>
+              </div>
             </li>
           </ul>
         </nav>

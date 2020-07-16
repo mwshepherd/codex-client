@@ -16,7 +16,6 @@
         display: flex;
         align-items: center;
         background: #676767;
-        color: #7bc5ca;
         margin-bottom: 10px;
         padding: 10px;
         border-radius: 7px;
@@ -28,25 +27,36 @@
           background: #eee;
         }
 
-        .icon {
+        .link-wrapper {
           display: flex;
-          // align-items: center;
-          justify-content: center;
-          width: 22px;
-          height: 18px;
-        }
+          align-items: center;
+          color: #7bc5ca;
 
-        .nav-link {
-          // display: none;
-          display: flex;
-          justify-content: center;
-          opacity: 0;
-          margin-left: 10px;
-          transition: all 0.6s;
-
-          &.show {
-            opacity: 1;
+          .icon {
             display: flex;
+            // align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 18px;
+          }
+
+          .nav-link {
+            // display: none;
+            display: flex;
+            // justify-content: center;
+            opacity: 0;
+            font-size: 0px;
+            width: 0px;
+            margin-left: 10px;
+            transition: all 0.3s;
+
+            &.show {
+              opacity: 1;
+              font-size: 12px;
+              width: 100px;
+              transition: opacity 0.6s;
+              transition-delay: 0.2s;
+            }
           }
         }
       }
