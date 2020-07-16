@@ -68,7 +68,7 @@ class Login extends Component {
               x
             </button>
             <h1>Login</h1>
-            {errMessage && <span>errMessage</span>}
+            {errMessage && <span>{errMessage}</span>}
             <form className="user-form" onSubmit={this.onFormSubmit}>
               <input type="text" name="email" id="email" value={email} placeholder="email" onChange={this.onInputChange} />
               <input type="password" name="password" id="password" value={password} placeholder="password" onChange={this.onInputChange} />

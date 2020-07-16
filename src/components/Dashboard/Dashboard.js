@@ -11,11 +11,13 @@ import NewJournal from '../NewJournal/NewJournal';
 import Journals from '../Journals/Journals';
 import Bookmarks from '../Bookmarks/Bookmarks';
 import Goals from '../Goals/Goals';
+import { backendServer } from '../shared/constants';
 
 class Dashboard extends Component {
   constructor() {
     super();
     this.state = {
+      user: 'username',
       currentPage: 'home',
       navState: 'collapsed',
       navExpanded: false,
@@ -23,6 +25,23 @@ class Dashboard extends Component {
 
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.toggleNav = this.toggleNav.bind(this);
+    this.logOut = this.logOut.bind(this);
+    this.getCurrentUser = this.getCurrentUser.bind(this);
+  }
+
+  async componentDidMount() {
+    await this.getCurrentUser();
+  }
+
+  async getCurrentUser() {
+    const response = await fetch(`${backendServer}/current-user?type=json`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    const data = await response.json();
+    this.setState({ user: data.user });
   }
 
   setCurrentPage(page) {
@@ -35,6 +54,11 @@ class Dashboard extends Component {
     } else {
       this.setState({ navState: 'collapsed', navExpanded: false });
     }
+  }
+
+  logOut() {
+    localStorage.removeItem('token');
+    this.props.history.push('/');
   }
 
   render() {
@@ -65,7 +89,7 @@ class Dashboard extends Component {
 
     return (
       <>
-        <TopPanel toggleNav={this.toggleNav} />
+        <TopPanel toggleNav={this.toggleNav} logOut={this.logOut} currentUser={this.state.user} />
         <div className="container">
           <Nav setCurrentPage={this.setCurrentPage} navState={this.state.navState} navExpanded={this.state.navExpanded} />
           <div className="main-panel">

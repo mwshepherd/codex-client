@@ -20,10 +20,17 @@
     }
   }
 
+  &__right {
+    display: flex;
+    align-items: center;
+  }
+
   &__settings {
+    margin-left: 20px;
     width: 30px;
     height: 30px;
     background: #333;
     border-radius: 7px;
+    cursor: pointer;
   }
 }
