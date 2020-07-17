@@ -17,7 +17,7 @@ class Dashboard extends Component {
   constructor() {
     super();
     this.state = {
-      user: 'username',
+      user: {},
       currentPage: 'home',
       navState: 'collapsed',
       navExpanded: false,
@@ -69,7 +69,7 @@ class Dashboard extends Component {
 
     switch (currentPage) {
       case 'home':
-        mainWindow = <Home />;
+        mainWindow = <Home user={this.state.user} />;
         break;
       case 'new-journal':
         mainWindow = <NewJournal />;
@@ -89,7 +89,7 @@ class Dashboard extends Component {
 
     return (
       <>
-        <TopPanel toggleNav={this.toggleNav} logOut={this.logOut} currentUser={this.state.user} />
+        <TopPanel toggleNav={this.toggleNav} logOut={this.logOut} />
         <div className="container">
           <Nav setCurrentPage={this.setCurrentPage} navState={this.state.navState} navExpanded={this.state.navExpanded} />
           <div className="main-panel">

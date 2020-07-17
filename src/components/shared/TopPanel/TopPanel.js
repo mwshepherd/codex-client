@@ -12,8 +12,7 @@ class TopPanel extends Component {
         </div>
         <div className="top-panel__site-title">codex</div>
 
-        <div class="top-panel__right">
-          <div className="top-panel__greeting">Hello, {this.props.currentUser.username}!</div>
+        <div className="top-panel__right">
           <div className="top-panel__settings" onClick={this.props.logOut}></div>
         </div>
       </div>
