@@ -20,6 +20,13 @@
     }
   }
 
+  &__site-title {
+    font-family: 'Red Hat Display', sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: #333;
+  }
+
   &__right {
     display: flex;
     align-items: center;
