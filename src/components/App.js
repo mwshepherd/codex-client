@@ -10,6 +10,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Landing} />
         <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+        <ProtectedRoute exact path="/dashboard/journals/:id" component={Dashboard} />
       </Switch>
     </>
   );
