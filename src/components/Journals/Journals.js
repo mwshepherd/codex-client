@@ -8,14 +8,15 @@ class Journals extends Component {
     super(props);
     this.state = {
       journals: [],
-      currPage: 1,
     };
 
+    this.currPage = 1;
     this.getUsersJournals = this.getUsersJournals.bind(this);
     this.renderJournalEntries = this.renderJournalEntries.bind(this);
     this.sortByTitle = this.sortByTitle.bind(this);
     this.sortByCategories = this.sortByCategories.bind(this);
     this.nextPage = this.nextPage.bind(this);
+    this.prevPage = this.prevPage.bind(this);
   }
 
   async componentDidMount() {
@@ -23,7 +24,7 @@ class Journals extends Component {
   }
 
   async getUsersJournals() {
-    const response = await fetch(`${backendServer}/journals?page=${this.state.currPage}`, {
+    const response = await fetch(`${backendServer}/journals?page=${this.currPage}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -106,8 +107,14 @@ class Journals extends Component {
     this.setState({ journals: sorted });
   }
 
-  async nextPage() {
-    this.setState({ currPage: this.state.currPage + 1 });
+  nextPage() {
+    this.currPage += 1;
+    this.getUsersJournals();
+  }
+
+  prevPage() {
+    this.currPage -= 1;
+    this.getUsersJournals();
   }
 
   render() {
@@ -131,6 +138,7 @@ class Journals extends Component {
           {journals.length && journals.map((journal) => this.renderJournalEntries(journal))}
         </div>
         <button onClick={this.nextPage}>Next</button>
+        <button onClick={this.prevPage}>Prev</button>
       </>
     );
   }
