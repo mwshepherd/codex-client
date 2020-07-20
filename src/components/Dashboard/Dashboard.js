@@ -9,6 +9,7 @@ import TopPanel from '../shared/TopPanel/TopPanel';
 import Home from '../Home/Home';
 import NewJournal from '../NewJournal/NewJournal';
 import Journals from '../Journals/Journals';
+import SingleJournal from '../SingleJournal/SingleJournal';
 import Bookmarks from '../Bookmarks/Bookmarks';
 import Goals from '../Goals/Goals';
 import { backendServer } from '../shared/constants';
@@ -21,9 +22,11 @@ class Dashboard extends Component {
       currentPage: 'home',
       navState: 'collapsed',
       navExpanded: false,
+      currentJournal: [],
     };
 
     this.setCurrentPage = this.setCurrentPage.bind(this);
+    this.setCurrentJournal = this.setCurrentJournal.bind(this);
     this.toggleNav = this.toggleNav.bind(this);
     this.logOut = this.logOut.bind(this);
     this.getCurrentUser = this.getCurrentUser.bind(this);
@@ -46,6 +49,10 @@ class Dashboard extends Component {
 
   setCurrentPage(page) {
     this.setState({ currentPage: page });
+  }
+
+  setCurrentJournal(journal) {
+    this.setState({ currentJournal: journal });
   }
 
   toggleNav() {
@@ -75,7 +82,10 @@ class Dashboard extends Component {
         mainWindow = <NewJournal />;
         break;
       case 'journals':
-        mainWindow = <Journals />;
+        mainWindow = <Journals setCurrentPage={this.setCurrentPage} setCurrentJournal={this.setCurrentJournal} />;
+        break;
+      case 'single-journal':
+        mainWindow = <SingleJournal currentJournal={this.state.currentJournal} setCurrentPage={this.setCurrentPage} />;
         break;
       case 'bookmarks':
         mainWindow = <Bookmarks />;
