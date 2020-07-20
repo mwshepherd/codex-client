@@ -47,7 +47,15 @@ class Journals extends Component {
 
     return (
       <div key={journal.id} className="journal-entry">
-        <div className="journal-entry__title">{journal.title}</div>
+        <div
+          className="journal-entry__title"
+          onClick={() => {
+            this.props.setCurrentPage('single-journal');
+            this.props.setCurrentJournal(journal);
+          }}
+        >
+          {journal.title}
+        </div>
         <div className="journal-entry__date">{date}</div>
         <div className="journal-entry__categories">{categories}</div>
       </div>
