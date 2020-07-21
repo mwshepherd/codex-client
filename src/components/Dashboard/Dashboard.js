@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { Route, Switch } from 'react-router-dom';
+import ProtectedRoute from '../ProtectedRoute';
 // Styles
 import './Dashboard.scss';
 
@@ -19,15 +20,14 @@ class Dashboard extends Component {
     super();
     this.state = {
       user: {},
-      currentPage: 'home',
       navState: 'collapsed',
       navExpanded: false,
       currentJournal: [],
     };
 
+    this.toggleNav = this.toggleNav.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.setCurrentJournal = this.setCurrentJournal.bind(this);
-    this.toggleNav = this.toggleNav.bind(this);
     this.logOut = this.logOut.bind(this);
     this.getCurrentUser = this.getCurrentUser.bind(this);
   }
@@ -47,14 +47,6 @@ class Dashboard extends Component {
     this.setState({ user: data.user });
   }
 
-  setCurrentPage(page) {
-    this.setState({ currentPage: page });
-  }
-
-  setCurrentJournal(journal) {
-    this.setState({ currentJournal: journal });
-  }
-
   toggleNav() {
     if (this.state.navState === 'collapsed') {
       this.setState({ navState: 'expanded', navExpanded: true });
@@ -63,15 +55,21 @@ class Dashboard extends Component {
     }
   }
 
+  setCurrentPage(page) {
+    this.setState({ currentPage: page });
+  }
+
+  setCurrentJournal(journal) {
+    this.setState({ currentJournal: journal });
+  }
+
   logOut() {
     localStorage.removeItem('token');
     this.props.history.push('/');
   }
 
   render() {
-    console.log(this.state);
-
-    const { currentPage } = this.state;
+    const { currentPage } = this.props.location.state;
     let mainWindow;
 
     switch (currentPage) {
@@ -85,7 +83,7 @@ class Dashboard extends Component {
         mainWindow = <Journals setCurrentPage={this.setCurrentPage} setCurrentJournal={this.setCurrentJournal} />;
         break;
       case 'single-journal':
-        mainWindow = <SingleJournal currentJournal={this.state.currentJournal} setCurrentPage={this.setCurrentPage} />;
+        mainWindow = <SingleJournal currentJournal={this.props.location.state.currentJournal} setCurrentPage={this.setCurrentPage} />;
         break;
       case 'bookmarks':
         mainWindow = <Bookmarks />;
@@ -94,7 +92,7 @@ class Dashboard extends Component {
         mainWindow = <Goals />;
         break;
       default:
-        mainWindow = <div>Content not found</div>;
+        mainWindow = <Home user={this.state.user} />;
     }
 
     return (
