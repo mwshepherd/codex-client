@@ -31,7 +31,7 @@ class Journals extends Component {
       },
     });
     const data = await response.json();
-    this.setState({ journals: data.journals });
+    this.setState({ journals: data.journals, totalJournals: data.totalJournals, totalPages: Math.ceil(data.totalJournals / 5) });
   }
 
   renderJournalEntries(journal) {
@@ -109,13 +109,18 @@ class Journals extends Component {
   }
 
   nextPage() {
-    this.currPage += 1;
-    this.getUsersJournals();
+    if (this.currPage < this.state.totalPages) {
+      this.currPage += 1;
+      this.getUsersJournals();
+    }
   }
 
   prevPage() {
-    this.currPage -= 1;
-    this.getUsersJournals();
+    // console.log(thi);
+    if (this.currPage > 1) {
+      this.currPage -= 1;
+      this.getUsersJournals();
+    }
   }
 
   render() {
@@ -138,8 +143,10 @@ class Journals extends Component {
 
           {journals.length && journals.map((journal) => this.renderJournalEntries(journal))}
         </div>
-        <button onClick={this.nextPage}>Next</button>
-        <button onClick={this.prevPage}>Prev</button>
+        <div className="pagination-btns">
+          <button onClick={this.prevPage}>Prev</button>
+          <button onClick={this.nextPage}>Next</button>
+        </div>
       </>
     );
   }
