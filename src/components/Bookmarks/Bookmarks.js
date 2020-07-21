@@ -42,12 +42,8 @@ class Bookmarks extends Component {
 
     return (
       <div key={bookmark.id} className="bookmark">
-        <div className="bookmark-title" onClick={() => {
-          // need to insert re the current page bit
-        }}>
-        {bookmark.title}
-        </div>
-        <div className="bookmark-url"><a href={bookmark.url}>{bookmark.url}</a></div>
+        <div className="bookmark-title"><a href={bookmark.url}>{bookmark.title}</a></div>
+        <div className="bookmark-description">{bookmark.description}</div>
         <div className="bookmark-categories">{categories}</div>
         {/* <div>{date}</div> */}
       </div>
@@ -63,8 +59,8 @@ class Bookmarks extends Component {
         <h1>Bookmarks</h1>
         <div className="bookmarks-table">
           <div className="bookmark">
-            <div className="bookmark-title">Title</div>
-            <div className="bookmark-url-title">URL</div>
+            <div className="bookmark-title">Title & Bookmark Link</div>
+            <div className="bookmark-description">Description</div>
             <div className="bookmark-categories">Category</div>
           </div>
         {bookmarks.length && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
