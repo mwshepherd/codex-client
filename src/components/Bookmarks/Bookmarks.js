@@ -10,11 +10,11 @@ class Bookmarks extends Component {
       bookmarks: [],
     };
 
+    this.currPage = 1;
     this.getUsersBookmarks = this.getUsersBookmarks.bind(this);
     this.renderBookmarks = this.renderBookmarks.bind(this);
     this.sortByTitle = this.sortByTitle.bind(this);
     this.sortByCategories = this.sortByCategories.bind(this);
-    this.currPage = 1;
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
   }
@@ -30,7 +30,7 @@ class Bookmarks extends Component {
       },
     });
     const data = await response.json();
-    this.setState({ bookmarks: data.bookmarks });
+    this.setState({ bookmarks: data.bookmarks, totalBookmarks: data.totalBookmarks, totalPages: Math.ceil(data.totalBookmarks / 5) });
   }
 
   renderBookmarks(bookmark) {
@@ -98,8 +98,10 @@ class Bookmarks extends Component {
   }
 
   nextPage() {
-    this.currPage += 1;
-    this.getUsersBookmarks();
+    if (this.currPage < this.state.totalPages) {
+      this.currPage += 1;
+      this.getUsersBookmarks();
+    }
   }
 
   prevPage() {
@@ -110,7 +112,7 @@ class Bookmarks extends Component {
   }
 
   render() {
-    // console.log(this.state);
+    console.log(this.state);
     const { bookmarks } = this.state;
     // console.log(bookmarks);
     return (
@@ -129,8 +131,13 @@ class Bookmarks extends Component {
           </div>
           {bookmarks.length && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
         </div>
-        <button onClick={this.nextPage}>Next</button>
-        <button onClick={this.prevPage}>Prev</button>
+        <div className="pagination-btns">
+          <button onClick={this.prevPage}>Prev</button>
+          <div className="total-pages">
+            {this.currPage} / {this.state.totalPages}
+          </div>
+          <button onClick={this.nextPage}>Next</button>
+        </div>
       </>
     );
   }
