@@ -61,15 +61,8 @@ class NewBookmark extends React.Component {
             onChange={this.onInputChange}
           />
 
-          {/* not working */}
-          <label htmlFor="categories">Categories:</label>
-          <input
-            className="bookmark-categories"
-            type="text"
-            name="categories"
-            id="categories"
-            onChange={this.onInputChange}
-          />
+          <label>Category:</label>
+          <select></select>
 
           <input type="submit" value=" + " />
         </form>

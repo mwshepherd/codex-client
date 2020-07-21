@@ -7,10 +7,12 @@ class Bookmarks extends Component {
   constructor(props) {
   super(props);
   this.state = {
-    bookmarks: []
+    bookmarks: [], 
+    categories: []
   };
 
   this.getUsersBookmarks = this.getUsersBookmarks.bind(this);
+  this.getCategories = this.getCategories.bind(this);
   this.renderBookmarks = this.renderBookmarks.bind(this);
   this.sortByTitle = this.sortByTitle.bind(this);
   this.sortByCategories = this.sortByCategories.bind(this);
@@ -21,6 +23,7 @@ class Bookmarks extends Component {
 
   async componentDidMount() {
     await this.getUsersBookmarks();
+    await this.getCategories();
   }
 
   async getUsersBookmarks() {
@@ -31,6 +34,19 @@ class Bookmarks extends Component {
     });
     const data = await response.json();
     this.setState({ bookmarks: data.bookmarks })
+    console.log(this.state)
+  }
+
+  async getCategories() {
+    const response = await fetch(`${backendServer}categories/index`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const data = await response.json();
+    console.log(data)
+    this.setState({ categories: data })
+    console.log(this.state)
   }
 
   renderBookmarks(bookmark) {
@@ -47,7 +63,7 @@ class Bookmarks extends Component {
       <div key={bookmark.id} className="bookmark">
         <div className="bookmark-title"><a href={bookmark.url} target="_blank">{bookmark.title}</a></div>
         <div className="bookmark-description">{bookmark.description}</div>
-        <div className="bookmark-categories">{categories}</div>
+        <div className="bookmark-categories">{bookmark.category.name}</div>
       </div>
     )
   }
