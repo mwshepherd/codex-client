@@ -5,18 +5,18 @@ import NewBookmark from '../NewBookmark/NewBookmark';
 
 class Bookmarks extends Component {
   constructor(props) {
-  super(props);
-  this.state = {
-    bookmarks: []
-  };
+    super(props);
+    this.state = {
+      bookmarks: [],
+    };
 
-  this.getUsersBookmarks = this.getUsersBookmarks.bind(this);
-  this.renderBookmarks = this.renderBookmarks.bind(this);
-  this.sortByTitle = this.sortByTitle.bind(this);
-  this.sortByCategories = this.sortByCategories.bind(this);
-  this.currPage = 1;
-  this.nextPage = this.nextPage.bind(this);
-  this.prevPage = this.prevPage.bind(this);
+    this.getUsersBookmarks = this.getUsersBookmarks.bind(this);
+    this.renderBookmarks = this.renderBookmarks.bind(this);
+    this.sortByTitle = this.sortByTitle.bind(this);
+    this.sortByCategories = this.sortByCategories.bind(this);
+    this.currPage = 1;
+    this.nextPage = this.nextPage.bind(this);
+    this.prevPage = this.prevPage.bind(this);
   }
 
   async componentDidMount() {
@@ -30,26 +30,35 @@ class Bookmarks extends Component {
       },
     });
     const data = await response.json();
-    this.setState({ bookmarks: data.bookmarks })
+    this.setState({ bookmarks: data.bookmarks });
   }
 
   renderBookmarks(bookmark) {
     // console.log(bookmark);
-    const categories = 
-    bookmark.categories && 
-    bookmark.categories.map((category) => {
-      return (
-        <span key={category.id} className="category">#{category.name}</span>
-      );
-    });
+    const categories =
+      bookmark.categories &&
+      bookmark.categories.map((category) => {
+        return (
+          <span key={category.id} className="category">
+            #{category.name}
+          </span>
+        );
+      });
 
     return (
       <div key={bookmark.id} className="bookmark">
-        <div className="bookmark-title"><a href={bookmark.url} target="_blank">{bookmark.title}</a></div>
+        <div className="bookmark-title">
+          <a href={bookmark.url} target="_blank">
+            {bookmark.title}
+          </a>
+        </div>
         <div className="bookmark-description">{bookmark.description}</div>
         <div className="bookmark-categories">{categories}</div>
+        <div className="bookmark-delete">
+          <button>Delete</button>
+        </div>
       </div>
-    )
+    );
   }
 
   sortByCategories() {
@@ -67,11 +76,11 @@ class Bookmarks extends Component {
       }
       return 0;
     });
-    this.setState({bookmarks: sorted})
+    this.setState({ bookmarks: sorted });
   }
 
   sortByTitle(type) {
-    const sorted = this.state.bookmarks.sort((a,b) => {
+    const sorted = this.state.bookmarks.sort((a, b) => {
       // console.log(type);
       let titleA = a[type].toLowerCase();
       let titleB = b[type].toLowerCase();
@@ -85,7 +94,7 @@ class Bookmarks extends Component {
       }
       return 0;
     });
-    this.setState({bookmarks: sorted})
+    this.setState({ bookmarks: sorted });
   }
 
   nextPage() {
@@ -94,8 +103,10 @@ class Bookmarks extends Component {
   }
 
   prevPage() {
-    this.currPage -=1;
-    this.getUsersBookmarks();
+    if (this.currPage > 1) {
+      this.currPage -= 1;
+      this.getUsersBookmarks();
+    }
   }
 
   render() {
@@ -105,18 +116,21 @@ class Bookmarks extends Component {
     return (
       <>
         <h1>Bookmarks</h1>
+        <NewBookmark getUsersBookmarks={this.getUsersBookmarks} />
         <div className="bookmarks-table">
           <div className="bookmark">
-            <div className="bookmark-title" onClick={() => this.sortByTitle('title')}>Title & Bookmark Link</div>
+            <div className="bookmark-title" onClick={() => this.sortByTitle('title')}>
+              Title & Bookmark Link
+            </div>
             <div className="bookmark-description">Description</div>
-            <div className="bookmark-categories" onClick={this.sortByCategories}>Category</div>
+            <div className="bookmark-categories" onClick={this.sortByCategories}>
+              Category
+            </div>
           </div>
-        {bookmarks.length && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
+          {bookmarks.length && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
         </div>
         <button onClick={this.nextPage}>Next</button>
         <button onClick={this.prevPage}>Prev</button>
-        <NewBookmark />
-
       </>
     );
   }

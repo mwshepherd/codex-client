@@ -16,15 +16,16 @@ class NewBookmark extends React.Component {
       bookmark: this.state,
     };
 
-    await fetch("http://localhost:3000/bookmarks", {
-      method: "POST",
+    await fetch('http://localhost:3000/bookmarks', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(body),
     });
     // this.props.history.push("/blogs");
+    this.props.getUsersBookmarks();
   };
 
   render() {
@@ -35,47 +36,23 @@ class NewBookmark extends React.Component {
           {/* <h1>Add a Bookmark</h1> */}
 
           <label htmlFor="title">Title:</label>
-          <input
-            className="bookmark-title"
-            type="text"
-            name="title"
-            id="title"
-            onChange={this.onInputChange}
-          />
+          <input className="bookmark-title" type="text" name="title" id="title" onChange={this.onInputChange} />
 
           <label htmlFor="url">URL:</label>
-          <input
-            className="bookmark-url"
-            type="text"
-            name="url"
-            id="url"
-            onChange={this.onInputChange}
-          />
+          <input className="bookmark-url" type="text" name="url" id="url" onChange={this.onInputChange} />
 
           <label htmlFor="url">Description:</label>
-          <input
-            className="bookmark-description"
-            type="text"
-            name="description"
-            id="description"
-            onChange={this.onInputChange}
-          />
+          <input className="bookmark-description" type="text" name="description" id="description" onChange={this.onInputChange} />
 
           {/* not working */}
           <label htmlFor="categories">Categories:</label>
-          <input
-            className="bookmark-categories"
-            type="text"
-            name="categories"
-            id="categories"
-            onChange={this.onInputChange}
-          />
+          <input className="bookmark-categories" type="text" name="categories" id="categories" onChange={this.onInputChange} />
 
           <input type="submit" value=" + " />
         </form>
       </div>
     );
   }
-};
+}
 
 export default NewBookmark;

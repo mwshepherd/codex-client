@@ -145,6 +145,9 @@ class Journals extends Component {
         </div>
         <div className="pagination-btns">
           <button onClick={this.prevPage}>Prev</button>
+          <div className="total-pages">
+            {this.currPage} / {this.state.totalPages}
+          </div>
           <button onClick={this.nextPage}>Next</button>
         </div>
       </>
