@@ -21,6 +21,8 @@ class DynamicComponent extends Component {
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.getUsersEntries = this.getUsersEntries.bind(this);
+    this.sortByTitle = this.sortByTitle.bind(this);
+    this.sortByCategories = this.sortByCategories.bind(this);
   }
 
   async getUsersEntries(page) {
@@ -31,7 +33,7 @@ class DynamicComponent extends Component {
       },
     });
     const data = await response.json();
-    this.setState({ [page]: data[page], total: data.totalBookmarks, totalPages: Math.ceil(data.totalBookmarks / 5) });
+    this.setState({ [page]: data[page], total: data.totalEntries, totalPages: Math.ceil(data.totalEntries / 5) });
   }
 
   nextPage(page) {
@@ -42,11 +44,48 @@ class DynamicComponent extends Component {
   }
 
   prevPage(page) {
-    // console.log(thi);
     if (this.currPage > 1) {
       this.currPage -= 1;
       this.getUsersEntries(page);
     }
+  }
+
+  sortByCategories(page) {
+    console.log(this.state[page]);
+    const sorted = this.state[page].sort((a, b) => {
+      let titleA, titleB;
+      a.categories.length > 0 ? (titleA = a.categories[0].name.toLowerCase()) : (titleA = 'z');
+      b.categories.length > 0 ? (titleB = b.categories[0].name.toLowerCase()) : (titleB = 'z');
+
+      if (titleA < titleB) {
+        return -1;
+      }
+
+      if (titleA > titleB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.setState({ [page]: sorted });
+  }
+
+  sortByTitle(type, page) {
+    console.log(this.state[page]);
+    const sorted = this.state[page].sort((a, b) => {
+      // console.log(type);
+      let titleA = a[type].toLowerCase();
+      let titleB = b[type].toLowerCase();
+
+      if (titleA < titleB) {
+        return -1;
+      }
+
+      if (titleA > titleB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.setState({ [page]: sorted });
   }
 
   render() {
@@ -54,7 +93,17 @@ class DynamicComponent extends Component {
     console.log(this.currPage);
     console.log('inside dynamic component');
     const SelectedPage = components[this.props.page];
-    return <SelectedPage getUsersEntries={this.getUsersEntries} state={this.state} currPage={this.currPage} nextPage={this.nextPage} prevPage={this.prevPage} />;
+    return (
+      <SelectedPage
+        getUsersEntries={this.getUsersEntries}
+        state={this.state}
+        currPage={this.currPage}
+        nextPage={this.nextPage}
+        prevPage={this.prevPage}
+        sortByCategories={this.sortByCategories}
+        sortByTitle={this.sortByTitle}
+      />
+    );
   }
 }
 

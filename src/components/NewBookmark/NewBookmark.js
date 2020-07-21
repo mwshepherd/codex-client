@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../Bookmarks/Bookmarks.scss';
 
-class NewBookmark extends React.Component {
+class NewBookmark extends Component {
   onInputChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
@@ -24,8 +24,7 @@ class NewBookmark extends React.Component {
       },
       body: JSON.stringify(body),
     });
-    // this.props.history.push("/blogs");
-    this.props.getUsersBookmarks();
+    this.props.getUsersEntries('bookmarks');
   };
 
   render() {
