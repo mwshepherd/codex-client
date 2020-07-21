@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../Bookmarks/Bookmarks.scss';
 
 class NewBookmark extends React.Component {
   onInputChange = (event) => {
@@ -29,9 +30,9 @@ class NewBookmark extends React.Component {
   render() {
     console.log(this.state);
     return (
-      <div>
+      <div className="newbookmark-form">
         <form onSubmit={this.onFormSubmit}>
-          <h1>Add a Bookmark</h1>
+          {/* <h1>Add a Bookmark</h1> */}
 
           <label htmlFor="title">Title:</label>
           <input
@@ -51,7 +52,26 @@ class NewBookmark extends React.Component {
             onChange={this.onInputChange}
           />
 
-          <input type="submit" value="Add Bookmark" />
+          <label htmlFor="url">Description:</label>
+          <input
+            className="bookmark-description"
+            type="text"
+            name="description"
+            id="description"
+            onChange={this.onInputChange}
+          />
+
+          {/* not working */}
+          <label htmlFor="categories">Categories:</label>
+          <input
+            className="bookmark-categories"
+            type="text"
+            name="categories"
+            id="categories"
+            onChange={this.onInputChange}
+          />
+
+          <input type="submit" value=" + " />
         </form>
       </div>
     );

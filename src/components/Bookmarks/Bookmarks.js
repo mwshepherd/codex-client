@@ -45,7 +45,7 @@ class Bookmarks extends Component {
 
     return (
       <div key={bookmark.id} className="bookmark">
-        <div className="bookmark-title"><a href={bookmark.url}>{bookmark.title}</a></div>
+        <div className="bookmark-title"><a href={bookmark.url} target="_blank">{bookmark.title}</a></div>
         <div className="bookmark-description">{bookmark.description}</div>
         <div className="bookmark-categories">{categories}</div>
       </div>
@@ -116,6 +116,7 @@ class Bookmarks extends Component {
         <button onClick={this.nextPage}>Next</button>
         <button onClick={this.prevPage}>Prev</button>
         <NewBookmark />
+
       </>
     );
   }
