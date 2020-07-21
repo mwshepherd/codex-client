@@ -100,8 +100,8 @@ class DynamicComponent extends Component {
         currPage={this.currPage}
         nextPage={this.nextPage}
         prevPage={this.prevPage}
-        sortByCategories={this.sortByCategories}
         sortByTitle={this.sortByTitle}
+        sortByCategories={this.sortByCategories}
       />
     );
   }

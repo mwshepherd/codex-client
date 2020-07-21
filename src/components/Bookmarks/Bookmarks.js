@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Bookmarks.scss';
 import NewBookmark from '../NewBookmark/NewBookmark';
+import { backendServer } from '../shared/constants';
 
 const page = 'bookmarks';
 
@@ -12,10 +13,22 @@ class Bookmarks extends Component {
     };
 
     this.renderBookmarks = this.renderBookmarks.bind(this);
+    this.deleteBookmark = this.deleteBookmark.bind(this);
   }
 
   async componentDidMount() {
     await this.props.getUsersEntries(page);
+  }
+
+  async deleteBookmark(id) {
+    console.log('inside deleteBookmark');
+    await fetch(`${backendServer}/${page}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    this.props.getUsersEntries(page);
   }
 
   renderBookmarks(bookmark) {
@@ -39,7 +52,7 @@ class Bookmarks extends Component {
         <div className="bookmark-description">{bookmark.description}</div>
         <div className="bookmark-categories">{categories}</div>
         <div className="bookmark-delete">
-          <button>Delete</button>
+          <button onClick={() => this.deleteBookmark(bookmark.id)}>Delete</button>
         </div>
       </div>
     );
