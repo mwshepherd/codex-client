@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import './Bookmarks.scss';
 import { backendServer } from '../shared/constants';
 
@@ -13,6 +12,8 @@ class Bookmarks extends Component {
 
   this.getUsersBookmarks = this.getUsersBookmarks.bind(this);
   this.renderBookmarks = this.renderBookmarks.bind(this);
+  this.sortByTitle = this.sortByTitle.bind(this);
+  this.sortByCategories = this.sortByCategories.bind(this);
   }
 
   async componentDidMount() {
@@ -31,7 +32,6 @@ class Bookmarks extends Component {
 
   renderBookmarks(bookmark) {
     console.log(bookmark);
-    // const date = moment(bookmark.created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
     const categories = 
     bookmark.categories && 
     bookmark.categories.map((category) => {
@@ -45,9 +45,44 @@ class Bookmarks extends Component {
         <div className="bookmark-title"><a href={bookmark.url}>{bookmark.title}</a></div>
         <div className="bookmark-description">{bookmark.description}</div>
         <div className="bookmark-categories">{categories}</div>
-        {/* <div>{date}</div> */}
       </div>
     )
+  }
+
+  sortByCategories() {
+    const sorted = this.state.bookmarks.sort((a, b) => {
+      let titleA, titleB;
+      a.categories.length > 0 ? (titleA = a.categories[0].name.toLowerCase()) : (titleA = 'z');
+      b.categories.length > 0 ? (titleB = b.categories[0].name.toLowerCase()) : (titleB = 'z');
+
+      if (titleA < titleB) {
+        return -1;
+      }
+
+      if (titleA > titleB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.setState({bookmarks: sorted})
+  }
+
+  sortByTitle(type) {
+    const sorted = this.state.bookmarks.sort((a,b) => {
+      console.log(type);
+      let titleA = a[type].toLowerCase();
+      let titleB = b[type].toLowerCase();
+
+      if (titleA < titleB) {
+        return -1;
+      }
+
+      if (titleA > titleB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.setState({bookmarks: sorted})
   }
 
   render() {
@@ -59,9 +94,9 @@ class Bookmarks extends Component {
         <h1>Bookmarks</h1>
         <div className="bookmarks-table">
           <div className="bookmark">
-            <div className="bookmark-title">Title & Bookmark Link</div>
+            <div className="bookmark-title" onClick={() => this.sortByTitle('title')}>Title & Bookmark Link</div>
             <div className="bookmark-description">Description</div>
-            <div className="bookmark-categories">Category</div>
+            <div className="bookmark-categories" onClick={this.sortByCategories}>Category</div>
           </div>
         {bookmarks.length && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
         </div>
