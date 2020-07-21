@@ -104,7 +104,12 @@ class Landing extends Component {
     console.log(this.props);
     return (
       <div className="landingpage">
-        <h1>Landing page</h1>
+        <h1>Codex</h1>
+        <h5>the learning & productivity app for devs</h5>
+        <h6>capture journal entries including code snippets</h6>
+        <h6>collect & categorize your bookmarks for easy reference</h6>
+        <h6>track your goals and due date milestones</h6>
+        <h6>view your learning & productivity statistics</h6>
         <button onClick={() => this.showPopUp('login')}>Login</button>
         {this.state.show === 'login' ? <Login landingProps={this.props} closePopUp={this.closePopUp} /> : null}
       </div>

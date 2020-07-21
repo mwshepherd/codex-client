@@ -1,0 +1,9 @@
+.bookmark {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 10px;
+}
+
+.bookmark-url {
+  font-size: 9px;
+}

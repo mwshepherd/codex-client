@@ -70,6 +70,7 @@ class Dashboard extends Component {
 
   render() {
     const { currentPage } = this.props.location.state;
+
     let mainWindow;
 
     switch (currentPage) {
