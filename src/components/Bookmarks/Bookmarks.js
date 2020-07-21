@@ -14,6 +14,9 @@ class Bookmarks extends Component {
   this.renderBookmarks = this.renderBookmarks.bind(this);
   this.sortByTitle = this.sortByTitle.bind(this);
   this.sortByCategories = this.sortByCategories.bind(this);
+  this.currPage = 1;
+  this.nextPage = this.nextPage.bind(this);
+  this.prevPage = this.prevPage.bind(this);
   }
 
   async componentDidMount() {
@@ -21,7 +24,7 @@ class Bookmarks extends Component {
   }
 
   async getUsersBookmarks() {
-    const response = await fetch(`${backendServer}/bookmarks`, {
+    const response = await fetch(`${backendServer}/bookmarks?page=${this.currPage}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -85,6 +88,16 @@ class Bookmarks extends Component {
     this.setState({bookmarks: sorted})
   }
 
+  nextPage() {
+    this.currPage += 1;
+    this.getUsersBookmarks();
+  }
+
+  prevPage() {
+    this.currPage -=1;
+    this.getUsersBookmarks();
+  }
+
   render() {
     console.log(this.state);
     const { bookmarks } = this.state;
@@ -100,6 +113,8 @@ class Bookmarks extends Component {
           </div>
         {bookmarks.length && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
         </div>
+        <button onClick={this.nextPage}>Next</button>
+        <button onClick={this.prevPage}>Prev</button>
       </>
     );
   }
