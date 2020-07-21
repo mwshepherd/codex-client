@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './Nav.scss';
 
 class Nav extends Component {
@@ -8,14 +9,17 @@ class Nav extends Component {
       <div className={`left-panel ${this.props.navState}`}>
         <nav className="nav-main">
           <ul className="quick-links">
-            <li onClick={() => this.props.setCurrentPage('new-journal')}>
-              <div className="link-wrapper">
-                <div className="icon">
-                  <i className="far fa-edit"></i>
+            {/* <li onClick={() => this.props.setCurrentPage('new-journal')}> */}
+            <Link to={{ pathname: '/dashboard/journals/new', state: { currentPage: 'new-journal' } }}>
+              <li>
+                <div className="link-wrapper">
+                  <div className="icon">
+                    <i className="far fa-edit"></i>
+                  </div>
+                  <div className={navExpanded ? `nav-link show` : `nav-link`}>New Journal</div>
                 </div>
-                <div className={navExpanded ? `nav-link show` : `nav-link`}>New Journal</div>
-              </div>
-            </li>
+              </li>
+            </Link>
             <li onClick={() => this.props.setCurrentPage('bookmarks')}>
               <div className="link-wrapper">
                 <div className="icon">
@@ -36,12 +40,14 @@ class Nav extends Component {
 
           <ul className="regular-links">
             <li onClick={() => this.props.setCurrentPage('home')}>
-              <div className="link-wrapper">
-                <div className="icon">
-                  <i className="fas fa-home"></i>
+              <Link to={{ pathname: '/dashboard', state: { currentPage: 'home' } }}>
+                <div className="link-wrapper">
+                  <div className="icon">
+                    <i className="fas fa-home"></i>
+                  </div>
+                  <div className={navExpanded ? `nav-link show` : `nav-link`}>Home</div>
                 </div>
-                <div className={navExpanded ? `nav-link show` : `nav-link`}>Home</div>
-              </div>
+              </Link>
             </li>
             <li onClick={() => this.props.setCurrentPage('journals')}>
               <div className="link-wrapper">
