@@ -39,16 +39,16 @@ class Nav extends Component {
           </ul>
 
           <ul className="regular-links">
-            <li onClick={() => this.props.setCurrentPage('home')}>
-              <Link to={{ pathname: '/dashboard', state: { currentPage: 'home' } }}>
+            <Link to={{ pathname: '/dashboard', state: { currentPage: 'home' } }}>
+              <li>
                 <div className="link-wrapper">
                   <div className="icon">
                     <i className="fas fa-home"></i>
                   </div>
                   <div className={navExpanded ? `nav-link show` : `nav-link`}>Home</div>
                 </div>
-              </Link>
-            </li>
+              </li>
+            </Link>
             <li onClick={() => this.props.setCurrentPage('journals')}>
               <div className="link-wrapper">
                 <div className="icon">
