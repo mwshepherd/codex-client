@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Bookmarks.scss';
 import { backendServer } from '../shared/constants';
-
+import NewBookmark from '../NewBookmark/NewBookmark';
 
 class Bookmarks extends Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class Bookmarks extends Component {
   }
 
   renderBookmarks(bookmark) {
-    console.log(bookmark);
+    // console.log(bookmark);
     const categories = 
     bookmark.categories && 
     bookmark.categories.map((category) => {
@@ -72,7 +72,7 @@ class Bookmarks extends Component {
 
   sortByTitle(type) {
     const sorted = this.state.bookmarks.sort((a,b) => {
-      console.log(type);
+      // console.log(type);
       let titleA = a[type].toLowerCase();
       let titleB = b[type].toLowerCase();
 
@@ -99,9 +99,9 @@ class Bookmarks extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const { bookmarks } = this.state;
-    console.log(bookmarks);
+    // console.log(bookmarks);
     return (
       <>
         <h1>Bookmarks</h1>
@@ -115,6 +115,7 @@ class Bookmarks extends Component {
         </div>
         <button onClick={this.nextPage}>Next</button>
         <button onClick={this.prevPage}>Prev</button>
+        <NewBookmark />
       </>
     );
   }
