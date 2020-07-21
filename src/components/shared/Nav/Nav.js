@@ -9,7 +9,6 @@ class Nav extends Component {
       <div className={`left-panel ${this.props.navState}`}>
         <nav className="nav-main">
           <ul className="quick-links">
-            {/* <li onClick={() => this.props.setCurrentPage('new-journal')}> */}
             <Link to={{ pathname: '/dashboard/journals/new', state: { currentPage: 'new-journal' } }}>
               <li>
                 <div className="link-wrapper">
@@ -20,22 +19,26 @@ class Nav extends Component {
                 </div>
               </li>
             </Link>
-            <li onClick={() => this.props.setCurrentPage('bookmarks')}>
-              <div className="link-wrapper">
-                <div className="icon">
-                  <i className="far fa-bookmark"></i>
+            <Link to={{ pathname: '/dashboard/bookmarks', state: { currentPage: 'bookmarks' } }}>
+              <li>
+                <div className="link-wrapper">
+                  <div className="icon">
+                    <i className="far fa-bookmark"></i>
+                  </div>
+                  <div className={navExpanded ? `nav-link show` : `nav-link`}>New Bookmark</div>
                 </div>
-                <div className={navExpanded ? `nav-link show` : `nav-link`}>New Bookmark</div>
-              </div>
-            </li>
-            <li onClick={() => this.props.setCurrentPage('goals')}>
-              <div className="link-wrapper">
-                <div className="icon">
-                  <i className="far fa-calendar-check"></i>
+              </li>
+            </Link>
+            <Link to={{ pathname: '/dashboard/bookmarks', state: { currentPage: 'goals' } }}>
+              <li onClick={() => this.props.setCurrentPage('goals')}>
+                <div className="link-wrapper">
+                  <div className="icon">
+                    <i className="far fa-calendar-check"></i>
+                  </div>
+                  <div className={navExpanded ? `nav-link show` : `nav-link`}>New Goal</div>
                 </div>
-                <div className={navExpanded ? `nav-link show` : `nav-link`}>New Goal</div>
-              </div>
-            </li>
+              </li>
+            </Link>
           </ul>
 
           <ul className="regular-links">
@@ -49,46 +52,56 @@ class Nav extends Component {
                 </div>
               </li>
             </Link>
-            <li onClick={() => this.props.setCurrentPage('journals')}>
-              <div className="link-wrapper">
-                <div className="icon">
-                  <i className="fas fa-book"></i>
+            <Link to={{ pathname: '/dashboard/journals', state: { currentPage: 'journals' } }}>
+              <li>
+                <div className="link-wrapper">
+                  <div className="icon">
+                    <i className="fas fa-book"></i>
+                  </div>
+                  <div className={navExpanded ? `nav-link show` : `nav-link`}>Journals</div>
                 </div>
-                <div className={navExpanded ? `nav-link show` : `nav-link`}>Journals</div>
-              </div>
-            </li>
-            <li onClick={() => this.props.setCurrentPage('bookmarks')}>
-              <div className="link-wrapper">
-                <div className="icon">
-                  <i className="fas fa-link"></i>
+              </li>
+            </Link>
+            <Link to={{ pathname: '/dashboard/bookmarks', state: { currentPage: 'bookmarks' } }}>
+              <li>
+                <div className="link-wrapper">
+                  <div className="icon">
+                    <i className="fas fa-link"></i>
+                  </div>
+                  <div className={navExpanded ? `nav-link show` : `nav-link`}>Bookmarks</div>
                 </div>
-                <div className={navExpanded ? `nav-link show` : `nav-link`}>Bookmarks</div>
-              </div>
-            </li>
-            <li onClick={() => this.props.setCurrentPage('goals')}>
-              <div className="link-wrapper">
-                <div className="icon">
-                  <i className="fas fa-clipboard-list"></i>
+              </li>
+            </Link>
+            <Link to={{ pathname: '/dashboard/goals', state: { currentPage: 'goals' } }}>
+              <li onClick={() => this.props.setCurrentPage('goals')}>
+                <div className="link-wrapper">
+                  <div className="icon">
+                    <i className="fas fa-clipboard-list"></i>
+                  </div>
+                  <div className={navExpanded ? `nav-link show` : `nav-link`}>Goals</div>
                 </div>
-                <div className={navExpanded ? `nav-link show` : `nav-link`}>Goals</div>
-              </div>
-            </li>
-            <li onClick={() => this.props.setCurrentPage('timer')}>
-              <div className="link-wrapper">
-                <div className="icon">
-                  <i className="far fa-clock"></i>
+              </li>
+            </Link>
+            <Link to={{ pathname: '/dashboard/timer', state: { currentPage: 'timer' } }}>
+              <li onClick={() => this.props.setCurrentPage('timer')}>
+                <div className="link-wrapper">
+                  <div className="icon">
+                    <i className="far fa-clock"></i>
+                  </div>
+                  <div className={navExpanded ? `nav-link show` : `nav-link`}>Timer</div>
                 </div>
-                <div className={navExpanded ? `nav-link show` : `nav-link`}>Timer</div>
-              </div>
-            </li>
-            <li onClick={() => this.props.setCurrentPage('analytics')}>
-              <div className="link-wrapper">
-                <div className="icon">
-                  <i className="far fa-chart-bar"></i>
+              </li>
+            </Link>
+            <Link to={{ pathname: '/dashboard/analytics', state: { currentPage: 'analytics' } }}>
+              <li onClick={() => this.props.setCurrentPage('analytics')}>
+                <div className="link-wrapper">
+                  <div className="icon">
+                    <i className="far fa-chart-bar"></i>
+                  </div>
+                  <div className={navExpanded ? `nav-link show` : `nav-link`}>Analytics</div>
                 </div>
-                <div className={navExpanded ? `nav-link show` : `nav-link`}>Analytics</div>
-              </div>
-            </li>
+              </li>
+            </Link>
           </ul>
         </nav>
       </div>

@@ -83,7 +83,7 @@ class Dashboard extends Component {
         mainWindow = <Journals setCurrentPage={this.setCurrentPage} setCurrentJournal={this.setCurrentJournal} />;
         break;
       case 'single-journal':
-        mainWindow = <SingleJournal currentJournal={this.state.currentJournal} setCurrentPage={this.setCurrentPage} />;
+        mainWindow = <SingleJournal currentJournal={this.props.location.state.currentJournal} setCurrentPage={this.setCurrentPage} />;
         break;
       case 'bookmarks':
         mainWindow = <Bookmarks />;

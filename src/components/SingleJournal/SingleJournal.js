@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+
 import moment from 'moment';
 
 class SingleJournal extends Component {
   render() {
     const { title, body, created_at } = this.props.currentJournal;
     const date = moment(created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
+    console.log(this.props);
     return (
       <>
         <h1>{title}</h1>

@@ -12,7 +12,13 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Landing} />
           <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+          <ProtectedRoute exact path="/dashboard/journals" component={Dashboard} />
           <ProtectedRoute exact path="/dashboard/journals/new" component={Dashboard} />
+          <ProtectedRoute exact path="/dashboard/journals/:id" component={Dashboard} />
+          <ProtectedRoute exact path="/dashboard/bookmarks" component={Dashboard} />
+          <ProtectedRoute exact path="/dashboard/goals" component={Dashboard} />
+          <ProtectedRoute exact path="/dashboard/timer" component={Dashboard} />
+          <ProtectedRoute exact path="/dashboard/analytics" component={Dashboard} />
         </Switch>
       </>
     );

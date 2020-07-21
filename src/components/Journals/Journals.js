@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import './Journal.scss';
 import { backendServer } from '../shared/constants';
@@ -48,15 +49,15 @@ class Journals extends Component {
 
     return (
       <div key={journal.id} className="journal-entry">
-        <div
+        {/* <div
           className="journal-entry__title"
           onClick={() => {
             this.props.setCurrentPage('single-journal');
             this.props.setCurrentJournal(journal);
           }}
-        >
-          {journal.title}
-        </div>
+        > */}
+        <Link to={{ pathname: `/dashboard/journals/${journal.id}`, state: { currentPage: 'single-journal', currentJournal: journal } }}>{journal.title}</Link>
+        {/* </div> */}
         <div className="journal-entry__date">{date}</div>
         <div className="journal-entry__categories">{categories}</div>
       </div>
