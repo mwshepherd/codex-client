@@ -13,6 +13,7 @@ import Journals from '../Journals/Journals';
 import SingleJournal from '../SingleJournal/SingleJournal';
 import Bookmarks from '../Bookmarks/Bookmarks';
 import Goals from '../Goals/Goals';
+import DynamicComponent from '../DynamicComponent/DynamicComponent';
 import { backendServer } from '../shared/constants';
 
 class Dashboard extends Component {
@@ -84,16 +85,17 @@ class Dashboard extends Component {
         mainWindow = <NewJournal />;
         break;
       case 'journals':
-        mainWindow = <Journals setCurrentPage={this.setCurrentPage} setCurrentJournal={this.setCurrentJournal} />;
+        // mainWindow = <Journals  setCurrentPage={this.setCurrentPage} setCurrentJournal={this.setCurrentJournal} />;
+        mainWindow = <DynamicComponent page={'journals'} />;
         break;
       case 'single-journal':
         mainWindow = <SingleJournal currentJournal={this.props.location.state.currentJournal} setCurrentPage={this.setCurrentPage} />;
         break;
       case 'bookmarks':
-        mainWindow = <Bookmarks />;
+        mainWindow = <DynamicComponent page={'bookmarks'} />;
         break;
       case 'goals':
-        mainWindow = <Goals />;
+        mainWindow = <DynamicComponent page={'goals'} />;
         break;
       default:
         mainWindow = <Home user={this.state.user} />;

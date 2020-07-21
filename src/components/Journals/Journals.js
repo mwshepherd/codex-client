@@ -11,28 +11,28 @@ class Journals extends Component {
       journals: [],
     };
 
-    this.currPage = 1;
-    this.getUsersJournals = this.getUsersJournals.bind(this);
+    // this.currPage = 1;
+    // this.getUsersJournals = this.getUsersJournals.bind(this);
     this.renderJournalEntries = this.renderJournalEntries.bind(this);
     this.sortByTitle = this.sortByTitle.bind(this);
     this.sortByCategories = this.sortByCategories.bind(this);
-    this.nextPage = this.nextPage.bind(this);
-    this.prevPage = this.prevPage.bind(this);
+    // this.nextPage = this.nextPage.bind(this);
+    // this.prevPage = this.prevPage.bind(this);
   }
 
   async componentDidMount() {
-    await this.getUsersJournals();
+    await this.props.getUsersEntries('journals');
   }
 
-  async getUsersJournals() {
-    const response = await fetch(`${backendServer}/journals?page=${this.currPage}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-    const data = await response.json();
-    this.setState({ journals: data.journals, totalJournals: data.totalJournals, totalPages: Math.ceil(data.totalJournals / 5) });
-  }
+  // async getUsersJournals() {
+  //   const response = await fetch(`${backendServer}/journals?page=${this.currPage}`, {
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //     },
+  //   });
+  //   const data = await response.json();
+  //   this.setState({ journals: data.journals, totalJournals: data.totalJournals, totalPages: Math.ceil(data.totalJournals / 5) });
+  // }
 
   renderJournalEntries(journal) {
     console.log(journal);
@@ -108,24 +108,25 @@ class Journals extends Component {
     this.setState({ journals: sorted });
   }
 
-  nextPage() {
-    if (this.currPage < this.state.totalPages) {
-      this.currPage += 1;
-      this.getUsersJournals();
-    }
-  }
+  // nextPage() {
+  //   if (this.currPage < this.state.totalPages) {
+  //     this.currPage += 1;
+  //     this.getUsersJournals();
+  //   }
+  // }
 
-  prevPage() {
-    // console.log(thi);
-    if (this.currPage > 1) {
-      this.currPage -= 1;
-      this.getUsersJournals();
-    }
-  }
+  // prevPage() {
+  //   // console.log(thi);
+  //   if (this.currPage > 1) {
+  //     this.currPage -= 1;
+  //     this.getUsersJournals();
+  //   }
+  // }
 
   render() {
     console.log(this.state);
-    const { journals } = this.state;
+    const { journals, totalPages } = this.props.state;
+    const { currPage, prevPage, nextPage } = this.props;
     console.log(journals);
     return (
       <>
@@ -141,11 +142,14 @@ class Journals extends Component {
             </div>
           </div>
 
-          {journals.length && journals.map((journal) => this.renderJournalEntries(journal))}
+          {journals && journals.map((journal) => this.renderJournalEntries(journal))}
         </div>
         <div className="pagination-btns">
-          <button onClick={this.prevPage}>Prev</button>
-          <button onClick={this.nextPage}>Next</button>
+          <button onClick={() => prevPage('journals')}>Prev</button>
+          <div className="total-pages">
+            {currPage} / {totalPages}
+          </div>
+          <button onClick={() => nextPage('journals')}>Next</button>
         </div>
       </>
     );
