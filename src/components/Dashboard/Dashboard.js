@@ -20,6 +20,7 @@ class Dashboard extends Component {
     super();
     this.state = {
       user: {},
+      currentPage: 'home',
       navState: 'collapsed',
       navExpanded: false,
       currentJournal: [],
@@ -69,7 +70,9 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { currentPage } = this.props.location.state;
+    console.log(this.props);
+    const { currentPage } = this.props.location.state || 'home';
+    // const { currentPage } = this.state;
 
     let mainWindow;
 
