@@ -28,9 +28,16 @@ class NewJournal extends Component {
     this.handleJournalTitle = this.handleJournalTitle.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.focusEditor();
+    await this.props.getCategoryList();
   }
+
+  onOptionChange = (event) => {
+    console.log(this.state);
+    this.setState({ category_id: event.target.value });
+    console.log(this.state);
+  };
 
   handleJournalTitle(e) {
     console.log(e.target.value);
@@ -48,8 +55,7 @@ class NewJournal extends Component {
       journal: {
         title: this.state.journalTitle,
         body: JSON.stringify(converted),
-        user_id: this.props.user.id,
-        category_id: 1,
+        category_id: this.state.category_id,
       },
     };
 
@@ -83,7 +89,7 @@ class NewJournal extends Component {
   }
 
   render() {
-    console.log(this.props.user);
+    console.log(this.props);
     console.log(this.state);
     return (
       <div>
@@ -94,6 +100,8 @@ class NewJournal extends Component {
         <div style={styles.editor} onClick={this.focusEditor}>
           <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
         </div>
+        <label htmlFor="categories">Category:</label>
+        <select onChange={this.onOptionChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
         <div className="post-btn">
           <button onClick={this.creatPost}>Post</button>
         </div>
