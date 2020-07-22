@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import './Bookmarks.scss';
-import NewBookmark from '../NewBookmark/NewBookmark';
-import { backendServer } from '../shared/constants';
+import React, { Component } from "react";
+import "./Bookmarks.scss";
+import NewBookmark from "../NewBookmark/NewBookmark";
+import { backendServer } from "../shared/constants";
 
-const page = 'bookmarks';
+const page = "bookmarks";
 
 class Bookmarks extends Component {
   constructor(props) {
     super(props);
+    // console.log(this.props)
     this.state = {
       bookmarks: [],
     };
@@ -18,29 +19,30 @@ class Bookmarks extends Component {
 
   async componentDidMount() {
     await this.props.getUsersEntries(page);
+    await this.props.getCategoryList();
   }
 
   async deleteBookmark(id) {
-    console.log('inside deleteBookmark');
+    // console.log('inside deleteBookmark');
     await fetch(`${backendServer}/${page}/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
     this.props.getUsersEntries(page);
   }
 
   renderBookmarks(bookmark) {
-    const categories =
-      bookmark.categories &&
-      bookmark.categories.map((category) => {
-        return (
-          <span key={category.id} className="category">
-            #{category.name}
-          </span>
-        );
-      });
+    // const categories =
+    //   bookmark.categories &&
+    //   bookmark.categories.map((category) => {
+    //     return (
+    //       <span key={category.id} className="category">
+    //         #{category.name}
+    //       </span>
+    //     );
+    //   });
 
     return (
       <div key={bookmark.id} className="bookmark">
@@ -50,9 +52,11 @@ class Bookmarks extends Component {
           </a>
         </div>
         <div className="bookmark-description">{bookmark.description}</div>
-        <div className="bookmark-categories">{categories}</div>
+        <div className="bookmark-category">{bookmark.category.name}</div>
         <div className="bookmark-delete">
-          <button onClick={() => this.deleteBookmark(bookmark.id)}>Delete</button>
+          <button onClick={() => this.deleteBookmark(bookmark.id)}>
+            Delete
+          </button>
         </div>
       </div>
     );
@@ -61,22 +65,34 @@ class Bookmarks extends Component {
   render() {
     const { bookmarks, totalPages } = this.props.state;
     const { currPage, prevPage, nextPage } = this.props;
+    // console.log(this.props);
 
     return (
       <>
         <h1>Bookmarks</h1>
-        <NewBookmark getUsersEntries={this.props.getUsersEntries} />
+        <NewBookmark
+          getUsersEntries={this.props.getUsersEntries}
+          renderCategoriesList={this.props.renderCategoriesList}
+          categoryOptions={this.props.categoryOptions}
+        />
         <div className="bookmarks-table">
           <div className="bookmark">
-            <div className="bookmark-title" onClick={() => this.props.sortByTitle('title', page)}>
+            <div
+              className="bookmark-title"
+              onClick={() => this.props.sortByTitle("title", page)}
+            >
               Title & Bookmark Link
             </div>
             <div className="bookmark-description">Description</div>
-            <div className="bookmark-categories" onClick={() => this.props.sortByCategories(page)}>
+            <div
+              className="bookmark-categories"
+              onClick={() => this.props.sortByCategories(page)}
+            >
               Category
             </div>
           </div>
-          {bookmarks && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
+          {bookmarks &&
+            bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
         </div>
         <div className="pagination-btns">
           <button onClick={() => prevPage(page)}>Prev</button>

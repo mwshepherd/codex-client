@@ -21,12 +21,14 @@ class DynamicComponent extends Component {
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.getUsersEntries = this.getUsersEntries.bind(this);
+    this.getCategoryList = this.getCategoryList.bind(this);
+    this.renderCategoriesList = this.renderCategoriesList.bind(this);
     this.sortByTitle = this.sortByTitle.bind(this);
     this.sortByCategories = this.sortByCategories.bind(this);
   }
 
   async getUsersEntries(page) {
-    console.log('inside get users entries');
+    // console.log('inside get users entries');
     const response = await fetch(`${backendServer}/${page}?page=${this.currPage}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -34,6 +36,29 @@ class DynamicComponent extends Component {
     });
     const data = await response.json();
     this.setState({ [page]: data[page], total: data.total_entries, totalPages: Math.ceil(data.total_entries / 5) });
+  }
+
+  async getCategoryList() {
+    // console.log('inside get categories list');
+    const response = await fetch(`${backendServer}/categories/index`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const data = await response.json();
+    // console.log(data)
+    this.setState({ categoryOptions: data});
+    // console.log(this.state)
+  }
+
+  renderCategoriesList() {
+    const { categoryOptions } = this.state    
+    console.log(categoryOptions)
+    return categoryOptions.map((cat, index) => {
+      return (
+        <option key={index} value={cat.id}>{cat.name}</option>
+      )
+    });
   }
 
   nextPage(page) {
@@ -51,7 +76,7 @@ class DynamicComponent extends Component {
   }
 
   sortByCategories(page) {
-    console.log(this.state[page]);
+    // console.log(this.state[page]);
     const sorted = this.state[page].sort((a, b) => {
       let titleA, titleB;
       a.categories.length > 0 ? (titleA = a.categories[0].name.toLowerCase()) : (titleA = 'z');
@@ -70,7 +95,7 @@ class DynamicComponent extends Component {
   }
 
   sortByTitle(type, page) {
-    console.log(this.state[page]);
+    // console.log(this.state[page]);
     const sorted = this.state[page].sort((a, b) => {
       // console.log(type);
       let titleA = a[type].toLowerCase();
@@ -89,13 +114,16 @@ class DynamicComponent extends Component {
   }
 
   render() {
-    console.log(this.state);
-    console.log(this.currPage);
-    console.log('inside dynamic component');
+    // console.log(this.state);
+    // console.log(this.currPage);
+    // console.log('inside dynamic component');
     const SelectedPage = components[this.props.page];
     return (
       <SelectedPage
         getUsersEntries={this.getUsersEntries}
+        getCategoryList={this.getCategoryList}
+        renderCategoriesList={this.renderCategoriesList}
+        categoryOptions={this.state.categoryOptions}
         state={this.state}
         currPage={this.currPage}
         nextPage={this.nextPage}
