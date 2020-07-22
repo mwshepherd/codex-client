@@ -28,7 +28,6 @@ class NewBookmark extends Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <div className="newbookmark-form">
         <form onSubmit={this.onFormSubmit}>

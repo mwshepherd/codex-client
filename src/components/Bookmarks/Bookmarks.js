@@ -8,6 +8,7 @@ const page = 'bookmarks';
 class Bookmarks extends Component {
   constructor(props) {
     super(props);
+    // console.log(this.props)
     this.state = {
       bookmarks: [],
     };
@@ -18,7 +19,7 @@ class Bookmarks extends Component {
 
   async componentDidMount() {
     await this.props.getUsersEntries(page);
-    // await this.props.getCategoryList();
+    await this.props.getCategoryList();
   }
 
   async deleteBookmark(id) {

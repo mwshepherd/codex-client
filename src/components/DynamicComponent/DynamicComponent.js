@@ -27,7 +27,7 @@ class DynamicComponent extends Component {
   }
 
   async getUsersEntries(page) {
-    console.log('inside get users entries');
+    // console.log('inside get users entries');
     const response = await fetch(`${backendServer}/${page}?page=${this.currPage}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -39,7 +39,7 @@ class DynamicComponent extends Component {
 
   async getCategoryList() {
     console.log('inside get categories list');
-    const response = await fetch(`${backendServer}categories/index`, {
+    const response = await fetch(`${backendServer}/categories/index`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -47,6 +47,7 @@ class DynamicComponent extends Component {
     const data = await response.json();
     console.log(data)
     this.setState({ categoriesList: data});
+    console.log(this.state)
   }
 
   nextPage(page) {
@@ -64,7 +65,7 @@ class DynamicComponent extends Component {
   }
 
   sortByCategories(page) {
-    console.log(this.state[page]);
+    // console.log(this.state[page]);
     const sorted = this.state[page].sort((a, b) => {
       let titleA, titleB;
       a.categories.length > 0 ? (titleA = a.categories[0].name.toLowerCase()) : (titleA = 'z');
@@ -83,7 +84,7 @@ class DynamicComponent extends Component {
   }
 
   sortByTitle(type, page) {
-    console.log(this.state[page]);
+    // console.log(this.state[page]);
     const sorted = this.state[page].sort((a, b) => {
       // console.log(type);
       let titleA = a[type].toLowerCase();
@@ -102,13 +103,14 @@ class DynamicComponent extends Component {
   }
 
   render() {
-    console.log(this.state);
-    console.log(this.currPage);
-    console.log('inside dynamic component');
+    // console.log(this.state);
+    // console.log(this.currPage);
+    // console.log('inside dynamic component');
     const SelectedPage = components[this.props.page];
     return (
       <SelectedPage
         getUsersEntries={this.getUsersEntries}
+        getCategoryList={this.getCategoryList}
         state={this.state}
         currPage={this.currPage}
         nextPage={this.nextPage}
