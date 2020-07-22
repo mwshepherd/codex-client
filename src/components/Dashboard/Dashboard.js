@@ -71,7 +71,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     const { currentPage } = this.props.location.state || 'home';
     // const { currentPage } = this.state;
 

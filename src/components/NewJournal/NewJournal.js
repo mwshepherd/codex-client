@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { backendServer } from '../shared/constants';
@@ -13,7 +14,7 @@ const styles = {
 class NewJournal extends Component {
   constructor(props) {
     super(props);
-    this.state = { editorState: EditorState.createEmpty() };
+    this.state = { editorState: EditorState.createEmpty(), category_id: 1, redirect: false };
     this.onChange = (editorState) => this.setState({ editorState });
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.setEditor = (editor) => {
@@ -56,10 +57,11 @@ class NewJournal extends Component {
         title: this.state.journalTitle,
         body: JSON.stringify(converted),
         category_id: this.state.category_id,
+        language_id: 1,
       },
     };
 
-    await fetch(`${backendServer}/journals`, {
+    const response = await fetch(`${backendServer}/journals`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -67,6 +69,11 @@ class NewJournal extends Component {
       },
       body: JSON.stringify(body),
     });
+
+    const newJournal = await response.json();
+
+    console.log(newJournal);
+    this.setState({ redirect: true });
   }
 
   handleKeyCommand(command, editorState) {
@@ -91,22 +98,26 @@ class NewJournal extends Component {
   render() {
     console.log(this.props);
     console.log(this.state);
-    return (
-      <div>
-        {/* <h1>New Journal Page</h1> */}
-        <input type="text" placeholder="New Journal Title" id="title" onChange={this.handleJournalTitle} />
-        <button onClick={this._onBoldClick.bind(this)}>Bold</button>
-        <button onClick={this._onItalicClick.bind(this)}>Italic</button>
-        <div style={styles.editor} onClick={this.focusEditor}>
-          <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
+    if (this.state.redirect) {
+      return <Redirect to="/dashboard/journals" />;
+    } else {
+      return (
+        <div>
+          {/* <h1>New Journal Page</h1> */}
+          <input type="text" placeholder="New Journal Title" id="title" onChange={this.handleJournalTitle} />
+          <button onClick={this._onBoldClick.bind(this)}>Bold</button>
+          <button onClick={this._onItalicClick.bind(this)}>Italic</button>
+          <div style={styles.editor} onClick={this.focusEditor}>
+            <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
+          </div>
+          <label htmlFor="categories">Category:</label>
+          <select onChange={this.onOptionChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
+          <div className="post-btn">
+            <button onClick={this.creatPost}>Post</button>
+          </div>
         </div>
-        <label htmlFor="categories">Category:</label>
-        <select onChange={this.onOptionChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
-        <div className="post-btn">
-          <button onClick={this.creatPost}>Post</button>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
