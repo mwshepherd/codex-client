@@ -23,29 +23,12 @@ class Journals extends Component {
   renderJournalEntries(journal) {
     console.log(journal);
     const date = moment(journal.created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
-    const categories =
-      journal.categories &&
-      journal.categories.map((category) => {
-        return (
-          <span key={category.id} className="category">
-            #{category.name}
-          </span>
-        );
-      });
 
     return (
       <div key={journal.id} className="journal-entry">
-        {/* <div
-          className="journal-entry__title"
-          onClick={() => {
-            this.props.setCurrentPage('single-journal');
-            this.props.setCurrentJournal(journal);
-          }}
-        > */}
         <Link to={{ pathname: `/dashboard/journals/${journal.id}`, state: { currentPage: 'single-journal', currentJournal: journal } }}>{journal.title}</Link>
-        {/* </div> */}
         <div className="journal-entry__date">{date}</div>
-        <div className="journal-entry__categories">{categories}</div>
+        <div className="journal-entry__categories">{journal.category.name}</div>
       </div>
     );
   }
