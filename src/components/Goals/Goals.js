@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Goals.scss";
 import { backendServer } from "../shared/constants";
+import NewGoal from '../NewGoal/NewGoal';
 
 class Goals extends Component {
   constructor(props) {
@@ -12,18 +13,6 @@ class Goals extends Component {
     this.getUsersGoals = this.getUsersGoals.bind(this);
     this.renderActiveGoals = this.renderActiveGoals.bind(this);
   }
-
-  onCategoryChange = (event) => {
-    // console.log(this.state)
-    this.setState({ category_id: event.target.value });
-    // console.log(this.state)
-  };
-
-  onLanguageChange = (event) => {
-    // console.log(this.state)
-    this.setState({ language_id: event.target.value });
-    console.log(this.state);
-  };
 
   async componentDidMount() {
     await this.getUsersGoals();
@@ -71,6 +60,13 @@ class Goals extends Component {
     return (
       <>
         <h1>Goals</h1>
+        <NewGoal
+          getUsersEntries={this.props.getUsersEntries}
+          renderCategoriesList={this.props.renderCategoriesList}
+          categoryOptions={this.props.categoryOptions}
+          renderLanguageList={this.props.renderLanguageList}
+          languageOptions={this.props.languageOptions}
+        />
         <div className="goals-table">
           <div className="goal">
             <div className="goal-title">Goal</div>
