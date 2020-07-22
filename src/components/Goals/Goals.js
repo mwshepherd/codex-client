@@ -18,6 +18,7 @@ class Goals extends Component {
     this.renderActiveGoals = this.renderActiveGoals.bind(this);
     this.renderCompleteGoals = this.renderCompleteGoals.bind(this);
     this.deleteGoal = this.deleteGoal.bind(this);
+    this.completeGoal = this.completeGoal.bind(this);
   }
 
   async componentDidMount() {
@@ -33,6 +34,21 @@ class Goals extends Component {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
+    this.props.getUsersEntries(page);
+  }
+
+  async completeGoal(id) {
+    await fetch(`${backendServer}/${page}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        completed: true
+      }),
+    });
+    window.alert("Goal Marked Complete")
     this.props.getUsersEntries(page);
   }
 
@@ -56,9 +72,11 @@ class Goals extends Component {
           <div className="goal-due_date">{due_date}</div>
           <div className="goal-category">{goal.category.name}</div>
           <div className="goal-language">{goal.language.name}</div>
+          <div className="goal-completed">
+            <button onClick={() => this.completeGoal(goal.id)}>Mark Complete</button>
+          </div>
           <div className="goal-delete">
-            <button onClick={() => this.deleteGoal(goal.id)}>
-              Delete</button>
+            <button onClick={() => this.deleteGoal(goal.id)}>Delete</button>
           </div>
         </div>
       );
@@ -102,6 +120,7 @@ class Goals extends Component {
             <div className="goal-due_date">Due Date</div>
             <div className="goal-category">Category</div>
             <div className="goal-language">Language</div>
+            <div className="goal-completed">Mark Completed</div>
           </div>
           {goals && goals.map((goal) => this.renderActiveGoals(goal))}
         </div>
@@ -116,7 +135,7 @@ class Goals extends Component {
         <br/><br/>
         <hr/> 
         <br/><br/>
-        
+
         <h1>Completed Goals</h1>
         <div className="goals-table">
           <div className="goal">
