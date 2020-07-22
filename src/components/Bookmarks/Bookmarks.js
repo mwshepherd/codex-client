@@ -11,6 +11,8 @@ class Bookmarks extends Component {
     // console.log(this.props)
     this.state = {
       bookmarks: [],
+      category_id:1, 
+      language_id:1
     };
 
     this.renderBookmarks = this.renderBookmarks.bind(this);
@@ -20,6 +22,7 @@ class Bookmarks extends Component {
   async componentDidMount() {
     await this.props.getUsersEntries(page);
     await this.props.getCategoryList();
+    await this.props.getLanguageList();
   }
 
   async deleteBookmark(id) {
@@ -43,6 +46,7 @@ class Bookmarks extends Component {
     //       </span>
     //     );
     //   });
+    console.log(bookmark)
 
     return (
       <div key={bookmark.id} className="bookmark">
@@ -53,6 +57,7 @@ class Bookmarks extends Component {
         </div>
         <div className="bookmark-description">{bookmark.description}</div>
         <div className="bookmark-category">{bookmark.category.name}</div>
+        <div className="bookmark-language">{bookmark.language.name}</div>
         <div className="bookmark-delete">
           <button onClick={() => this.deleteBookmark(bookmark.id)}>
             Delete
@@ -65,7 +70,7 @@ class Bookmarks extends Component {
   render() {
     const { bookmarks, totalPages } = this.props.state;
     const { currPage, prevPage, nextPage } = this.props;
-    // console.log(this.props);
+    console.log(this.props.state);
 
     return (
       <>
@@ -74,6 +79,8 @@ class Bookmarks extends Component {
           getUsersEntries={this.props.getUsersEntries}
           renderCategoriesList={this.props.renderCategoriesList}
           categoryOptions={this.props.categoryOptions}
+          renderLanguageList={this.props.renderLanguageList}
+          languageOptions={this.props.languageOptions}
         />
         <div className="bookmarks-table">
           <div className="bookmark">
@@ -85,11 +92,11 @@ class Bookmarks extends Component {
             </div>
             <div className="bookmark-description">Description</div>
             <div
-              className="bookmark-categories"
-              onClick={() => this.props.sortByCategories(page)}
-            >
+              className="bookmark-category"
+              onClick={() => this.props.sortByCategories(page)}>
               Category
             </div>
+            <div className="bookmark-language">Language</div>
           </div>
           {bookmarks &&
             bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}

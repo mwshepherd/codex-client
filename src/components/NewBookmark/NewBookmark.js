@@ -6,12 +6,18 @@ class NewBookmark extends Component {
     this.setState({
       [event.target.id]: event.target.value,
     });
-    console.log(this.state);
+    // console.log(this.state);
   };
 
-  onOptionChange = (event) => {
-    console.log(this.state)
+  onCategoryChange = (event) => {
+    // console.log(this.state)
     this.setState({category_id: event.target.value})
+    // console.log(this.state)
+  };
+
+  onLanguageChange = (event) => {
+    // console.log(this.state)
+    this.setState({language_id: event.target.value})
     console.log(this.state)
   };
 
@@ -67,10 +73,14 @@ class NewBookmark extends Component {
             onChange={this.onInputChange}
           />
 
-
           <label htmlFor="categories">Category:</label>
-          <select onChange={this.onOptionChange}>
+          <select onChange={this.onCategoryChange}>
             {this.props.categoryOptions && this.props.renderCategoriesList()}
+          </select>
+
+          <label htmlFor="languages">Language:</label>
+          <select onChange={this.onLanguageChange}>
+            {this.props.languageOptions && this.props.renderLanguageList()}
           </select>
 
           <input type="submit" value=" + " />
