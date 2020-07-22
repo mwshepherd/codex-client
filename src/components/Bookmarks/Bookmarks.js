@@ -65,7 +65,7 @@ class Bookmarks extends Component {
   render() {
     const { bookmarks, totalPages } = this.props.state;
     const { currPage, prevPage, nextPage } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
 
     return (
       <>

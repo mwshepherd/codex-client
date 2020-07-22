@@ -39,7 +39,7 @@ class DynamicComponent extends Component {
   }
 
   async getCategoryList() {
-    console.log('inside get categories list');
+    // console.log('inside get categories list');
     const response = await fetch(`${backendServer}/categories/index`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -48,22 +48,15 @@ class DynamicComponent extends Component {
     const data = await response.json();
     // console.log(data)
     this.setState({ categoryOptions: data});
-    console.log(this.state)
-    // this.renderCategoriesList();
+    // console.log(this.state)
   }
 
   renderCategoriesList() {
-    const { categoryOptions } = this.state
-    
-    // other way:
-    // const options = categoriesList.map((cat, index) => ({
-    //   label: cat.name,
-    //   value: index
-    // }))
-    // console.log(options)
+    const { categoryOptions } = this.state    
+    console.log(categoryOptions)
     return categoryOptions.map((cat, index) => {
       return (
-        <option value={index}>{cat.name}</option>
+        <option key={index} value={cat.id}>{cat.name}</option>
       )
     });
   }
@@ -121,7 +114,7 @@ class DynamicComponent extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     // console.log(this.currPage);
     // console.log('inside dynamic component');
     const SelectedPage = components[this.props.page];
