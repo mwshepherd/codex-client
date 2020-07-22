@@ -51,9 +51,9 @@ class Bookmarks extends Component {
 
   renderBookmarks(bookmark) {
     // console.log(bookmark);
-    const categories = 
-    bookmark.categories && 
-    bookmark.categories.map((category) => {
+    const category = 
+    bookmark.category.name && 
+    bookmark.category.map((category) => {
       return (
         <span key={category.id} className="category">#{category.name}</span>
       );

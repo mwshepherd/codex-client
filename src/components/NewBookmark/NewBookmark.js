@@ -62,9 +62,17 @@ class NewBookmark extends React.Component {
           />
 
           <label>Category:</label>
-          <select></select>
 
-          <input type="submit" value=" + " />
+          <input
+            className="bookmark-category"
+            type="integer"
+            name="category_id"
+            id="category_id"
+            onChange={this.onInputChange}
+          />
+          // <select></select>
+
+          // <input type="submit" value=" + " />
         </form>
       </div>
     );
