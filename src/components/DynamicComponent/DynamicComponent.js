@@ -33,7 +33,7 @@ class DynamicComponent extends Component {
       },
     });
     const data = await response.json();
-    this.setState({ [page]: data[page], total: data.totalEntries, totalPages: Math.ceil(data.totalEntries / 5) });
+    this.setState({ [page]: data[page], total: data.total_entries, totalPages: Math.ceil(data.total_entries / 5) });
   }
 
   nextPage(page) {
