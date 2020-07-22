@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "../Bookmarks/Bookmarks.scss";
+import "../Goals/Goals.scss";
 
-class NewBookmark extends Component {
+class NewGoal extends Component {
   onInputChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
@@ -11,24 +11,24 @@ class NewBookmark extends Component {
 
   onCategoryChange = (event) => {
     // console.log(this.state)
-    this.setState({category_id: event.target.value})
+    this.setState({ category_id: event.target.value });
     // console.log(this.state)
   };
 
   onLanguageChange = (event) => {
     // console.log(this.state)
-    this.setState({language_id: event.target.value})
-    console.log(this.state)
+    this.setState({ language_id: event.target.value });
+    console.log(this.state);
   };
 
   onFormSubmit = async (event) => {
     event.preventDefault();
 
     const body = {
-      bookmark: this.state,
+      goal: this.state,
     };
 
-    await fetch("http://localhost:3000/bookmarks", {
+    await fetch("http://localhost:3000/goals", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,42 +36,49 @@ class NewBookmark extends Component {
       },
       body: JSON.stringify(body),
     });
-    this.props.getUsersEntries("bookmarks");
+    this.props.getUsersEntries("goals");
   };
 
   render() {
     // console.log(this.props);
     return (
-      <div className="newbookmark-form">
+      <div className="newgoal-form">
         <form onSubmit={this.onFormSubmit}>
-          {/* <h1>Add a Bookmark</h1> */}
+          {/* <h1>Add a goal</h1> */}
 
           <label htmlFor="title">Title:</label>
           <input
-            className="bookmark-title"
+            className="goal-title"
             type="text"
             name="title"
             id="title"
             onChange={this.onInputChange}
           />
 
-          <label htmlFor="url">URL:</label>
+          <label htmlFor="body">Body:</label>
           <input
-            className="bookmark-url"
+            className="goal-body"
             type="text"
-            name="url"
-            id="url"
+            name="body"
+            id="body"
             onChange={this.onInputChange}
           />
 
-          <label htmlFor="description">Description:</label>
+          <label htmlFor="due_date">Due Date:</label>
           <input
-            className="bookmark-description"
-            type="text"
-            name="description"
-            id="description"
+            className="goal-due_date"
+            type="date"
+            name="due_date"
+            id="due_date"
             onChange={this.onInputChange}
           />
+
+          <label htmlFor="completed">Completed?</label>
+          {/* this event handler might not work */}
+          <select onChange={this.onInputChange}>
+            <option value="true">Completed</option>
+            <option defaultValue="false">Not Yet Completed</option>
+          </select>
 
           <label htmlFor="categories">Category:</label>
           <select onChange={this.onCategoryChange}>
@@ -90,4 +97,4 @@ class NewBookmark extends Component {
   }
 }
 
-export default NewBookmark;
+export default NewGoal;

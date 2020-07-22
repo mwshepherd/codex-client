@@ -1,36 +1,39 @@
-import React, { Component } from 'react';
-import './Goals.scss';
-import { backendServer } from '../shared/constants';
+import React, { Component } from "react";
+import "./Goals.scss";
+import { backendServer } from "../shared/constants";
+import NewGoal from '../NewGoal/NewGoal';
 
 class Goals extends Component {
   constructor(props) {
-  super(props);
-  this.state = {
-    goals: []
-  };
+    super(props);
+    this.state = {
+      goals: [],
+    };
 
-  this.getUsersGoals = this.getUsersGoals.bind(this);
-  this.renderActiveGoals = this.renderActiveGoals.bind(this);
+    this.getUsersGoals = this.getUsersGoals.bind(this);
+    this.renderActiveGoals = this.renderActiveGoals.bind(this);
   }
 
   async componentDidMount() {
     await this.getUsersGoals();
+    await this.props.getCategoryList();
+    await this.props.getLanguageList();
   }
 
   async getUsersGoals() {
     const response = await fetch(`${backendServer}/goals`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
     const data = await response.json();
-    this.setState({ goals: data.goals })
+    this.setState({ goals: data.goals });
   }
 
   renderActiveGoals(goal) {
     // console.log(goal);
-    // const categories = 
-    // goal.categories && 
+    // const categories =
+    // goal.categories &&
     // goal.categories.map((category) => {
     //   return (
     //     <span key={category.id} className="category">#{category.name}</span>
@@ -43,8 +46,10 @@ class Goals extends Component {
           <div className="goal-title">{goal.title}</div>
           <div className="goal-body">{goal.body}</div>
           <div className="goal-due_date">{goal.due_date}</div>
+          <div className="goal-category">{goal.category.name}</div>
+          <div className="goal-language">{goal.language.name}</div>
         </div>
-      )
+      );
     }
   }
 
@@ -55,13 +60,22 @@ class Goals extends Component {
     return (
       <>
         <h1>Goals</h1>
+        <NewGoal
+          getUsersEntries={this.props.getUsersEntries}
+          renderCategoriesList={this.props.renderCategoriesList}
+          categoryOptions={this.props.categoryOptions}
+          renderLanguageList={this.props.renderLanguageList}
+          languageOptions={this.props.languageOptions}
+        />
         <div className="goals-table">
           <div className="goal">
             <div className="goal-title">Goal</div>
             <div className="goal-body">Details</div>
             <div className="goal-due_date">Due Date</div>
+            <div className="goal-category">Category</div>
+            <div className="goal-language">Language</div>
           </div>
-        {goals.length && goals.map((goal) => this.renderActiveGoals(goal))}
+          {goals.length && goals.map((goal) => this.renderActiveGoals(goal))}
         </div>
       </>
     );
