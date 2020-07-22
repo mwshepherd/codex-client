@@ -9,7 +9,7 @@ class Nav extends Component {
       <div className={`left-panel ${this.props.navState}`}>
         <nav className="nav-main">
           <ul className="quick-links">
-            <Link to={{ pathname: '/dashboard/journals/new', state: { currentPage: 'new-journal' } }}>
+            <Link to={{ pathname: '/dashboard/journals/new', state: { currentPage: 'new-journal' } }} className="nav-quick-link">
               <li>
                 <div className="link-wrapper">
                   <div className="icon">
@@ -19,7 +19,7 @@ class Nav extends Component {
                 </div>
               </li>
             </Link>
-            <Link to={{ pathname: '/dashboard/bookmarks', state: { currentPage: 'bookmarks' } }}>
+            <Link to={{ pathname: '/dashboard/bookmarks', state: { currentPage: 'bookmarks' } }} className="nav-quick-link">
               <li>
                 <div className="link-wrapper">
                   <div className="icon">
@@ -29,7 +29,7 @@ class Nav extends Component {
                 </div>
               </li>
             </Link>
-            <Link to={{ pathname: '/dashboard/bookmarks', state: { currentPage: 'goals' } }}>
+            <Link to={{ pathname: '/dashboard/bookmarks', state: { currentPage: 'goals' } }} className="nav-quick-link">
               <li onClick={() => this.props.setCurrentPage('goals')}>
                 <div className="link-wrapper">
                   <div className="icon">
@@ -42,7 +42,7 @@ class Nav extends Component {
           </ul>
 
           <ul className="regular-links">
-            <Link to={{ pathname: '/dashboard', state: { currentPage: 'home' } }}>
+            <Link to={{ pathname: '/dashboard', state: { currentPage: 'home' } }} className="nav-link-icon">
               <li>
                 <div className="link-wrapper">
                   <div className="icon">
@@ -52,7 +52,7 @@ class Nav extends Component {
                 </div>
               </li>
             </Link>
-            <Link to={{ pathname: '/dashboard/journals', state: { currentPage: 'journals' } }}>
+            <Link to={{ pathname: '/dashboard/journals', state: { currentPage: 'journals' } }} className="nav-link-icon">
               <li>
                 <div className="link-wrapper">
                   <div className="icon">
@@ -62,7 +62,7 @@ class Nav extends Component {
                 </div>
               </li>
             </Link>
-            <Link to={{ pathname: '/dashboard/bookmarks', state: { currentPage: 'bookmarks' } }}>
+            <Link to={{ pathname: '/dashboard/bookmarks', state: { currentPage: 'bookmarks' } }} className="nav-link-icon">
               <li>
                 <div className="link-wrapper">
                   <div className="icon">
@@ -72,7 +72,7 @@ class Nav extends Component {
                 </div>
               </li>
             </Link>
-            <Link to={{ pathname: '/dashboard/goals', state: { currentPage: 'goals' } }}>
+            <Link to={{ pathname: '/dashboard/goals', state: { currentPage: 'goals' } }} className="nav-link-icon">
               <li onClick={() => this.props.setCurrentPage('goals')}>
                 <div className="link-wrapper">
                   <div className="icon">
@@ -82,7 +82,7 @@ class Nav extends Component {
                 </div>
               </li>
             </Link>
-            <Link to={{ pathname: '/dashboard/timer', state: { currentPage: 'timer' } }}>
+            <Link to={{ pathname: '/dashboard/timer', state: { currentPage: 'timer' } }} className="nav-link-icon">
               <li onClick={() => this.props.setCurrentPage('timer')}>
                 <div className="link-wrapper">
                   <div className="icon">
@@ -92,7 +92,7 @@ class Nav extends Component {
                 </div>
               </li>
             </Link>
-            <Link to={{ pathname: '/dashboard/analytics', state: { currentPage: 'analytics' } }}>
+            <Link to={{ pathname: '/dashboard/analytics', state: { currentPage: 'analytics' } }} className="nav-link-icon">
               <li onClick={() => this.props.setCurrentPage('analytics')}>
                 <div className="link-wrapper">
                   <div className="icon">

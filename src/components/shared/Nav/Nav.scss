@@ -1,4 +1,5 @@
 .left-panel {
+  position: relative;
   background: #3c3c3c;
   width: 70px;
   // padding: 14px;
@@ -32,11 +33,23 @@
   }
 
   .nav-main {
+    margin-top: 100px;
+    position: sticky;
+    top: 100px;
+    width: inherit;
+
     .quick-links {
       background-color: #949494;
       padding: 7px;
       margin: 7px;
       border-radius: 7px;
+
+      .nav-quick-link {
+        display: block;
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+      }
     }
 
     .regular-links {
@@ -47,7 +60,7 @@
       list-style: none;
       //   text-align: center;
 
-      a {
+      .nav-link-icon {
         display: block;
         margin-bottom: 10px;
       }
