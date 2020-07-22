@@ -12,7 +12,7 @@ const styles = {
 class NewJournal extends Component {
   constructor(props) {
     super(props);
-    this.state = { editorState: EditorState.createEmpty() };
+    this.state = { editorState: EditorState.createEmpty(), category_id:1, language_id:1 };
     this.onChange = (editorState) => this.setState({ editorState });
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.setEditor = (editor) => {
