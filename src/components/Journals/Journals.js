@@ -24,16 +24,6 @@ class Journals extends Component {
     await this.props.getUsersEntries('journals');
   }
 
-  // async getUsersJournals() {
-  //   const response = await fetch(`${backendServer}/journals?page=${this.currPage}`, {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //     },
-  //   });
-  //   const data = await response.json();
-  //   this.setState({ journals: data.journals, totalJournals: data.totalJournals, totalPages: Math.ceil(data.totalJournals / 5) });
-  // }
-
   renderJournalEntries(journal) {
     console.log(journal);
     const date = moment(journal.created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Goals.scss";
 import { backendServer } from "../shared/constants";
 import NewGoal from '../NewGoal/NewGoal';
+import moment from 'moment';
 
 const page = 'goals';
 
@@ -15,12 +16,23 @@ class Goals extends Component {
     };
 
     this.renderActiveGoals = this.renderActiveGoals.bind(this);
+    this.deleteGoal = this.deleteGoal.bind(this);
   }
 
   async componentDidMount() {
     await this.props.getUsersEntries(page);
     await this.props.getCategoryList();
     await this.props.getLanguageList();
+  }
+
+  async deleteGoal(id) {
+    await fetch(`${backendServer}/${page}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    this.props.getUsersEntries(page);
   }
 
   renderActiveGoals(goal) {
@@ -33,14 +45,20 @@ class Goals extends Component {
     //   );
     // });
 
+    const due_date = moment(goal.due_date).format('DD/MM/YYYY');
+
     if (goal.completed == false) {
       return (
         <div key={goal.id} className="goal">
           <div className="goal-title">{goal.title}</div>
           <div className="goal-body">{goal.body}</div>
-          <div className="goal-due_date">{goal.due_date}</div>
+          <div className="goal-due_date">{due_date}</div>
           <div className="goal-category">{goal.category.name}</div>
           <div className="goal-language">{goal.language.name}</div>
+          <div className="goal-delete">
+            <button onClick={() => this.deleteGoal(goal.id)}>
+              Delete</button>
+          </div>
         </div>
       );
     }
