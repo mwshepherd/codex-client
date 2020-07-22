@@ -28,6 +28,8 @@ class NewBookmark extends Component {
   };
 
   render() {
+    // console.log(this.props.categoriesList)
+    console.log(this.props)
     return (
       <div className="newbookmark-form">
         <form onSubmit={this.onFormSubmit}>
@@ -42,9 +44,13 @@ class NewBookmark extends Component {
           <label htmlFor="url">Description:</label>
           <input className="bookmark-description" type="text" name="description" id="description" onChange={this.onInputChange} />
 
-          <label htmlFor="categories">Category:</label>
-          <input className="bookmark-category" type="text" name="category_id" id="category_id" onChange={this.onInputChange} />
+          {/* <label htmlFor="categories">Category:</label> */}
+          {/* <input className="bookmark-category" type="text" name="category_id" id="category_id" onChange={this.onInputChange} /> */}
 
+          <label htmlFor="categories">Category:</label>
+          <select>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
+          {/* <select value={cat.name}>
+          </select> */}
           <input type="submit" value=" + " />
         </form>
       </div>

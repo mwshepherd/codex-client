@@ -22,6 +22,7 @@ class DynamicComponent extends Component {
     this.prevPage = this.prevPage.bind(this);
     this.getUsersEntries = this.getUsersEntries.bind(this);
     this.getCategoryList = this.getCategoryList.bind(this);
+    this.renderCategoriesList = this.renderCategoriesList.bind(this);
     this.sortByTitle = this.sortByTitle.bind(this);
     this.sortByCategories = this.sortByCategories.bind(this);
   }
@@ -45,9 +46,26 @@ class DynamicComponent extends Component {
       },
     });
     const data = await response.json();
-    console.log(data)
-    this.setState({ categoriesList: data});
+    // console.log(data)
+    this.setState({ categoryOptions: data});
     console.log(this.state)
+    // this.renderCategoriesList();
+  }
+
+  renderCategoriesList() {
+    const { categoryOptions } = this.state
+    
+    // other way:
+    // const options = categoriesList.map((cat, index) => ({
+    //   label: cat.name,
+    //   value: index
+    // }))
+    // console.log(options)
+    return categoryOptions.map((cat, index) => {
+      return (
+        <option value={index}>{cat.name}</option>
+      )
+    });
   }
 
   nextPage(page) {
@@ -103,7 +121,7 @@ class DynamicComponent extends Component {
   }
 
   render() {
-    // console.log(this.state);
+    console.log(this.state);
     // console.log(this.currPage);
     // console.log('inside dynamic component');
     const SelectedPage = components[this.props.page];
@@ -111,6 +129,8 @@ class DynamicComponent extends Component {
       <SelectedPage
         getUsersEntries={this.getUsersEntries}
         getCategoryList={this.getCategoryList}
+        renderCategoriesList={this.renderCategoriesList}
+        categoryOptions={this.state.categoryOptions}
         state={this.state}
         currPage={this.currPage}
         nextPage={this.nextPage}
