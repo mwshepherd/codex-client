@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
+import { backendServer } from '../shared/constants';
 
 const styles = {
   editor: {
@@ -23,10 +24,37 @@ class NewJournal extends Component {
         this.editor.focus();
       }
     };
+    this.creatPost = this.creatPost.bind(this);
   }
 
   componentDidMount() {
     this.focusEditor();
+  }
+
+  async creatPost() {
+    const converted = convertToRaw(this.state.editorState.getCurrentContent());
+    console.log(converted);
+    const jsonString = JSON.stringify(converted);
+    const jsonConvert = JSON.parse(jsonString);
+    console.log(jsonConvert);
+
+    const body = {
+      journal: {
+        title: 'Hardcoded title',
+        body: JSON.stringify(converted),
+        user_id: this.props.user.id,
+        category_id: 1,
+      },
+    };
+
+    await fetch(`${backendServer}/journals`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify(body),
+    });
   }
 
   handleKeyCommand(command, editorState) {
@@ -49,6 +77,7 @@ class NewJournal extends Component {
   }
 
   render() {
+    console.log(this.props.user);
     return (
       <div>
         <h1>New Journal Page</h1>
@@ -56,6 +85,9 @@ class NewJournal extends Component {
         <button onClick={this._onItalicClick.bind(this)}>Italic</button>
         <div style={styles.editor} onClick={this.focusEditor}>
           <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
+        </div>
+        <div className="post-btn">
+          <button onClick={this.creatPost}>Post</button>
         </div>
       </div>
     );
