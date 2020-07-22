@@ -21,6 +21,7 @@ class DynamicComponent extends Component {
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.getUsersEntries = this.getUsersEntries.bind(this);
+    this.getCategoryList = this.getCategoryList.bind(this);
     this.sortByTitle = this.sortByTitle.bind(this);
     this.sortByCategories = this.sortByCategories.bind(this);
   }
@@ -34,6 +35,18 @@ class DynamicComponent extends Component {
     });
     const data = await response.json();
     this.setState({ [page]: data[page], total: data.total_entries, totalPages: Math.ceil(data.total_entries / 5) });
+  }
+
+  async getCategoryList() {
+    console.log('inside get categories list');
+    const response = await fetch(`${backendServer}categories/index`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const data = await response.json();
+    console.log(data)
+    this.setState({ categoriesList: data});
   }
 
   nextPage(page) {

@@ -18,10 +18,11 @@ class Bookmarks extends Component {
 
   async componentDidMount() {
     await this.props.getUsersEntries(page);
+    // await this.props.getCategoryList();
   }
 
   async deleteBookmark(id) {
-    console.log('inside deleteBookmark');
+    // console.log('inside deleteBookmark');
     await fetch(`${backendServer}/${page}/${id}`, {
       method: 'DELETE',
       headers: {

@@ -6,7 +6,7 @@ class NewBookmark extends Component {
     this.setState({
       [event.target.id]: event.target.value,
     });
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   onFormSubmit = async (event) => {
