@@ -25,10 +25,16 @@ class NewJournal extends Component {
       }
     };
     this.creatPost = this.creatPost.bind(this);
+    this.handleJournalTitle = this.handleJournalTitle.bind(this);
   }
 
   componentDidMount() {
     this.focusEditor();
+  }
+
+  handleJournalTitle(e) {
+    console.log(e.target.value);
+    this.setState({ journalTitle: e.target.value });
   }
 
   async creatPost() {
@@ -40,7 +46,7 @@ class NewJournal extends Component {
 
     const body = {
       journal: {
-        title: 'Hardcoded title',
+        title: this.state.journalTitle,
         body: JSON.stringify(converted),
         user_id: this.props.user.id,
         category_id: 1,
@@ -78,9 +84,11 @@ class NewJournal extends Component {
 
   render() {
     console.log(this.props.user);
+    console.log(this.state);
     return (
       <div>
-        <h1>New Journal Page</h1>
+        {/* <h1>New Journal Page</h1> */}
+        <input type="text" placeholder="New Journal Title" id="title" onChange={this.handleJournalTitle} />
         <button onClick={this._onBoldClick.bind(this)}>Bold</button>
         <button onClick={this._onItalicClick.bind(this)}>Italic</button>
         <div style={styles.editor} onClick={this.focusEditor}>
