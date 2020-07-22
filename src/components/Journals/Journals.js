@@ -11,13 +11,9 @@ class Journals extends Component {
       journals: [],
     };
 
-    // this.currPage = 1;
-    // this.getUsersJournals = this.getUsersJournals.bind(this);
     this.renderJournalEntries = this.renderJournalEntries.bind(this);
     this.sortByTitle = this.sortByTitle.bind(this);
     this.sortByCategories = this.sortByCategories.bind(this);
-    // this.nextPage = this.nextPage.bind(this);
-    // this.prevPage = this.prevPage.bind(this);
   }
 
   async componentDidMount() {

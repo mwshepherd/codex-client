@@ -16,6 +16,7 @@ class Goals extends Component {
     };
 
     this.renderActiveGoals = this.renderActiveGoals.bind(this);
+    this.renderCompleteGoals = this.renderCompleteGoals.bind(this);
     this.deleteGoal = this.deleteGoal.bind(this);
   }
 
@@ -64,6 +65,22 @@ class Goals extends Component {
     }
   }
 
+  renderCompleteGoals(goal) {
+    const completed_date = moment(goal.completed_date).format('DD/MM/YYYY');
+
+    if (goal.completed == true) {
+      return (
+        <div key={goal.id} className="goal">
+          <div className="goal-title">{goal.title}</div>
+          <div className="goal-body">{goal.body}</div>
+          <div className="goal-completed_date">{completed_date}</div>
+          <div className="goal-category">{goal.category.name}</div>
+          <div className="goal-language">{goal.language.name}</div>
+        </div>
+      );
+    }
+  }
+
   render() {
     const { goals, totalPages } = this.props.state;
     const { currPage, prevPage, nextPage } = this.props
@@ -95,8 +112,33 @@ class Goals extends Component {
           </div>
           <button onClick={() => nextPage(page)}>Next</button>
         </div>
+        
+        <br/><br/>
+        <hr/> 
+        <br/><br/>
+        
+        <h1>Completed Goals</h1>
+        <div className="goals-table">
+          <div className="goal">
+            <div className="goal-title">Goal</div>
+            <div className="goal-body">Details</div>
+            <div className="goal-completed_date">Completed Date</div>
+            <div className="goal-category">Category</div>
+            <div className="goal-language">Language</div>
+          </div>
+          {goals && goals.map((goal) => this.renderCompleteGoals(goal))}
+        </div>
+        <div className="pagination-btns">
+          <button onClick={() => prevPage(page)}>Prev</button>
+          <div className="total-pages">
+            {currPage} / {totalPages}
+          </div>
+          <button onClick={() => nextPage(page)}>Next</button>
+        </div>
       </>
     );
+
+
   }
 }
 
