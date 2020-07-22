@@ -32,15 +32,15 @@ class Bookmarks extends Component {
   }
 
   renderBookmarks(bookmark) {
-    const categories =
-      bookmark.categories &&
-      bookmark.categories.map((category) => {
-        return (
-          <span key={category.id} className="category">
-            #{category.name}
-          </span>
-        );
-      });
+    // const categories =
+    //   bookmark.categories &&
+    //   bookmark.categories.map((category) => {
+    //     return (
+    //       <span key={category.id} className="category">
+    //         #{category.name}
+    //       </span>
+    //     );
+    //   });
 
     return (
       <div key={bookmark.id} className="bookmark">
@@ -50,7 +50,7 @@ class Bookmarks extends Component {
           </a>
         </div>
         <div className="bookmark-description">{bookmark.description}</div>
-        <div className="bookmark-categories">{categories}</div>
+        <div className="bookmark-category">{bookmark.category.name}</div>
         <div className="bookmark-delete">
           <button onClick={() => this.deleteBookmark(bookmark.id)}>Delete</button>
         </div>

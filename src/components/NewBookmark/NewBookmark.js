@@ -43,9 +43,8 @@ class NewBookmark extends Component {
           <label htmlFor="url">Description:</label>
           <input className="bookmark-description" type="text" name="description" id="description" onChange={this.onInputChange} />
 
-          {/* not working */}
-          <label htmlFor="categories">Categories:</label>
-          <input className="bookmark-categories" type="text" name="categories" id="categories" onChange={this.onInputChange} />
+          <label htmlFor="categories">Category:</label>
+          <input className="bookmark-category" type="text" name="category_id" id="category_id" onChange={this.onInputChange} />
 
           <input type="submit" value=" + " />
         </form>
