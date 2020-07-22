@@ -71,7 +71,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const { currentPage } = this.props.location.state || 'home';
     // const { currentPage } = this.state;
 
@@ -82,7 +82,7 @@ class Dashboard extends Component {
         mainWindow = <Home user={this.state.user} />;
         break;
       case 'new-journal':
-        mainWindow = <NewJournal />;
+        mainWindow = <NewJournal user={this.state.user} />;
         break;
       case 'journals':
         // mainWindow = <Journals  setCurrentPage={this.setCurrentPage} setCurrentJournal={this.setCurrentJournal} />;
