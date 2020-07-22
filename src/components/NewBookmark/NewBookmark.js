@@ -82,17 +82,8 @@ class NewBookmark extends Component {
           <select onChange={this.onLanguageChange}>
             {this.props.languageOptions && this.props.renderLanguageList()}
           </select>
-
-          <input
-            className="bookmark-category"
-            type="integer"
-            name="category_id"
-            id="category_id"
-            onChange={this.onInputChange}
-          />
-          // <select></select>
-
-          // <input type="submit" value=" + " />
+          
+          <input type="submit" value=" + " />
         </form>
       </div>
     );
