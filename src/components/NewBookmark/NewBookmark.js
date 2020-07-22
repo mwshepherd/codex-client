@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../Bookmarks/Bookmarks.scss';
 
-class NewBookmark extends React.Component {
+class NewBookmark extends Component {
   onInputChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
@@ -16,15 +16,15 @@ class NewBookmark extends React.Component {
       bookmark: this.state,
     };
 
-    await fetch("http://localhost:3000/bookmarks", {
-      method: "POST",
+    await fetch('http://localhost:3000/bookmarks', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(body),
     });
-    // this.props.history.push("/blogs");
+    this.props.getUsersEntries('bookmarks');
   };
 
   render() {
@@ -35,31 +35,13 @@ class NewBookmark extends React.Component {
           {/* <h1>Add a Bookmark</h1> */}
 
           <label htmlFor="title">Title:</label>
-          <input
-            className="bookmark-title"
-            type="text"
-            name="title"
-            id="title"
-            onChange={this.onInputChange}
-          />
+          <input className="bookmark-title" type="text" name="title" id="title" onChange={this.onInputChange} />
 
           <label htmlFor="url">URL:</label>
-          <input
-            className="bookmark-url"
-            type="text"
-            name="url"
-            id="url"
-            onChange={this.onInputChange}
-          />
+          <input className="bookmark-url" type="text" name="url" id="url" onChange={this.onInputChange} />
 
           <label htmlFor="url">Description:</label>
-          <input
-            className="bookmark-description"
-            type="text"
-            name="description"
-            id="description"
-            onChange={this.onInputChange}
-          />
+          <input className="bookmark-description" type="text" name="description" id="description" onChange={this.onInputChange} />
 
           <label>Category:</label>
 
@@ -77,6 +59,6 @@ class NewBookmark extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default NewBookmark;

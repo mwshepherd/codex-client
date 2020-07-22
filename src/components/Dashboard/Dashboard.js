@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { Route, Switch } from 'react-router-dom';
+import ProtectedRoute from '../ProtectedRoute';
 // Styles
 import './Dashboard.scss';
 
@@ -12,6 +13,7 @@ import Journals from '../Journals/Journals';
 import SingleJournal from '../SingleJournal/SingleJournal';
 import Bookmarks from '../Bookmarks/Bookmarks';
 import Goals from '../Goals/Goals';
+import DynamicComponent from '../DynamicComponent/DynamicComponent';
 import { backendServer } from '../shared/constants';
 
 class Dashboard extends Component {
@@ -25,9 +27,9 @@ class Dashboard extends Component {
       currentJournal: [],
     };
 
+    this.toggleNav = this.toggleNav.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.setCurrentJournal = this.setCurrentJournal.bind(this);
-    this.toggleNav = this.toggleNav.bind(this);
     this.logOut = this.logOut.bind(this);
     this.getCurrentUser = this.getCurrentUser.bind(this);
   }
@@ -47,14 +49,6 @@ class Dashboard extends Component {
     this.setState({ user: data.user });
   }
 
-  setCurrentPage(page) {
-    this.setState({ currentPage: page });
-  }
-
-  setCurrentJournal(journal) {
-    this.setState({ currentJournal: journal });
-  }
-
   toggleNav() {
     if (this.state.navState === 'collapsed') {
       this.setState({ navState: 'expanded', navExpanded: true });
@@ -63,15 +57,24 @@ class Dashboard extends Component {
     }
   }
 
+  setCurrentPage(page) {
+    this.setState({ currentPage: page });
+  }
+
+  setCurrentJournal(journal) {
+    this.setState({ currentJournal: journal });
+  }
+
   logOut() {
     localStorage.removeItem('token');
     this.props.history.push('/');
   }
 
   render() {
-    // console.log(this.state);
+    console.log(this.props);
+    const { currentPage } = this.props.location.state || 'home';
+    // const { currentPage } = this.state;
 
-    const { currentPage } = this.state;
     let mainWindow;
 
     switch (currentPage) {
@@ -82,19 +85,20 @@ class Dashboard extends Component {
         mainWindow = <NewJournal />;
         break;
       case 'journals':
-        mainWindow = <Journals setCurrentPage={this.setCurrentPage} setCurrentJournal={this.setCurrentJournal} />;
+        // mainWindow = <Journals  setCurrentPage={this.setCurrentPage} setCurrentJournal={this.setCurrentJournal} />;
+        mainWindow = <DynamicComponent page={'journals'} />;
         break;
       case 'single-journal':
-        mainWindow = <SingleJournal currentJournal={this.state.currentJournal} setCurrentPage={this.setCurrentPage} />;
+        mainWindow = <SingleJournal currentJournal={this.props.location.state.currentJournal} setCurrentPage={this.setCurrentPage} />;
         break;
       case 'bookmarks':
-        mainWindow = <Bookmarks />;
+        mainWindow = <DynamicComponent page={'bookmarks'} />;
         break;
       case 'goals':
-        mainWindow = <Goals />;
+        mainWindow = <DynamicComponent page={'goals'} />;
         break;
       default:
-        mainWindow = <div>Content not found</div>;
+        mainWindow = <Home user={this.state.user} />;
     }
 
     return (
