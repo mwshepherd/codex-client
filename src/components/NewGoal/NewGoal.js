@@ -73,12 +73,13 @@ class NewGoal extends Component {
             onChange={this.onInputChange}
           />
 
-          <label htmlFor="completed">Completed?</label>
+          {/* this is not necessary - it defaults to not yet complete as per back end logic  */}
+          {/* <label htmlFor="completed">Completed?</label> */}
           {/* this event handler might not work */}
-          <select onChange={this.onInputChange}>
-            <option value="true">Completed</option>
-            <option defaultValue="false">Not Yet Completed</option>
-          </select>
+          {/* <select onChange={this.onInputChange}> */}
+            {/* <option value="true">Completed</option>
+            <option defaultValue="false">Not Yet Completed</option> */}
+          {/* </select> */}
 
           <label htmlFor="categories">Category:</label>
           <select onChange={this.onCategoryChange}>

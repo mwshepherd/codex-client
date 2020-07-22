@@ -3,31 +3,24 @@ import "./Goals.scss";
 import { backendServer } from "../shared/constants";
 import NewGoal from '../NewGoal/NewGoal';
 
+const page = 'goals';
+
 class Goals extends Component {
   constructor(props) {
     super(props);
     this.state = {
       goals: [],
+      category_id: 1,
+      language_id: 1
     };
 
-    this.getUsersGoals = this.getUsersGoals.bind(this);
     this.renderActiveGoals = this.renderActiveGoals.bind(this);
   }
 
   async componentDidMount() {
-    await this.getUsersGoals();
+    await this.props.getUsersEntries(page);
     await this.props.getCategoryList();
     await this.props.getLanguageList();
-  }
-
-  async getUsersGoals() {
-    const response = await fetch(`${backendServer}/goals`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    const data = await response.json();
-    this.setState({ goals: data.goals });
   }
 
   renderActiveGoals(goal) {
@@ -54,12 +47,12 @@ class Goals extends Component {
   }
 
   render() {
-    // console.log(this.state);
-    const { goals } = this.state;
-    console.log(goals);
+    const { goals, totalPages } = this.props.state;
+    const { currPage, prevPage, nextPage } = this.props
+
     return (
       <>
-        <h1>Goals</h1>
+        <h1>Active Goals</h1>
         <NewGoal
           getUsersEntries={this.props.getUsersEntries}
           renderCategoriesList={this.props.renderCategoriesList}
@@ -75,7 +68,14 @@ class Goals extends Component {
             <div className="goal-category">Category</div>
             <div className="goal-language">Language</div>
           </div>
-          {goals.length && goals.map((goal) => this.renderActiveGoals(goal))}
+          {goals && goals.map((goal) => this.renderActiveGoals(goal))}
+        </div>
+        <div className="pagination-btns">
+          <button onClick={() => prevPage(page)}>Prev</button>
+          <div className="total-pages">
+            {currPage} / {totalPages}
+          </div>
+          <button onClick={() => nextPage(page)}>Next</button>
         </div>
       </>
     );
