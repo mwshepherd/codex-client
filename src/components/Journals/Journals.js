@@ -4,6 +4,8 @@ import moment from 'moment';
 import './Journal.scss';
 import { backendServer } from '../shared/constants';
 
+const page = 'journals';
+
 class Journals extends Component {
   constructor(props) {
     super(props);
@@ -11,28 +13,12 @@ class Journals extends Component {
       journals: [],
     };
 
-    // this.currPage = 1;
-    // this.getUsersJournals = this.getUsersJournals.bind(this);
     this.renderJournalEntries = this.renderJournalEntries.bind(this);
-    this.sortByTitle = this.sortByTitle.bind(this);
-    this.sortByCategories = this.sortByCategories.bind(this);
-    // this.nextPage = this.nextPage.bind(this);
-    // this.prevPage = this.prevPage.bind(this);
   }
 
   async componentDidMount() {
-    await this.props.getUsersEntries('journals');
+    await this.props.getUsersEntries(page);
   }
-
-  // async getUsersJournals() {
-  //   const response = await fetch(`${backendServer}/journals?page=${this.currPage}`, {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //     },
-  //   });
-  //   const data = await response.json();
-  //   this.setState({ journals: data.journals, totalJournals: data.totalJournals, totalPages: Math.ceil(data.totalJournals / 5) });
-  // }
 
   renderJournalEntries(journal) {
     console.log(journal);
@@ -64,65 +50,6 @@ class Journals extends Component {
     );
   }
 
-  sortByCategories() {
-    const sorted = this.state.journals.sort((a, b) => {
-      let titleA, titleB;
-      console.log(a);
-      console.log(b);
-      a.categories.length > 0 ? (titleA = a.categories[0].name.toLowerCase()) : (titleA = 'z');
-      b.categories.length > 0 ? (titleB = b.categories[0].name.toLowerCase()) : (titleB = 'z');
-
-      console.log(titleA);
-      console.log(titleB);
-
-      if (titleA < titleB) {
-        return -1;
-      }
-
-      if (titleA > titleB) {
-        return 1;
-      }
-      return 0;
-    });
-
-    console.log(sorted);
-    this.setState({ journals: sorted });
-  }
-
-  sortByTitle(type) {
-    const sorted = this.state.journals.sort((a, b) => {
-      let titleA = a[type].toLowerCase();
-      let titleB = b[type].toLowerCase();
-
-      if (titleA < titleB) {
-        return -1;
-      }
-
-      if (titleA > titleB) {
-        return 1;
-      }
-      return 0;
-    });
-
-    console.log(sorted);
-    this.setState({ journals: sorted });
-  }
-
-  // nextPage() {
-  //   if (this.currPage < this.state.totalPages) {
-  //     this.currPage += 1;
-  //     this.getUsersJournals();
-  //   }
-  // }
-
-  // prevPage() {
-  //   // console.log(thi);
-  //   if (this.currPage > 1) {
-  //     this.currPage -= 1;
-  //     this.getUsersJournals();
-  //   }
-  // }
-
   render() {
     console.log(this.state);
     const { journals, totalPages } = this.props.state;
@@ -133,11 +60,11 @@ class Journals extends Component {
         <h1>Journals</h1>
         <div className="journals-table">
           <div className="journal-entry">
-            <div className="journal-title" onClick={() => this.sortByTitle('title')}>
+            <div className="journal-title" onClick={() => this.props.sortByTitle('title', page)}>
               Title
             </div>
             <div className="journal-date">Date</div>
-            <div className="journal-category" onClick={this.sortByCategories}>
+            <div className="journal-category" onClick={() => this.props.sortByCategories(page)}>
               Category
             </div>
           </div>
