@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import moment from "moment";
-import "./Journal.scss";
-import { backendServer } from "../shared/constants";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import './Journal.scss';
+import { backendServer } from '../shared/constants';
 
 const page = 'journals';
 
@@ -14,7 +14,6 @@ class Journals extends Component {
     };
 
     this.renderJournalEntries = this.renderJournalEntries.bind(this);
-
   }
 
   async componentDidMount() {
@@ -35,33 +34,32 @@ class Journals extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const { journals, totalPages } = this.props.state;
     const { currPage, prevPage, nextPage } = this.props;
-    console.log(journals);
+    // console.log(journals);
     return (
       <>
         <h1>Journals</h1>
         <div className="journals-table">
           <div className="journal-entry">
-            <div className="journal-title" onClick={() => this.props.sortByTitle('title', page)}>
+            <div className="journal-title" onClick={() => this.props.sortByType('title', page)}>
               Title
             </div>
             <div className="journal-date">Date</div>
-            <div className="journal-category" onClick={() => this.props.sortByCategories(page)}>
+            <div className="journal-category" onClick={() => this.props.sortByType('category', page)}>
               Category
             </div>
           </div>
 
-          {journals &&
-            journals.map((journal) => this.renderJournalEntries(journal))}
+          {journals && journals.map((journal) => this.renderJournalEntries(journal))}
         </div>
         <div className="pagination-btns">
-          <button onClick={() => prevPage("journals")}>Prev</button>
+          <button onClick={() => prevPage('journals')}>Prev</button>
           <div className="total-pages">
             {currPage} / {totalPages}
           </div>
-          <button onClick={() => nextPage("journals")}>Next</button>
+          <button onClick={() => nextPage('journals')}>Next</button>
         </div>
       </>
     );

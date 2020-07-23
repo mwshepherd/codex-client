@@ -27,12 +27,11 @@ class DynamicComponent extends Component {
     this.getLanguageList = this.getLanguageList.bind(this);
     this.renderCategoriesList = this.renderCategoriesList.bind(this);
     this.renderLanguageList = this.renderLanguageList.bind(this);
-    this.sortByTitle = this.sortByTitle.bind(this);
-    this.sortByCategories = this.sortByCategories.bind(this);
+    // this.sortByTitle = this.sortByTitle.bind(this);
+    this.sortByType = this.sortByType.bind(this);
   }
 
   async getUsersEntries(page) {
-    // console.log('inside get users entries');
     const response = await fetch(`${backendServer}/${page}?page=${this.currPage}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -49,9 +48,8 @@ class DynamicComponent extends Component {
       },
     });
     const data = await response.json();
-    // console.log(data)
+
     this.setState({ categoryOptions: data });
-    // console.log(this.state)
   }
 
   async getLanguageList() {
@@ -61,13 +59,12 @@ class DynamicComponent extends Component {
       },
     });
     const data = await response.json();
-    console.log(data)
+    console.log(data);
     this.setState({ languageOptions: data });
   }
 
   renderCategoriesList() {
     const { categoryOptions } = this.state;
-    // console.log(categoryOptions);
     return categoryOptions.map((cat, index) => {
       return (
         <option key={index} value={cat.id}>
@@ -78,12 +75,14 @@ class DynamicComponent extends Component {
   }
 
   renderLanguageList() {
-    const { languageOptions } = this.state 
-    console.log(languageOptions)
+    const { languageOptions } = this.state;
+    // console.log(languageOptions);
     return languageOptions.map((lan, index) => {
       return (
-        <option key={index} value={lan.id}>{lan.name}</option>
-      )
+        <option key={index} value={lan.id}>
+          {lan.name}
+        </option>
+      );
     });
   }
 
@@ -101,48 +100,43 @@ class DynamicComponent extends Component {
     }
   }
 
-  sortByCategories(page) {
-    console.log(this.state[page]);
+  sortByType(type, page) {
+    let lessThan, greaterThan, sortedType;
+
+    if (this.state.sortedType === 'ascend') {
+      lessThan = 1;
+      greaterThan = -1;
+      sortedType = 'descend';
+    } else {
+      lessThan = -1;
+      greaterThan = 1;
+      sortedType = 'ascend';
+    }
+
     const sorted = this.state[page].sort((a, b) => {
       let titleA, titleB;
-      a.category.length > 0 ? (titleA = a.category[0].name.toLowerCase()) : (titleA = 'z');
-      b.category.length > 0 ? (titleB = b.category[0].name.toLowerCase()) : (titleB = 'z');
+      if (type === 'title' || type === 'due_date') {
+        titleA = a[type].toLowerCase();
+        titleB = b[type].toLowerCase();
+      } else {
+        titleA = a[type].name.toLowerCase();
+        titleB = b[type].name.toLowerCase();
+      }
 
       if (titleA < titleB) {
-        return -1;
+        return lessThan;
       }
 
       if (titleA > titleB) {
-        return 1;
+        return greaterThan;
       }
       return 0;
     });
-    this.setState({ [page]: sorted });
-  }
-
-  sortByTitle(type, page) {
-    // console.log(this.state[page]);
-    const sorted = this.state[page].sort((a, b) => {
-      // console.log(type);
-      let titleA = a[type].toLowerCase();
-      let titleB = b[type].toLowerCase();
-
-      if (titleA < titleB) {
-        return -1;
-      }
-
-      if (titleA > titleB) {
-        return 1;
-      }
-      return 0;
-    });
-    this.setState({ [page]: sorted });
+    this.setState({ [page]: sorted, sortedType: sortedType });
   }
 
   render() {
-    // console.log(this.state);
-    // console.log(this.currPage);
-    // console.log('inside dynamic component');
+    console.log(this.state);
     const SelectedPage = components[this.props.page];
     return (
       <SelectedPage
@@ -157,8 +151,7 @@ class DynamicComponent extends Component {
         currPage={this.currPage}
         nextPage={this.nextPage}
         prevPage={this.prevPage}
-        sortByTitle={this.sortByTitle}
-        sortByCategories={this.sortByCategories}
+        sortByType={this.sortByType}
         user={this.props.user}
       />
     );

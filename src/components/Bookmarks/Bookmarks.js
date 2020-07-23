@@ -73,16 +73,16 @@ class Bookmarks extends Component {
 
         <div className="bookmarks-table">
           <div className="bookmark">
-            <div className="bookmark-title" onClick={() => this.props.sortByTitle('title', page)}>
+            <div className="bookmark-title" onClick={() => this.props.sortByType('title', page)}>
               Title & Bookmark Link
             </div>
             <div className="bookmark-description">Description</div>
-            <div
-              className="bookmark-category"
-              onClick={() => this.props.sortByCategories(page)}>
+            <div className="bookmark-category" onClick={() => this.props.sortByType('category', page)}>
               Category
             </div>
-            <div className="bookmark-language">Language</div>
+            <div className="bookmark-language" onClick={() => this.props.sortByType('language', page)}>
+              Language
+            </div>
           </div>
           {bookmarks && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
         </div>

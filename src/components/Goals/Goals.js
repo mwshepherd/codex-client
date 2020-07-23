@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import "./Goals.scss";
-import { backendServer } from "../shared/constants";
+import React, { Component } from 'react';
+import './Goals.scss';
+import { backendServer } from '../shared/constants';
 import NewGoal from '../NewGoal/NewGoal';
 import moment from 'moment';
 
@@ -12,7 +12,7 @@ class Goals extends Component {
     this.state = {
       goals: [],
       category_id: 1,
-      language_id: 1
+      language_id: 1,
     };
 
     this.renderActiveGoals = this.renderActiveGoals.bind(this);
@@ -29,9 +29,9 @@ class Goals extends Component {
 
   async deleteGoal(id) {
     await fetch(`${backendServer}/${page}/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
     this.props.getUsersEntries(page);
@@ -39,20 +39,20 @@ class Goals extends Component {
 
   async completeGoal(id) {
     const date = moment(Date.now()).format('YYYY-MM-DD');
-    console.log(date)
+    console.log(date);
 
     await fetch(`${backendServer}/${page}/${id}`, {
-      method: "PUT",
+      method: 'PUT',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify({
         completed: true,
         completed_date: date,
       }),
     });
-    window.alert("Well done on achieving your goals!🎉")
+    window.alert('Well done on achieving your goals!🎉');
     this.props.getUsersEntries(page);
   }
 
@@ -105,7 +105,7 @@ class Goals extends Component {
 
   render() {
     const { goals, totalPages } = this.props.state;
-    const { currPage, prevPage, nextPage } = this.props
+    const { currPage, prevPage, nextPage } = this.props;
 
     return (
       <>
@@ -119,11 +119,19 @@ class Goals extends Component {
         />
         <div className="goals-table">
           <div className="goal">
-            <div className="goal-title">Goal</div>
+            <div className="goal-title" onClick={() => this.props.sortByType('title', page)}>
+              Goal
+            </div>
             <div className="goal-body">Details</div>
-            <div className="goal-due_date">Due Date</div>
-            <div className="goal-category">Category</div>
-            <div className="goal-language">Language</div>
+            <div className="goal-due_date" onClick={() => this.props.sortByType('due_date', page)}>
+              Due Date
+            </div>
+            <div className="goal-category" onClick={() => this.props.sortByType('category', page)}>
+              Category
+            </div>
+            <div className="goal-language" onClick={() => this.props.sortByType('language', page)}>
+              Language
+            </div>
             <div className="goal-completed">Mark Completed</div>
           </div>
           {goals && goals.map((goal) => this.renderActiveGoals(goal))}
@@ -135,10 +143,12 @@ class Goals extends Component {
           </div>
           <button onClick={() => nextPage(page)}>Next</button>
         </div>
-        
-        <br/><br/>
-        <hr/> 
-        <br/><br/>
+
+        <br />
+        <br />
+        <hr />
+        <br />
+        <br />
 
         <h1>Completed Goals</h1>
         <div className="goals-table">
@@ -160,8 +170,6 @@ class Goals extends Component {
         </div>
       </>
     );
-
-
   }
 }
 
