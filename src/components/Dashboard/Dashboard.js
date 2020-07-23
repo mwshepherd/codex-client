@@ -71,9 +71,10 @@ class Dashboard extends Component {
   }
 
   render() {
-    // console.log(this.props);
-    const { currentPage } = this.props.location.state || 'home';
+    console.log(this.props);
+    const { currentPage } = this.props || 'home';
     // const { currentPage } = this.state;
+    console.log(currentPage);
 
     let mainWindow;
 
@@ -82,14 +83,16 @@ class Dashboard extends Component {
         mainWindow = <Home user={this.state.user} />;
         break;
       case 'new-journal':
-        mainWindow = <NewJournal user={this.state.user} />;
+        // mainWindow = <NewJournal user={this.state.user} />;
+        mainWindow = <DynamicComponent page={'newJournal'} user={this.state.user} />;
         break;
       case 'journals':
         // mainWindow = <Journals  setCurrentPage={this.setCurrentPage} setCurrentJournal={this.setCurrentJournal} />;
         mainWindow = <DynamicComponent page={'journals'} />;
         break;
       case 'single-journal':
-        mainWindow = <SingleJournal currentJournal={this.props.location.state.currentJournal} setCurrentPage={this.setCurrentPage} />;
+        // mainWindow = <SingleJournal currentJournal={this.props.location.state.currentJournal} setCurrentPage={this.setCurrentPage} />;
+        mainWindow = <SingleJournal locationProps={this.props} />;
         break;
       case 'bookmarks':
         mainWindow = <DynamicComponent page={'bookmarks'} />;

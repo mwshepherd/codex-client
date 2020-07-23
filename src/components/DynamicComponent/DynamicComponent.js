@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Journals from '../Journals/Journals';
+import NewJournal from '../NewJournal/NewJournal';
 import Bookmarks from '../Bookmarks/Bookmarks';
 import Goals from '../Goals/Goals';
 
@@ -8,6 +9,7 @@ import { backendServer } from '../shared/constants';
 
 const components = {
   journals: Journals,
+  newJournal: NewJournal,
   bookmarks: Bookmarks,
   goals: Goals,
 };
@@ -49,7 +51,7 @@ class DynamicComponent extends Component {
     });
     const data = await response.json();
     // console.log(data)
-    this.setState({ categoryOptions: data});
+    this.setState({ categoryOptions: data });
     // console.log(this.state)
   }
 
@@ -65,12 +67,14 @@ class DynamicComponent extends Component {
   }
 
   renderCategoriesList() {
-    const { categoryOptions } = this.state    
-    console.log(categoryOptions)
+    const { categoryOptions } = this.state;
+    // console.log(categoryOptions);
     return categoryOptions.map((cat, index) => {
       return (
-        <option key={index} value={cat.id}>{cat.name}</option>
-      )
+        <option key={index} value={cat.id}>
+          {cat.name}
+        </option>
+      );
     });
   }
 
@@ -156,6 +160,7 @@ class DynamicComponent extends Component {
         prevPage={this.prevPage}
         sortByTitle={this.sortByTitle}
         sortByCategories={this.sortByCategories}
+        user={this.props.user}
       />
     );
   }
