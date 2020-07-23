@@ -4,6 +4,8 @@ import moment from "moment";
 import "./Journal.scss";
 import { backendServer } from "../shared/constants";
 
+const page = 'journals';
+
 class Journals extends Component {
   constructor(props) {
     super(props);
@@ -12,99 +14,24 @@ class Journals extends Component {
     };
 
     this.renderJournalEntries = this.renderJournalEntries.bind(this);
-    this.sortByTitle = this.sortByTitle.bind(this);
-    this.sortByCategories = this.sortByCategories.bind(this);
+
   }
 
   async componentDidMount() {
-    await this.props.getUsersEntries("journals");
+    await this.props.getUsersEntries(page);
   }
 
   renderJournalEntries(journal) {
-    // console.log(journal);
-    const date = moment(journal.created_at).format(
-      "dddd, MMMM Do YYYY, h:mm:ss a"
-    );
-    const categories =
-      journal.categories &&
-      journal.categories.map((category) => {
-        return (
-          <span key={category.id} className="category">
-            #{category.name}
-          </span>
-        );
-      });
+    console.log(journal);
+    const date = moment(journal.created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
 
     return (
       <div key={journal.id} className="journal-entry">
-        {/* <div
-          className="journal-entry__title"
-          onClick={() => {
-            this.props.setCurrentPage('single-journal');
-            this.props.setCurrentJournal(journal);
-          }}
-        > */}
-        <Link
-          to={{
-            pathname: `/dashboard/journals/${journal.id}`,
-            state: { currentPage: "single-journal", currentJournal: journal },
-          }}
-        >
-          {journal.title}
-        </Link>
-        {/* </div> */}
+        <Link to={{ pathname: `/dashboard/journals/${journal.id}`, state: { currentPage: 'single-journal', currentJournal: journal } }}>{journal.title}</Link>
         <div className="journal-entry__date">{date}</div>
-        <div className="journal-entry__categories">{categories}</div>
+        <div className="journal-entry__categories">{journal.category.name}</div>
       </div>
     );
-  }
-
-  sortByCategories() {
-    const sorted = this.state.journals.sort((a, b) => {
-      let titleA, titleB;
-      console.log(a);
-      console.log(b);
-      a.categories.length > 0
-        ? (titleA = a.categories[0].name.toLowerCase())
-        : (titleA = "z");
-      b.categories.length > 0
-        ? (titleB = b.categories[0].name.toLowerCase())
-        : (titleB = "z");
-
-      console.log(titleA);
-      console.log(titleB);
-
-      if (titleA < titleB) {
-        return -1;
-      }
-
-      if (titleA > titleB) {
-        return 1;
-      }
-      return 0;
-    });
-
-    console.log(sorted);
-    this.setState({ journals: sorted });
-  }
-
-  sortByTitle(type) {
-    const sorted = this.state.journals.sort((a, b) => {
-      let titleA = a[type].toLowerCase();
-      let titleB = b[type].toLowerCase();
-
-      if (titleA < titleB) {
-        return -1;
-      }
-
-      if (titleA > titleB) {
-        return 1;
-      }
-      return 0;
-    });
-
-    console.log(sorted);
-    this.setState({ journals: sorted });
   }
 
   render() {
@@ -117,14 +44,11 @@ class Journals extends Component {
         <h1>Journals</h1>
         <div className="journals-table">
           <div className="journal-entry">
-            <div
-              className="journal-title"
-              onClick={() => this.sortByTitle("title")}
-            >
+            <div className="journal-title" onClick={() => this.props.sortByTitle('title', page)}>
               Title
             </div>
             <div className="journal-date">Date</div>
-            <div className="journal-category" onClick={this.sortByCategories}>
+            <div className="journal-category" onClick={() => this.props.sortByCategories(page)}>
               Category
             </div>
           </div>

@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
-import "draft-js/dist/Draft.css";
-import { backendServer } from "../shared/constants";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
+import 'draft-js/dist/Draft.css';
+import { backendServer } from '../shared/constants';
 
 const styles = {
   editor: {
@@ -13,11 +14,7 @@ const styles = {
 class NewJournal extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      editorState: EditorState.createEmpty(),
-      category_id: 1,
-      language_id: 1,
-    };
+    this.state = { editorState: EditorState.createEmpty(), category_id: 1, language_id:1, redirect: false };
     this.onChange = (editorState) => this.setState({ editorState });
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.setEditor = (editor) => {
@@ -32,9 +29,16 @@ class NewJournal extends Component {
     this.handleJournalTitle = this.handleJournalTitle.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.focusEditor();
+    await this.props.getCategoryList();
   }
+
+  onOptionChange = (event) => {
+    console.log(this.state);
+    this.setState({ category_id: event.target.value });
+    console.log(this.state);
+  };
 
   handleJournalTitle(e) {
     console.log(e.target.value);
@@ -52,19 +56,24 @@ class NewJournal extends Component {
       journal: {
         title: this.state.journalTitle,
         body: JSON.stringify(converted),
-        user_id: this.props.user.id,
-        category_id: 1,
+        category_id: this.state.category_id,
+        language_id: 1,
       },
     };
 
-    await fetch(`${backendServer}/journals`, {
-      method: "POST",
+    const response = await fetch(`${backendServer}/journals`, {
+      method: 'POST',
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify(body),
     });
+
+    const newJournal = await response.json();
+
+    console.log(newJournal);
+    this.setState({ redirect: true, newJournalID: newJournal.id });
   }
 
   handleKeyCommand(command, editorState) {
@@ -95,17 +104,15 @@ class NewJournal extends Component {
   }
 
   render() {
-    console.log(this.props.user);
-    console.log(this.state);
-    return (
-      <div>
-        {/* <h1>New Journal Page</h1> */}
-        <input
-          type="text"
-          placeholder="New Journal Title"
-          id="title"
-          onChange={this.handleJournalTitle}
-        />
+    // console.log(this.props);
+    // console.log(this.state);
+    if (this.state.redirect) {
+      return <Redirect to={`/dashboard/journals/${this.state.newJournalID}`} />;
+    } else {
+      return (
+        <div>
+          {/* <h1>New Journal Page</h1> */}
+          <input type="text" placeholder="New Journal Title" id="title" onChange={this.handleJournalTitle} />
         <button onClick={this._onBoldClick.bind(this)}>Bold</button>
         <button onClick={this._onItalicClick.bind(this)}>Italic</button>
         <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
@@ -116,12 +123,15 @@ class NewJournal extends Component {
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
           />
+          </div>
+          <label htmlFor="categories">Category:</label>
+          <select onChange={this.onOptionChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
+          <div className="post-btn">
+            <button onClick={this.creatPost}>Post</button>
+          </div>
         </div>
-        <div className="post-btn">
-          <button onClick={this.creatPost}>Post</button>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
