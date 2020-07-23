@@ -68,7 +68,7 @@ class Goals extends Component {
 
     const due_date = moment(goal.due_date).format('DD/MM/YYYY');
 
-    if (goal.completed == false) {
+    if (goal.completed === false) {
       return (
         <div key={goal.id} className="goal">
           <div className="goal-title">{goal.title}</div>
@@ -90,7 +90,7 @@ class Goals extends Component {
   renderCompleteGoals(goal) {
     const completed_date = moment(goal.completed_date).format('DD/MM/YYYY');
 
-    if (goal.completed == true) {
+    if (goal.completed === true) {
       return (
         <div key={goal.id} className="goal">
           <div className="goal-title">{goal.title}</div>

@@ -11,12 +11,13 @@ class Bookmarks extends Component {
     // console.log(this.props)
     this.state = {
       bookmarks: [],
-      category_id:1, 
-      language_id:1
+      category_id: 1,
+      language_id: 1,
     };
 
     this.renderBookmarks = this.renderBookmarks.bind(this);
     this.deleteBookmark = this.deleteBookmark.bind(this);
+    // this.sortByCategories = this.sortByCategories.bind(this);
   }
 
   async componentDidMount() {
@@ -37,17 +38,6 @@ class Bookmarks extends Component {
   }
 
   renderBookmarks(bookmark) {
-    // const categories =
-    //   bookmark.categories &&
-    //   bookmark.categories.map((category) => {
-    //     return (
-    //       <span key={category.id} className="category">
-    //         #{category.name}
-    //       </span>
-    //     );
-    //   });
-    console.log(bookmark)
-
     return (
       <div key={bookmark.id} className="bookmark">
         <div className="bookmark-title">
@@ -70,7 +60,7 @@ class Bookmarks extends Component {
   render() {
     const { bookmarks, totalPages } = this.props.state;
     const { currPage, prevPage, nextPage } = this.props;
-    console.log(this.props.state);
+    // console.log(this.props.state);
 
     return (
       <>
@@ -91,9 +81,7 @@ class Bookmarks extends Component {
               Title & Bookmark Link
             </div>
             <div className="bookmark-description">Description</div>
-            <div
-              className="bookmark-category"
-              onClick={() => this.props.sortByCategories(page)}>
+            <div className="bookmark-category" onClick={this.sortByCategories}>
               Category
             </div>
             <div className="bookmark-language">Language</div>
