@@ -32,7 +32,6 @@ class DynamicComponent extends Component {
   }
 
   async getUsersEntries(page) {
-    // console.log('inside get users entries');
     const response = await fetch(`${backendServer}/${page}?page=${this.currPage}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -43,16 +42,14 @@ class DynamicComponent extends Component {
   }
 
   async getCategoryList() {
-    // console.log('inside get categories list');
     const response = await fetch(`${backendServer}/categories/index`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
     const data = await response.json();
-    // console.log(data)
+
     this.setState({ categoryOptions: data });
-    // console.log(this.state)
   }
 
   async getLanguageList() {
@@ -62,13 +59,12 @@ class DynamicComponent extends Component {
       },
     });
     const data = await response.json();
-    console.log(data)
+    console.log(data);
     this.setState({ languageOptions: data });
   }
 
   renderCategoriesList() {
     const { categoryOptions } = this.state;
-    // console.log(categoryOptions);
     return categoryOptions.map((cat, index) => {
       return (
         <option key={index} value={cat.id}>
@@ -79,12 +75,14 @@ class DynamicComponent extends Component {
   }
 
   renderLanguageList() {
-    const { languageOptions } = this.state 
-    console.log(languageOptions)
+    const { languageOptions } = this.state;
+    console.log(languageOptions);
     return languageOptions.map((lan, index) => {
       return (
-        <option key={index} value={lan.id}>{lan.name}</option>
-      )
+        <option key={index} value={lan.id}>
+          {lan.name}
+        </option>
+      );
     });
   }
 
@@ -122,9 +120,7 @@ class DynamicComponent extends Component {
   }
 
   sortByTitle(type, page) {
-    // console.log(this.state[page]);
     const sorted = this.state[page].sort((a, b) => {
-      // console.log(type);
       let titleA = a[type].toLowerCase();
       let titleB = b[type].toLowerCase();
 
@@ -141,9 +137,6 @@ class DynamicComponent extends Component {
   }
 
   render() {
-    // console.log(this.state);
-    // console.log(this.currPage);
-    // console.log('inside dynamic component');
     const SelectedPage = components[this.props.page];
     return (
       <SelectedPage
