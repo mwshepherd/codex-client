@@ -73,7 +73,7 @@ class NewJournal extends Component {
     const newJournal = await response.json();
 
     console.log(newJournal);
-    this.setState({ redirect: true });
+    this.setState({ redirect: true, newJournalID: newJournal.id });
   }
 
   handleKeyCommand(command, editorState) {
@@ -99,7 +99,7 @@ class NewJournal extends Component {
     // console.log(this.props);
     // console.log(this.state);
     if (this.state.redirect) {
-      return <Redirect to="/dashboard/journals/" />;
+      return <Redirect to={`/dashboard/journals/${this.state.newJournalID}`} />;
     } else {
       return (
         <div>

@@ -38,22 +38,21 @@ class SingleJournal extends Component {
       const { title, body, created_at } = this.state.journal;
       const date = moment(created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
       const parsedBody = JSON.parse(body);
-      console.log(parsedBody);
       const contentState = convertFromRaw(parsedBody);
       const editorState = EditorState.createWithContent(contentState);
-      console.log(this.state);
+
       return (
         <>
           <h1>{title}</h1>
           <h3>{date}</h3>
           {/* <div>{body}</div> */}
           <Editor editorState={editorState} readOnly={true} />
-          <Link to={{ pathname: '/dashboard/journals', state: { currentPage: 'journals' } }}>Back</Link>
+          <Link to="/dashboard/journals">Back</Link>
         </>
       );
     }
 
-    return <div>hey</div>;
+    return <div>Loading...</div>;
   }
 }
 
