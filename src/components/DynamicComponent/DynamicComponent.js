@@ -103,11 +103,11 @@ class DynamicComponent extends Component {
   }
 
   sortByCategories(page) {
-    // console.log(this.state[page]);
+    console.log(this.state[page]);
     const sorted = this.state[page].sort((a, b) => {
       let titleA, titleB;
-      a.categories.length > 0 ? (titleA = a.categories[0].name.toLowerCase()) : (titleA = 'z');
-      b.categories.length > 0 ? (titleB = b.categories[0].name.toLowerCase()) : (titleB = 'z');
+      a.category.length > 0 ? (titleA = a.category[0].name.toLowerCase()) : (titleA = 'z');
+      b.category.length > 0 ? (titleB = b.category[0].name.toLowerCase()) : (titleB = 'z');
 
       if (titleA < titleB) {
         return -1;
