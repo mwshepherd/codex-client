@@ -27,8 +27,8 @@ class DynamicComponent extends Component {
     this.getLanguageList = this.getLanguageList.bind(this);
     this.renderCategoriesList = this.renderCategoriesList.bind(this);
     this.renderLanguageList = this.renderLanguageList.bind(this);
-    this.sortByTitle = this.sortByTitle.bind(this);
-    this.sortByCategories = this.sortByCategories.bind(this);
+    // this.sortByTitle = this.sortByTitle.bind(this);
+    this.sortByType = this.sortByType.bind(this);
   }
 
   async getUsersEntries(page) {
@@ -100,24 +100,28 @@ class DynamicComponent extends Component {
     }
   }
 
-  sortByCategories(type, page) {
-    console.log(type, page);
+  sortByType(type, page) {
     let lessThan, greaterThan, sortedType;
 
-    if (this.state.sortedType === 'category-ascend') {
+    if (this.state.sortedType === 'ascend') {
       lessThan = 1;
       greaterThan = -1;
-      sortedType = 'category-descend';
+      sortedType = 'descend';
     } else {
       lessThan = -1;
       greaterThan = 1;
-      sortedType = 'category-ascend';
+      sortedType = 'ascend';
     }
 
     const sorted = this.state[page].sort((a, b) => {
       let titleA, titleB;
-      titleA = a[type].name.toLowerCase();
-      titleB = b[type].name.toLowerCase();
+      if (type === 'title') {
+        titleA = a[type].toLowerCase();
+        titleB = b[type].toLowerCase();
+      } else {
+        titleA = a[type].name.toLowerCase();
+        titleB = b[type].name.toLowerCase();
+      }
 
       if (titleA < titleB) {
         return lessThan;
@@ -128,36 +132,6 @@ class DynamicComponent extends Component {
       }
       return 0;
     });
-    this.setState({ [page]: sorted, sortedType: sortedType });
-  }
-
-  sortByTitle(type, page) {
-    let lessThan, greaterThan, sortedType;
-
-    if (this.state.sortedType === 'alpha-ascend') {
-      lessThan = 1;
-      greaterThan = -1;
-      sortedType = 'alpha-descend';
-    } else {
-      lessThan = -1;
-      greaterThan = 1;
-      sortedType = 'alpha-ascend';
-    }
-
-    const sorted = this.state[page].sort((a, b) => {
-      let titleA = a[type].toLowerCase();
-      let titleB = b[type].toLowerCase();
-
-      if (titleA < titleB) {
-        return lessThan;
-      }
-
-      if (titleA > titleB) {
-        return greaterThan;
-      }
-      return 0;
-    });
-
     this.setState({ [page]: sorted, sortedType: sortedType });
   }
 
@@ -177,8 +151,7 @@ class DynamicComponent extends Component {
         currPage={this.currPage}
         nextPage={this.nextPage}
         prevPage={this.prevPage}
-        sortByTitle={this.sortByTitle}
-        sortByCategories={this.sortByCategories}
+        sortByType={this.sortByType}
         user={this.props.user}
       />
     );
