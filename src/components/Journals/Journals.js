@@ -11,28 +11,14 @@ class Journals extends Component {
       journals: [],
     };
 
-    // this.currPage = 1;
-    // this.getUsersJournals = this.getUsersJournals.bind(this);
     this.renderJournalEntries = this.renderJournalEntries.bind(this);
     this.sortByTitle = this.sortByTitle.bind(this);
     this.sortByCategories = this.sortByCategories.bind(this);
-    // this.nextPage = this.nextPage.bind(this);
-    // this.prevPage = this.prevPage.bind(this);
   }
 
   async componentDidMount() {
     await this.props.getUsersEntries('journals');
   }
-
-  // async getUsersJournals() {
-  //   const response = await fetch(`${backendServer}/journals?page=${this.currPage}`, {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //     },
-  //   });
-  //   const data = await response.json();
-  //   this.setState({ journals: data.journals, totalJournals: data.totalJournals, totalPages: Math.ceil(data.totalJournals / 5) });
-  // }
 
   renderJournalEntries(journal) {
     console.log(journal);
