@@ -43,11 +43,11 @@ class Journals extends Component {
         <h1>Journals</h1>
         <div className="journals-table">
           <div className="journal-entry">
-            <div className="journal-title" onClick={() => this.props.sortByTitle('title', page)}>
+            <div className="journal-title" onClick={() => this.props.sortByType('title', page)}>
               Title
             </div>
             <div className="journal-date">Date</div>
-            <div className="journal-category" onClick={() => this.props.sortByCategories(page)}>
+            <div className="journal-category" onClick={() => this.props.sortByType('category', page)}>
               Category
             </div>
           </div>
