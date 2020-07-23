@@ -15,10 +15,10 @@ class App extends Component {
           <ProtectedRoute exact path="/dashboard/journals" component={Dashboard} currentPage={'journals'} />
           <ProtectedRoute exact path="/dashboard/journals/new" component={Dashboard} currentPage={'new-journal'} />
           <ProtectedRoute exact path="/dashboard/journals/:id" component={Dashboard} currentPage={'single-journal'} />
-          <ProtectedRoute exact path="/dashboard/bookmarks" component={Dashboard} />
-          <ProtectedRoute exact path="/dashboard/goals" component={Dashboard} />
-          <ProtectedRoute exact path="/dashboard/timer" component={Dashboard} />
-          <ProtectedRoute exact path="/dashboard/analytics" component={Dashboard} />
+          <ProtectedRoute exact path="/dashboard/bookmarks" component={Dashboard} currentPage={'bookmarks'} />
+          <ProtectedRoute exact path="/dashboard/goals" component={Dashboard} currentPage={'goals'} />
+          <ProtectedRoute exact path="/dashboard/timer" component={Dashboard} currentPage={'timer'} />
+          <ProtectedRoute exact path="/dashboard/analytics" component={Dashboard} currentPage={'analytics'} />
         </Switch>
       </>
     );

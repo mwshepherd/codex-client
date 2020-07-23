@@ -29,7 +29,7 @@ class Nav extends Component {
                 </div>
               </li>
             </Link>
-            <Link to={{ pathname: '/dashboard/bookmarks', state: { currentPage: 'goals' } }} className="nav-quick-link">
+            <Link to={{ pathname: '/dashboard/goals', state: { currentPage: 'goals' } }} className="nav-quick-link">
               <li onClick={() => this.props.setCurrentPage('goals')}>
                 <div className="link-wrapper">
                   <div className="icon">
