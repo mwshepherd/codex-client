@@ -43,7 +43,6 @@ class DynamicComponent extends Component {
   }
 
   async getCategoryList() {
-    // console.log('inside get categories list');
     const response = await fetch(`${backendServer}/categories/index`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,

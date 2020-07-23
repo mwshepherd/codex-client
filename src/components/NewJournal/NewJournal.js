@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
-import 'draft-js/dist/Draft.css';
-import { backendServer } from '../shared/constants';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
+import "draft-js/dist/Draft.css";
+import { backendServer } from "../shared/constants";
 
 const styles = {
   editor: {
@@ -14,7 +14,12 @@ const styles = {
 class NewJournal extends Component {
   constructor(props) {
     super(props);
-    this.state = { editorState: EditorState.createEmpty(), category_id: 1, language_id:1, redirect: false };
+    this.state = {
+      editorState: EditorState.createEmpty(),
+      category_id: 1,
+      language_id: 1,
+      redirect: false,
+    };
     this.onChange = (editorState) => this.setState({ editorState });
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.setEditor = (editor) => {
@@ -32,25 +37,30 @@ class NewJournal extends Component {
   async componentDidMount() {
     this.focusEditor();
     await this.props.getCategoryList();
+    await this.props.getLanguageList();
   }
 
-  onOptionChange = (event) => {
-    console.log(this.state);
+  onCategoryChange = (event) => {
+    // console.log(this.state);
     this.setState({ category_id: event.target.value });
+  };
+
+  onLanguageChange = (event) => {
+    this.setState({ language_id: event.target.value });
     console.log(this.state);
   };
 
   handleJournalTitle(e) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     this.setState({ journalTitle: e.target.value });
   }
 
   async creatPost() {
     const converted = convertToRaw(this.state.editorState.getCurrentContent());
-    console.log(converted);
+    // console.log(converted);
     const jsonString = JSON.stringify(converted);
     const jsonConvert = JSON.parse(jsonString);
-    console.log(jsonConvert);
+    // console.log(jsonConvert);
 
     const body = {
       journal: {
@@ -62,7 +72,7 @@ class NewJournal extends Component {
     };
 
     const response = await fetch(`${backendServer}/journals`, {
-      method: 'POST',
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -98,13 +108,11 @@ class NewJournal extends Component {
   }
 
   _onCodeClick() {
-    this.onChange(
-      RichUtils.toggleInlineStyle(this.state.editorState, "CODE")
-    );
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "CODE"));
   }
 
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     // console.log(this.state);
     if (this.state.redirect) {
       return <Redirect to={`/dashboard/journals/${this.state.newJournalID}`} />;
@@ -112,20 +120,34 @@ class NewJournal extends Component {
       return (
         <div>
           {/* <h1>New Journal Page</h1> */}
-          <input type="text" placeholder="New Journal Title" id="title" onChange={this.handleJournalTitle} />
-        <button onClick={this._onBoldClick.bind(this)}>Bold</button>
-        <button onClick={this._onItalicClick.bind(this)}>Italic</button>
-        <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
-        <div style={styles.editor} onClick={this.focusEditor}>
-          <Editor
-            ref={this.setEditor}
-            editorState={this.state.editorState}
-            handleKeyCommand={this.handleKeyCommand}
-            onChange={this.onChange}
+          <input
+            type="text"
+            placeholder="New Journal Title"
+            id="title"
+            onChange={this.handleJournalTitle}
           />
+          <button onClick={this._onBoldClick.bind(this)}>Bold</button>
+          <button onClick={this._onItalicClick.bind(this)}>Italic</button>
+          <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
+          <div style={styles.editor} onClick={this.focusEditor}>
+            <Editor
+              ref={this.setEditor}
+              editorState={this.state.editorState}
+              handleKeyCommand={this.handleKeyCommand}
+              onChange={this.onChange}
+            />
           </div>
+
           <label htmlFor="categories">Category:</label>
-          <select onChange={this.onOptionChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
+          <select onChange={this.onOptionChange}>
+            {this.props.categoryOptions && this.props.renderCategoriesList()}
+          </select>
+
+          <label htmlFor="languages">Language:</label>
+          <select onChange={this.onLanguageChange}>
+            {this.props.languageOptions && this.props.renderLanguageList()}
+          </select>
+
           <div className="post-btn">
             <button onClick={this.creatPost}>Post</button>
           </div>

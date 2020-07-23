@@ -6,13 +6,10 @@ class NewBookmark extends Component {
     this.setState({
       [event.target.id]: event.target.value,
     });
-    // console.log(this.state);
   };
 
   onCategoryChange = (event) => {
-    // console.log(this.state)
     this.setState({category_id: event.target.value})
-    // console.log(this.state)
   };
 
   onLanguageChange = (event) => {
