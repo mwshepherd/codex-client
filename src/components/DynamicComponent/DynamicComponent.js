@@ -24,7 +24,9 @@ class DynamicComponent extends Component {
     this.prevPage = this.prevPage.bind(this);
     this.getUsersEntries = this.getUsersEntries.bind(this);
     this.getCategoryList = this.getCategoryList.bind(this);
+    this.getLanguageList = this.getLanguageList.bind(this);
     this.renderCategoriesList = this.renderCategoriesList.bind(this);
+    this.renderLanguageList = this.renderLanguageList.bind(this);
     this.sortByTitle = this.sortByTitle.bind(this);
     this.sortByCategories = this.sortByCategories.bind(this);
   }
@@ -53,6 +55,17 @@ class DynamicComponent extends Component {
     // console.log(this.state)
   }
 
+  async getLanguageList() {
+    const response = await fetch(`${backendServer}/language/index`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const data = await response.json();
+    console.log(data)
+    this.setState({ languageOptions: data });
+  }
+
   renderCategoriesList() {
     const { categoryOptions } = this.state;
     // console.log(categoryOptions);
@@ -62,6 +75,16 @@ class DynamicComponent extends Component {
           {cat.name}
         </option>
       );
+    });
+  }
+
+  renderLanguageList() {
+    const { languageOptions } = this.state 
+    console.log(languageOptions)
+    return languageOptions.map((lan, index) => {
+      return (
+        <option key={index} value={lan.id}>{lan.name}</option>
+      )
     });
   }
 
@@ -128,6 +151,9 @@ class DynamicComponent extends Component {
         getCategoryList={this.getCategoryList}
         renderCategoriesList={this.renderCategoriesList}
         categoryOptions={this.state.categoryOptions}
+        getLanguageList={this.getLanguageList}
+        renderLanguageList={this.renderLanguageList}
+        languageOptions={this.state.languageOptions}
         state={this.state}
         currPage={this.currPage}
         nextPage={this.nextPage}

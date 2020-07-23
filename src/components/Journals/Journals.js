@@ -14,6 +14,7 @@ class Journals extends Component {
     };
 
     this.renderJournalEntries = this.renderJournalEntries.bind(this);
+
   }
 
   async componentDidMount() {
