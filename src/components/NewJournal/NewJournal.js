@@ -96,10 +96,10 @@ class NewJournal extends Component {
   }
 
   render() {
-    console.log(this.props);
-    console.log(this.state);
+    // console.log(this.props);
+    // console.log(this.state);
     if (this.state.redirect) {
-      return <Redirect to="/dashboard/journals" />;
+      return <Redirect to="/dashboard/journals/" />;
     } else {
       return (
         <div>

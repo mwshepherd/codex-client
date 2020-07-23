@@ -55,7 +55,7 @@ class DynamicComponent extends Component {
 
   renderCategoriesList() {
     const { categoryOptions } = this.state;
-    console.log(categoryOptions);
+    // console.log(categoryOptions);
     return categoryOptions.map((cat, index) => {
       return (
         <option key={index} value={cat.id}>
@@ -118,7 +118,7 @@ class DynamicComponent extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     // console.log(this.currPage);
     // console.log('inside dynamic component');
     const SelectedPage = components[this.props.page];
