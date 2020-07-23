@@ -76,7 +76,7 @@ class DynamicComponent extends Component {
 
   renderLanguageList() {
     const { languageOptions } = this.state;
-    console.log(languageOptions);
+    // console.log(languageOptions);
     return languageOptions.map((lan, index) => {
       return (
         <option key={index} value={lan.id}>
@@ -100,43 +100,69 @@ class DynamicComponent extends Component {
     }
   }
 
-  sortByCategories(page) {
-    console.log(this.state[page]);
+  sortByCategories(type, page) {
+    console.log(type, page);
+    let lessThan, greaterThan, sortedType;
+
+    if (this.state.sortedType === 'category-ascend') {
+      lessThan = 1;
+      greaterThan = -1;
+      sortedType = 'category-descend';
+    } else {
+      lessThan = -1;
+      greaterThan = 1;
+      sortedType = 'category-ascend';
+    }
+
     const sorted = this.state[page].sort((a, b) => {
       let titleA, titleB;
-      a.category.length > 0 ? (titleA = a.category[0].name.toLowerCase()) : (titleA = 'z');
-      b.category.length > 0 ? (titleB = b.category[0].name.toLowerCase()) : (titleB = 'z');
+      titleA = a[type].name.toLowerCase();
+      titleB = b[type].name.toLowerCase();
 
       if (titleA < titleB) {
-        return -1;
+        return lessThan;
       }
 
       if (titleA > titleB) {
-        return 1;
+        return greaterThan;
       }
       return 0;
     });
-    this.setState({ [page]: sorted });
+    this.setState({ [page]: sorted, sortedType: sortedType });
   }
 
   sortByTitle(type, page) {
+    let lessThan, greaterThan, sortedType;
+
+    if (this.state.sortedType === 'alpha-ascend') {
+      lessThan = 1;
+      greaterThan = -1;
+      sortedType = 'alpha-descend';
+    } else {
+      lessThan = -1;
+      greaterThan = 1;
+      sortedType = 'alpha-ascend';
+    }
+
     const sorted = this.state[page].sort((a, b) => {
       let titleA = a[type].toLowerCase();
       let titleB = b[type].toLowerCase();
 
       if (titleA < titleB) {
-        return -1;
+        return lessThan;
       }
 
       if (titleA > titleB) {
-        return 1;
+        return greaterThan;
       }
       return 0;
     });
-    this.setState({ [page]: sorted });
+
+    this.setState({ [page]: sorted, sortedType: sortedType });
   }
 
   render() {
+    console.log(this.state);
     const SelectedPage = components[this.props.page];
     return (
       <SelectedPage
