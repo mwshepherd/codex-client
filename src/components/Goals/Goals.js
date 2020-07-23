@@ -38,6 +38,9 @@ class Goals extends Component {
   }
 
   async completeGoal(id) {
+    const date = moment(Date.now()).format('YYYY-MM-DD');
+    console.log(date)
+
     await fetch(`${backendServer}/${page}/${id}`, {
       method: "PUT",
       headers: {
@@ -45,10 +48,11 @@ class Goals extends Component {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
-        completed: true
+        completed: true,
+        completed_date: date,
       }),
     });
-    window.alert("Goal Marked Complete")
+    window.alert("Well done on achieving your goals!🎉")
     this.props.getUsersEntries(page);
   }
 
