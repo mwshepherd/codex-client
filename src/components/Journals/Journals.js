@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
-import './Journal.scss';
-import { backendServer } from '../shared/constants';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import moment from "moment";
+import "./Journal.scss";
+import { backendServer } from "../shared/constants";
 
 const page = 'journals';
 
@@ -53,14 +53,15 @@ class Journals extends Component {
             </div>
           </div>
 
-          {journals && journals.map((journal) => this.renderJournalEntries(journal))}
+          {journals &&
+            journals.map((journal) => this.renderJournalEntries(journal))}
         </div>
         <div className="pagination-btns">
-          <button onClick={() => prevPage('journals')}>Prev</button>
+          <button onClick={() => prevPage("journals")}>Prev</button>
           <div className="total-pages">
             {currPage} / {totalPages}
           </div>
-          <button onClick={() => nextPage('journals')}>Next</button>
+          <button onClick={() => nextPage("journals")}>Next</button>
         </div>
       </>
     );

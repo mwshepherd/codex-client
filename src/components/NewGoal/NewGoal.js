@@ -18,7 +18,7 @@ class NewGoal extends Component {
   onLanguageChange = (event) => {
     // console.log(this.state)
     this.setState({ language_id: event.target.value });
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   onFormSubmit = async (event) => {

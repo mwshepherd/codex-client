@@ -6,8 +6,8 @@ import { backendServer } from '../shared/constants';
 
 const styles = {
   editor: {
-    border: '1px solid gray',
-    minHeight: '6em',
+    border: "1px solid gray",
+    minHeight: "6em",
   },
 };
 
@@ -64,8 +64,8 @@ class NewJournal extends Component {
     const response = await fetch(`${backendServer}/journals`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify(body),
     });
@@ -81,18 +81,26 @@ class NewJournal extends Component {
 
     if (newState) {
       this.onChange(newState);
-      return 'handled';
+      return "handled";
     }
 
-    return 'not-handled';
+    return "not-handled";
   }
 
   _onBoldClick() {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "BOLD"));
   }
 
   _onItalicClick() {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
+    this.onChange(
+      RichUtils.toggleInlineStyle(this.state.editorState, "ITALIC")
+    );
+  }
+
+  _onCodeClick() {
+    this.onChange(
+      RichUtils.toggleInlineStyle(this.state.editorState, "CODE")
+    );
   }
 
   render() {
@@ -105,10 +113,16 @@ class NewJournal extends Component {
         <div>
           {/* <h1>New Journal Page</h1> */}
           <input type="text" placeholder="New Journal Title" id="title" onChange={this.handleJournalTitle} />
-          <button onClick={this._onBoldClick.bind(this)}>Bold</button>
-          <button onClick={this._onItalicClick.bind(this)}>Italic</button>
-          <div style={styles.editor} onClick={this.focusEditor}>
-            <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
+        <button onClick={this._onBoldClick.bind(this)}>Bold</button>
+        <button onClick={this._onItalicClick.bind(this)}>Italic</button>
+        <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
+        <div style={styles.editor} onClick={this.focusEditor}>
+          <Editor
+            ref={this.setEditor}
+            editorState={this.state.editorState}
+            handleKeyCommand={this.handleKeyCommand}
+            onChange={this.onChange}
+          />
           </div>
           <label htmlFor="categories">Category:</label>
           <select onChange={this.onOptionChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
