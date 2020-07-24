@@ -9,6 +9,7 @@ import Nav from '../shared/Nav/Nav';
 import TopPanel from '../shared/TopPanel/TopPanel';
 import Home from '../Home/Home';
 import NewJournal from '../NewJournal/NewJournal';
+import EditJournal from '../EditJournal/EditJournal';
 import Journals from '../Journals/Journals';
 import SingleJournal from '../SingleJournal/SingleJournal';
 import Bookmarks from '../Bookmarks/Bookmarks';
@@ -85,6 +86,10 @@ class Dashboard extends Component {
       case 'new-journal':
         // mainWindow = <NewJournal user={this.state.user} />;
         mainWindow = <DynamicComponent page={'newJournal'} user={this.state.user} />;
+        break;
+      case 'edit-journal':
+        // mainWindow = <NewJournal user={this.state.user} />;
+        mainWindow = <DynamicComponent page={'editJournal'} user={this.state.user} locationProps={this.props} />;
         break;
       case 'journals':
         // mainWindow = <Journals  setCurrentPage={this.setCurrentPage} setCurrentJournal={this.setCurrentJournal} />;

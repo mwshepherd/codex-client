@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Journals from '../Journals/Journals';
 import NewJournal from '../NewJournal/NewJournal';
+import EditJournal from '../EditJournal/EditJournal';
 import Bookmarks from '../Bookmarks/Bookmarks';
 import Goals from '../Goals/Goals';
 
@@ -12,6 +13,7 @@ const components = {
   newJournal: NewJournal,
   bookmarks: Bookmarks,
   goals: Goals,
+  editJournal: EditJournal,
 };
 
 class DynamicComponent extends Component {
@@ -136,7 +138,7 @@ class DynamicComponent extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const SelectedPage = components[this.props.page];
     return (
       <SelectedPage
@@ -153,6 +155,7 @@ class DynamicComponent extends Component {
         prevPage={this.prevPage}
         sortByType={this.sortByType}
         user={this.props.user}
+        locationProps={this.props.locationProps}
       />
     );
   }
