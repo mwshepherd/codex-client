@@ -5,10 +5,12 @@ class TopPanel extends Component {
   render() {
     return (
       <div className="top-panel">
-        <div className="top-panel__nav-btn" onClick={this.props.toggleNav}>
-          <div className="line"></div>
-          <div className="line"></div>
-          <div className="line"></div>
+        <div className="top-panel__nav-btn-wrapper" onClick={this.props.toggleNav}>
+          <button className="top-panel__nav-btn">
+            <div className="line"></div>
+            <div className="line"></div>
+            <div className="line"></div>
+          </button>
         </div>
         <div className="top-panel__site-title">codex</div>
 

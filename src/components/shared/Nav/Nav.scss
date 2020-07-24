@@ -1,6 +1,6 @@
 .left-panel {
   position: relative;
-  background: #3c3c3c;
+  background: #333;
   width: 70px;
   // padding: 14px;
   transition: width 0.6s;
@@ -33,13 +33,13 @@
   }
 
   .nav-main {
-    margin-top: 100px;
+    margin-top: 70px;
     position: sticky;
-    top: 100px;
+    top: 70px;
     width: inherit;
 
     .quick-links {
-      background-color: #949494;
+      background-color: #222;
       padding: 7px;
       margin: 7px;
       border-radius: 7px;
@@ -68,10 +68,10 @@
       li {
         display: flex;
         align-items: center;
-        background: #676767;
+        // background: #676767;
         padding: 10px;
         border-radius: 7px;
-        height: 40px;
+        height: 42px;
         transition: all 0.2s;
         cursor: pointer;
 
@@ -80,13 +80,13 @@
         }
 
         &:hover {
-          background: #eee;
+          background: #555;
         }
 
         .link-wrapper {
           display: flex;
           align-items: center;
-          color: #7bc5ca;
+          color: #d3d3d3;
 
           .icon {
             display: flex;
@@ -102,6 +102,7 @@
             // justify-content: center;
             opacity: 0;
             font-size: 0px;
+            text-transform: uppercase;
             width: 0px;
             margin-left: 10px;
             transition: all 0.3s;
@@ -109,7 +110,7 @@
             &.show {
               opacity: 1;
               font-size: 12px;
-              width: 100px;
+              width: 120px;
               transition: opacity 0.6s;
               transition-delay: 0.2s;
             }
