@@ -46,7 +46,9 @@ class Journals extends Component {
         <div className="journal">
           <div className="journal__header">
             <h1>Journals</h1>
-            <div className="add-journal">Add</div>
+            <Link to="/dashboard/journals/new" className="add-journal">
+              Add
+            </Link>
           </div>
           <div className="pagination-btns">
             <button onClick={() => prevPage('journals')}>Prev</button>
