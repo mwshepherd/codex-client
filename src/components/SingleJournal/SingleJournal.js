@@ -60,7 +60,7 @@ class SingleJournal extends Component {
           <h1>{title}</h1>
           <h3>{date}</h3>
           {/* <div>{body}</div> */}
-          <Editor editorState={editorState} readOnly={true} />
+          <Editor editorState={editorState} readOnly={false} />
           <Link to="/dashboard/journals">Back</Link>
           <div className="journal-delete">
 

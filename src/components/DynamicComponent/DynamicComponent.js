@@ -5,6 +5,7 @@ import NewJournal from '../NewJournal/NewJournal';
 import EditJournal from '../EditJournal/EditJournal';
 import Bookmarks from '../Bookmarks/Bookmarks';
 import Goals from '../Goals/Goals';
+import Analytics from '../Analytics/Analytics';
 
 import { backendServer } from '../shared/constants';
 
@@ -13,7 +14,9 @@ const components = {
   newJournal: NewJournal,
   bookmarks: Bookmarks,
   goals: Goals,
+  analytics: Analytics,
   editJournal: EditJournal,
+
 };
 
 class DynamicComponent extends Component {
