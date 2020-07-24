@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import "../Bookmarks/Bookmarks.scss";
+import React, { Component } from 'react';
+import '../Bookmarks/Bookmarks.scss';
 
 class NewBookmark extends Component {
   onInputChange = (event) => {
@@ -9,13 +9,13 @@ class NewBookmark extends Component {
   };
 
   onCategoryChange = (event) => {
-    this.setState({category_id: event.target.value})
+    this.setState({ category_id: event.target.value });
   };
 
   onLanguageChange = (event) => {
     // console.log(this.state)
-    this.setState({language_id: event.target.value})
-    console.log(this.state)
+    this.setState({ language_id: event.target.value });
+    console.log(this.state);
   };
 
   onFormSubmit = async (event) => {
@@ -25,60 +25,38 @@ class NewBookmark extends Component {
       bookmark: this.state,
     };
 
-    await fetch("http://localhost:3000/bookmarks", {
-      method: "POST",
+    await fetch('http://localhost:3000/bookmarks', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(body),
     });
-    this.props.getUsersEntries("bookmarks");
+    this.props.getUsersEntries('bookmarks');
   };
 
   render() {
     // console.log(this.props);
     return (
-      <div className="newbookmark-form">
+      <div className="bookmark__form">
         <form onSubmit={this.onFormSubmit}>
           {/* <h1>Add a Bookmark</h1> */}
 
-          <label htmlFor="title">Title:</label>
-          <input
-            className="bookmark-title"
-            type="text"
-            name="title"
-            id="title"
-            onChange={this.onInputChange}
-          />
+          {/* <label htmlFor="title">Title:</label> */}
+          <input className="bookmark__form-title" type="text" name="title" id="title" placeholder="Title" onChange={this.onInputChange} />
 
-          <label htmlFor="url">URL:</label>
-          <input
-            className="bookmark-url"
-            type="text"
-            name="url"
-            id="url"
-            onChange={this.onInputChange}
-          />
+          {/* <label htmlFor="url">URL:</label> */}
+          <input className="bookmark__form-url" type="text" name="url" id="url" placeholder="URL" onChange={this.onInputChange} />
 
-          <label htmlFor="description">Description:</label>
-          <input
-            className="bookmark-description"
-            type="text"
-            name="description"
-            id="description"
-            onChange={this.onInputChange}
-          />
+          {/* <label htmlFor="description">Description:</label> */}
+          <input className="bookmark__form-description" type="text" name="description" id="description" placeholder="Description" onChange={this.onInputChange} />
 
           <label htmlFor="categories">Category:</label>
-          <select onChange={this.onCategoryChange}>
-            {this.props.categoryOptions && this.props.renderCategoriesList()}
-          </select>
+          <select onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
 
           <label htmlFor="languages">Language:</label>
-          <select onChange={this.onLanguageChange}>
-            {this.props.languageOptions && this.props.renderLanguageList()}
-          </select>
+          <select onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
 
           <input type="submit" value=" + " />
         </form>
