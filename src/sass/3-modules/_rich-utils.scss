@@ -10,5 +10,9 @@
     &:hover {
       background: rgb(247, 247, 247);
     }
+
+    &:focus {
+      outline: none;
+    }
   }
 }
