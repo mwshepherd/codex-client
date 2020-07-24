@@ -69,7 +69,7 @@ class Journals extends Component {
               <i className="fas fa-sort"></i>
             </div>
           </div>
-          {journals && journals.map((journal) => this.renderJournalEntries(journal))}
+          <div className="journal__entries">{journals && journals.map((journal) => this.renderJournalEntries(journal))}</div>
         </div>
       </>
     );
