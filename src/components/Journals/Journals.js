@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
-import './Journal.scss';
-import { backendServer } from '../shared/constants';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import moment from "moment";
+import "./Journal.scss";
+import { backendServer } from "../shared/constants";
 
-const page = 'journals';
+const page = "journals";
 
 class Journals extends Component {
   constructor(props) {
@@ -22,11 +22,20 @@ class Journals extends Component {
 
   renderJournalEntries(journal) {
     // console.log(journal);
-    const date = moment(journal.created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
+    const date = moment(journal.created_at).format(
+      "dddd, MMMM Do YYYY, h:mm:ss a"
+    );
 
     return (
       <div key={journal.id} className="journal-entry">
-        <Link to={{ pathname: `/dashboard/journals/${journal.id}`, state: { currentPage: 'single-journal', currentJournal: journal } }}>{journal.title}</Link>
+        <Link
+          to={{
+            pathname: `/dashboard/journals/${journal.id}`,
+            state: { currentPage: "single-journal", currentJournal: journal },
+          }}
+        >
+          {journal.title}
+        </Link>
         <div className="journal-entry__date">{date}</div>
         <div className="journal-entry__categories">{journal.category.name}</div>
       </div>
@@ -43,25 +52,35 @@ class Journals extends Component {
         <h1>Journals</h1>
         <div className="journals-table">
           <div className="journal-entry">
-            <div className="journal-title" onClick={() => this.props.sortByType('title', page)}>
+            <div
+              className="journal-title"
+              onClick={() => this.props.sortByType("title", page)}
+            >
               Title
             </div>
-            <div className="journal-date" onClick={() => this.props.sortByType('created_at', page)}>
+            <div
+              className="journal-date"
+              onClick={() => this.props.sortByType("created_at", page)}
+            >
               Date
             </div>
-            <div className="journal-category" onClick={() => this.props.sortByType('category', page)}>
+            <div
+              className="journal-category"
+              onClick={() => this.props.sortByType("category", page)}
+            >
               Category
             </div>
           </div>
 
-          {journals && journals.map((journal) => this.renderJournalEntries(journal))}
+          {journals &&
+            journals.map((journal) => this.renderJournalEntries(journal))}
         </div>
         <div className="pagination-btns">
-          <button onClick={() => prevPage('journals')}>Prev</button>
+          <button onClick={() => prevPage("journals")}>Prev</button>
           <div className="total-pages">
             {currPage} / {totalPages}
           </div>
-          <button onClick={() => nextPage('journals')}>Next</button>
+          <button onClick={() => nextPage("journals")}>Next</button>
         </div>
       </>
     );

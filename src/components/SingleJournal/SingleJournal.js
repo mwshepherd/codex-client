@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { Editor, EditorState, convertFromRaw } from 'draft-js';
-
 import { backendServer } from '../shared/constants';
+import { useHistory } from "react-router-dom";
+
+const page = "journals";
 
 class SingleJournal extends Component {
   constructor() {
@@ -13,6 +15,7 @@ class SingleJournal extends Component {
     };
 
     this.getSingleJournal = this.getSingleJournal.bind(this);
+    this.deleteJournal = this.deleteJournal.bind(this);
   }
 
   async componentDidMount() {
@@ -29,11 +32,23 @@ class SingleJournal extends Component {
       },
     });
     const journal = await response.json();
-
+    console.log(journal);
     this.setState({ journal: journal });
   }
 
+  async deleteJournal(id) {
+    await fetch(`${backendServer}/${page}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    console.log(this.props)
+    this.props.locationProps.history.push("/dashboard/journals")
+  }
+
   render() {
+    console.log(this.props.state)
     if (this.state.journal) {
       const { title, body, created_at } = this.state.journal;
       const date = moment(created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
@@ -48,6 +63,9 @@ class SingleJournal extends Component {
           {/* <div>{body}</div> */}
           <Editor editorState={editorState} readOnly={true} />
           <Link to="/dashboard/journals">Back</Link>
+          <div className="journal-delete">
+          <button onClick={() => this.deleteJournal(this.state.journal.id)}>Delete</button>
+          </div>
         </>
       );
     }
