@@ -4,6 +4,7 @@ import Journals from '../Journals/Journals';
 import NewJournal from '../NewJournal/NewJournal';
 import Bookmarks from '../Bookmarks/Bookmarks';
 import Goals from '../Goals/Goals';
+import Analytics from '../Analytics/Analytics';
 
 import { backendServer } from '../shared/constants';
 
@@ -12,6 +13,7 @@ const components = {
   newJournal: NewJournal,
   bookmarks: Bookmarks,
   goals: Goals,
+  analytics: Analytics,
 };
 
 class DynamicComponent extends Component {
@@ -136,7 +138,7 @@ class DynamicComponent extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const SelectedPage = components[this.props.page];
     return (
       <SelectedPage
