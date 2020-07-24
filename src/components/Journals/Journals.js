@@ -21,7 +21,7 @@ class Journals extends Component {
   }
 
   renderJournalEntries(journal) {
-    console.log(journal);
+    // console.log(journal);
     const date = moment(journal.created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
 
     return (
@@ -46,7 +46,9 @@ class Journals extends Component {
             <div className="journal-title" onClick={() => this.props.sortByType('title', page)}>
               Title
             </div>
-            <div className="journal-date">Date</div>
+            <div className="journal-date" onClick={() => this.props.sortByType('created_at', page)}>
+              Date
+            </div>
             <div className="journal-category" onClick={() => this.props.sortByType('category', page)}>
               Category
             </div>
