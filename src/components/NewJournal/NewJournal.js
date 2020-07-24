@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
-import "draft-js/dist/Draft.css";
-import { backendServer } from "../shared/constants";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
+import 'draft-js/dist/Draft.css';
+import { backendServer } from '../shared/constants';
 
 const styles = {
   editor: {
-    border: "1px solid gray",
-    minHeight: "6em",
+    border: '1px solid gray',
+    minHeight: '6em',
   },
 };
 
@@ -42,12 +42,12 @@ class NewJournal extends Component {
 
   onCategoryChange = (event) => {
     // console.log(this.state);
-    this.setState({ category_id: event.target.value });
+    this.setState({ category_id: parseInt(event.target.value) });
   };
 
   onLanguageChange = (event) => {
-    this.setState({ language_id: event.target.value });
-    console.log(this.state);
+    this.setState({ language_id: parseInt(event.target.value) });
+    // console.log(this.state);
   };
 
   handleJournalTitle(e) {
@@ -72,10 +72,10 @@ class NewJournal extends Component {
     };
 
     const response = await fetch(`${backendServer}/journals`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(body),
     });
@@ -91,62 +91,46 @@ class NewJournal extends Component {
 
     if (newState) {
       this.onChange(newState);
-      return "handled";
+      return 'handled';
     }
 
-    return "not-handled";
+    return 'not-handled';
   }
 
   _onBoldClick() {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "BOLD"));
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
   }
 
   _onItalicClick() {
-    this.onChange(
-      RichUtils.toggleInlineStyle(this.state.editorState, "ITALIC")
-    );
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
   }
 
   _onCodeClick() {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "CODE"));
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'CODE'));
   }
 
   render() {
-    console.log(this.props);
-    // console.log(this.state);
+    // console.log(this.props);
+    console.log(this.state);
     if (this.state.redirect) {
       return <Redirect to={`/dashboard/journals/${this.state.newJournalID}`} />;
     } else {
       return (
         <div>
           {/* <h1>New Journal Page</h1> */}
-          <input
-            type="text"
-            placeholder="New Journal Title"
-            id="title"
-            onChange={this.handleJournalTitle}
-          />
+          <input type="text" placeholder="New Journal Title" id="title" onChange={this.handleJournalTitle} />
           <button onClick={this._onBoldClick.bind(this)}>Bold</button>
           <button onClick={this._onItalicClick.bind(this)}>Italic</button>
           <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
           <div style={styles.editor} onClick={this.focusEditor}>
-            <Editor
-              ref={this.setEditor}
-              editorState={this.state.editorState}
-              handleKeyCommand={this.handleKeyCommand}
-              onChange={this.onChange}
-            />
+            <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
           </div>
 
           <label htmlFor="categories">Category:</label>
-          <select onChange={this.onOptionChange}>
-            {this.props.categoryOptions && this.props.renderCategoriesList()}
-          </select>
+          <select onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
 
           <label htmlFor="languages">Language:</label>
-          <select onChange={this.onLanguageChange}>
-            {this.props.languageOptions && this.props.renderLanguageList()}
-          </select>
+          <select onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
 
           <div className="post-btn">
             <button onClick={this.createPost}>Post</button>
