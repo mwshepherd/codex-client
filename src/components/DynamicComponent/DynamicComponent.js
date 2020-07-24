@@ -115,7 +115,7 @@ class DynamicComponent extends Component {
 
     const sorted = this.state[page].sort((a, b) => {
       let titleA, titleB;
-      if (type === 'title' || type === 'due_date') {
+      if (type === 'title' || type === 'due_date' || type === 'created_at') {
         titleA = a[type].toLowerCase();
         titleB = b[type].toLowerCase();
       } else {
