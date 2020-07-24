@@ -97,7 +97,7 @@ class Dashboard extends Component {
         mainWindow = <DynamicComponent page={'goals'} />;
         break;
       case 'analytics':
-        mainWindow = <DynamicComponent page={'analytics'} />;
+        mainWindow = <DynamicComponent page={'analytics'} user={this.state.user} />;
         break;
       default:
         mainWindow = <Home user={this.state.user} />;

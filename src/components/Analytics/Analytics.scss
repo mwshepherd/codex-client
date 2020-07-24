@@ -1,10 +1,14 @@
 .demo-chart {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  // grid-template-columns: repeat(2, 1fr);
+  //   padding: 100px;
 
   & > * {
-    & > canvas {
-      width: 100% !important;
+    width: 100%;
+    & > div {
+      & > canvas {
+        width: 100% !important;
+      }
     }
   }
 }
