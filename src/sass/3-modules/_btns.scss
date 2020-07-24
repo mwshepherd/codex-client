@@ -1,0 +1,14 @@
+.post-btn {
+  background: none;
+  border: 1px solid #777;
+  color: #777;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+
+  &:hover {
+    border-color: #333;
+    color: #333;
+  }
+}

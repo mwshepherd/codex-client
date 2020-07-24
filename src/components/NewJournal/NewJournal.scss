@@ -1,0 +1,50 @@
+.new-journal {
+  &__title {
+    width: 100%;
+    background: none;
+    border: none;
+    font-size: 50px;
+    margin-bottom: 10px;
+
+    &:focus {
+      outline: none;
+      //   outline-color: #ccc;
+      //   outline-width: 1px;
+      //   outline-style: double;
+    }
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 10px;
+  }
+
+  &__option {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    width: 305px;
+
+    label {
+      text-align: right;
+      font-size: 12px;
+    }
+
+    select {
+      background: none;
+      border: 0;
+      font-family: inherit;
+      font-size: 12px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__submit {
+    text-align: right;
+  }
+}

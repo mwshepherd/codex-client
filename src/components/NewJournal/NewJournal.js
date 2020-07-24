@@ -3,11 +3,15 @@ import { Redirect } from 'react-router-dom';
 import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { backendServer } from '../shared/constants';
+import './NewJournal.scss';
 
 const styles = {
   editor: {
-    border: '1px solid gray',
-    minHeight: '6em',
+    border: '1px solid #ddd',
+    borderRadius: '5px',
+    minHeight: '12em',
+    marginBottom: '20px',
+    padding: '20px',
   },
 };
 
@@ -116,24 +120,34 @@ class NewJournal extends Component {
       return <Redirect to={`/dashboard/journals/${this.state.newJournalID}`} />;
     } else {
       return (
-        <div>
+        <div class="new-journal">
           {/* <h1>New Journal Page</h1> */}
-          <input type="text" placeholder="New Journal Title" id="title" onChange={this.handleJournalTitle} />
-          <button onClick={this._onBoldClick.bind(this)}>Bold</button>
-          <button onClick={this._onItalicClick.bind(this)}>Italic</button>
-          <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
+          <div className="new-journal__options">
+            <div className="new-journal__option">
+              <label htmlFor="categories">Category:</label>
+              <select onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
+            </div>
+            <div className="new-journal__option">
+              <label htmlFor="languages">Language:</label>
+              <select onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
+            </div>
+          </div>
+
+          <input className="new-journal__title" type="text" placeholder="Title..." id="title" onChange={this.handleJournalTitle} />
+          <div className="rich-utils">
+            <button onClick={this._onBoldClick.bind(this)}>Bold</button>
+            <button onClick={this._onItalicClick.bind(this)}>Italic</button>
+            <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
+          </div>
+
           <div style={styles.editor} onClick={this.focusEditor}>
             <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
           </div>
 
-          <label htmlFor="categories">Category:</label>
-          <select onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
-
-          <label htmlFor="languages">Language:</label>
-          <select onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
-
-          <div className="post-btn">
-            <button onClick={this.createPost}>Post</button>
+          <div className="new-journal__submit">
+            <button className="post-btn" onClick={this.createPost}>
+              Post
+            </button>
           </div>
         </div>
       );

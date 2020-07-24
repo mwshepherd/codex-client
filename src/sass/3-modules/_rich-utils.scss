@@ -1,0 +1,14 @@
+.rich-utils {
+  background: #fff;
+  border-radius: 5px;
+  & > * {
+    border: 0;
+    background: none;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background: rgb(247, 247, 247);
+    }
+  }
+}
