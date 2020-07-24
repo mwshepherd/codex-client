@@ -30,7 +30,7 @@ class NewJournal extends Component {
         this.editor.focus();
       }
     };
-    this.creatPost = this.creatPost.bind(this);
+    this.createPost = this.createPost.bind(this);
     this.handleJournalTitle = this.handleJournalTitle.bind(this);
   }
 
@@ -55,7 +55,7 @@ class NewJournal extends Component {
     this.setState({ journalTitle: e.target.value });
   }
 
-  async creatPost() {
+  async createPost() {
     const converted = convertToRaw(this.state.editorState.getCurrentContent());
     // console.log(converted);
     const jsonString = JSON.stringify(converted);
@@ -67,7 +67,7 @@ class NewJournal extends Component {
         title: this.state.journalTitle,
         body: JSON.stringify(converted),
         category_id: this.state.category_id,
-        language_id: 1,
+        language_id: this.state.language_id,
       },
     };
 
@@ -149,7 +149,7 @@ class NewJournal extends Component {
           </select>
 
           <div className="post-btn">
-            <button onClick={this.creatPost}>Post</button>
+            <button onClick={this.createPost}>Post</button>
           </div>
         </div>
       );
