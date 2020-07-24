@@ -5,6 +5,10 @@
     align-items: center;
     margin-bottom: 20px;
 
+    h1 {
+      font-size: 7vw;
+    }
+
     .add-journal {
       display: flex;
       justify-content: center;
@@ -56,6 +60,10 @@
     margin: 10px 0;
     border-radius: 5px;
     border: 1px solid #ccc;
+
+    &:hover {
+      background: #eee;
+    }
 
     & > * {
       display: flex;

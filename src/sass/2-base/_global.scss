@@ -24,3 +24,8 @@ a {
 .pagination-btns {
   display: flex;
 }
+
+button:focus,
+input:focus {
+  outline: none;
+}

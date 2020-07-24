@@ -10,6 +10,7 @@
   background: #eee;
 
   &__container {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 50px;
