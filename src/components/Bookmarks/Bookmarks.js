@@ -48,7 +48,9 @@ class Bookmarks extends Component {
         <div className="bookmark__entry-category">{bookmark.category.name}</div>
         <div className="bookmark__entry-language">{bookmark.language.name}</div>
         <div className="bookmark__entry-delete">
-          <button onClick={() => this.deleteBookmark(bookmark.id)}>Delete</button>
+          <button className="delete-btn" onClick={() => this.deleteBookmark(bookmark.id)}>
+            Delete
+          </button>
         </div>
       </div>
     );
@@ -80,14 +82,19 @@ class Bookmarks extends Component {
           />
           <div className="bookmark__columns">
             <div className="bookmark__title" onClick={() => this.props.sortByType('title', page)}>
-              Title & Bookmark Link
+              <span>Title & Bookmark Link</span>
+              <i className="fas fa-sort"></i>
             </div>
-            <div className="bookmark__description">Description</div>
-            <div className="bookmark-category" onClick={() => this.props.sortByType('category', page)}>
-              Category
+            <div className="bookmark__description">
+              <span>Description</span>
             </div>
-            <div className="bookmark-language" onClick={() => this.props.sortByType('language', page)}>
-              Language
+            <div className="bookmark__category" onClick={() => this.props.sortByType('category', page)}>
+              <span>Category</span>
+              <i className="fas fa-sort"></i>
+            </div>
+            <div className="bookmark__language" onClick={() => this.props.sortByType('language', page)}>
+              <span>Language</span>
+              <i className="fas fa-sort"></i>
             </div>
           </div>
           <div className="bookmark__entries">{bookmarks && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}</div>

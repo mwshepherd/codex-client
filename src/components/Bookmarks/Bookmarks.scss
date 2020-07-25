@@ -34,6 +34,15 @@
 
   &__description {
     grid-column: 5 / 8;
+
+    &:hover {
+      background: #fff;
+      color: #252525;
+    }
+  }
+
+  &__category {
+    grid-column: 8 / 9;
   }
 
   &__entries {

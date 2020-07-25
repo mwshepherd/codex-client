@@ -1,3 +1,12 @@
+.btn {
+  background: none;
+  border: 1px solid #777;
+  color: #777;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .post-btn {
   background: none;
   border: 1px solid #777;
@@ -11,6 +20,14 @@
     border-color: #333;
     color: #333;
   }
+}
+
+.delete-btn {
+  @extend .btn;
+  background: #ff5d5d;
+  color: #fff;
+  border: 0;
+  padding: 8px;
 }
 
 .pagination-btns {
