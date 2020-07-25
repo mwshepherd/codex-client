@@ -12,11 +12,12 @@ class Bookmarks extends Component {
       bookmarks: [],
       category_id: 1,
       language_id: 1,
+      popUp: false,
     };
 
     this.renderBookmarks = this.renderBookmarks.bind(this);
     this.deleteBookmark = this.deleteBookmark.bind(this);
-    // this.sortByCategories = this.sortByCategories.bind(this);
+    this.togglePopUp = this.togglePopUp.bind(this);
   }
 
   async componentDidMount() {
@@ -26,7 +27,6 @@ class Bookmarks extends Component {
   }
 
   async deleteBookmark(id) {
-    // console.log('inside deleteBookmark');
     await fetch(`${backendServer}/${page}/${id}`, {
       method: 'DELETE',
       headers: {
@@ -36,6 +36,10 @@ class Bookmarks extends Component {
     this.props.getUsersEntries(page);
   }
 
+  togglePopUp() {
+    this.setState({ popUp: !this.state.popUp });
+  }
+
   renderBookmarks(bookmark) {
     return (
       <div key={bookmark.id} className="bookmark__entry">
@@ -43,13 +47,15 @@ class Bookmarks extends Component {
           <a href={bookmark.url} target="_blank">
             {bookmark.title}
           </a>
+          <div className="bookmark__entry-delete">
+            <button className="delete-btn" onClick={() => this.deleteBookmark(bookmark.id)}>
+              <i className="far fa-trash-alt"></i>
+            </button>
+          </div>
         </div>
         <div className="bookmark__entry-description">{bookmark.description}</div>
         <div className="bookmark__entry-category">{bookmark.category.name}</div>
         <div className="bookmark__entry-language">{bookmark.language.name}</div>
-        <div className="bookmark__entry-delete">
-          <button onClick={() => this.deleteBookmark(bookmark.id)}>Delete</button>
-        </div>
       </div>
     );
   }
@@ -57,40 +63,47 @@ class Bookmarks extends Component {
   render() {
     const { bookmarks, totalPages } = this.props.state;
     const { currPage, prevPage, nextPage } = this.props;
-    // console.log(this.props.state);
 
     return (
       <>
         <div className="bookmark">
-          <h1>Bookmarks</h1>
-          <div className="pagination-btns">
-            <button onClick={() => prevPage(page)}>Prev</button>
-            <div className="total-pages">
-              {currPage} / {totalPages}
-            </div>
-            <button onClick={() => nextPage(page)}>Next</button>
-          </div>
-
+          <h1 className="page-header">Bookmarks</h1>
           <NewBookmark
             getUsersEntries={this.props.getUsersEntries}
             renderCategoriesList={this.props.renderCategoriesList}
             categoryOptions={this.props.categoryOptions}
             renderLanguageList={this.props.renderLanguageList}
             languageOptions={this.props.languageOptions}
+            togglePopUp={this.togglePopUp}
           />
-          <div className="bookmark__columns">
-            <div className="bookmark__title" onClick={() => this.props.sortByType('title', page)}>
-              Title & Bookmark Link
+
+          <div className="bookmark__entries">
+            <div className="pagination-btns">
+              <button onClick={() => prevPage(page)}>Prev</button>
+              <div className="total-pages">
+                {currPage} / {totalPages}
+              </div>
+              <button onClick={() => nextPage(page)}>Next</button>
             </div>
-            <div className="bookmark__description">Description</div>
-            <div className="bookmark-category" onClick={() => this.props.sortByType('category', page)}>
-              Category
+            <div className="bookmark__columns">
+              <div className="bookmark__title" onClick={() => this.props.sortByType('title', page)}>
+                <span>Title & Bookmark Link</span>
+                <i className="fas fa-sort"></i>
+              </div>
+              <div className="bookmark__description">
+                <span>Description</span>
+              </div>
+              <div className="bookmark__category" onClick={() => this.props.sortByType('category', page)}>
+                <span>Category</span>
+                <i className="fas fa-sort"></i>
+              </div>
+              <div className="bookmark__language" onClick={() => this.props.sortByType('language', page)}>
+                <span>Language</span>
+                <i className="fas fa-sort"></i>
+              </div>
             </div>
-            <div className="bookmark-language" onClick={() => this.props.sortByType('language', page)}>
-              Language
-            </div>
+            {bookmarks && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
           </div>
-          <div className="bookmark__entries">{bookmarks && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}</div>
         </div>
       </>
     );

@@ -1,0 +1,33 @@
+.goal__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  form {
+    width: 100%;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+
+    input,
+    select {
+      width: 100%;
+      margin-right: 10px;
+      border: 1px solid var(--color-border);
+      border-radius: 5px;
+      background: none;
+      padding: 8px;
+    }
+
+    input[type='submit'] {
+      width: 10%;
+      &:hover {
+        color: var(--color-white);
+        border-color: var(--color-green);
+        background: var(--color-green);
+      }
+    }
+  }
+}

@@ -57,30 +57,27 @@ class Goals extends Component {
   }
 
   renderActiveGoals(goal) {
-    // console.log(goal);
-    // const categories =
-    // goal.categories &&
-    // goal.categories.map((category) => {
-    //   return (
-    //     <span key={category.id} className="category">#{category.name}</span>
-    //   );
-    // });
-
     const due_date = moment(goal.due_date).format('DD/MM/YYYY');
 
     if (goal.completed === false) {
       return (
-        <div key={goal.id} className="goal">
-          <div className="goal-title">{goal.title}</div>
-          <div className="goal-body">{goal.body}</div>
-          <div className="goal-due_date">{due_date}</div>
-          <div className="goal-category">{goal.category.name}</div>
-          <div className="goal-language">{goal.language.name}</div>
-          <div className="goal-completed">
-            <button onClick={() => this.completeGoal(goal.id)}>Mark Complete</button>
+        <div key={goal.id} className="goal__entry">
+          <div className="goal__entry-title">
+            <span>{goal.title}</span>
+            <div className="goal__entry-delete">
+              <button className="delete-btn" onClick={() => this.deleteGoal(goal.id)}>
+                <i className="far fa-trash-alt"></i>
+              </button>
+            </div>
           </div>
-          <div className="goal-delete">
-            <button onClick={() => this.deleteGoal(goal.id)}>Delete</button>
+          <div className="goal__entry-details">{goal.body}</div>
+          <div className="goal__entry-due-date">{due_date}</div>
+          <div className="goal__entry-category">{goal.category.name}</div>
+          <div className="goal__entry-language">{goal.language.name}</div>
+          <div className="goal__entry-completed">
+            <button className="complete-btn" onClick={() => this.completeGoal(goal.id)}>
+              <i className="far fa-check-circle"></i>
+            </button>
           </div>
         </div>
       );
@@ -92,12 +89,12 @@ class Goals extends Component {
 
     if (goal.completed === true) {
       return (
-        <div key={goal.id} className="goal">
-          <div className="goal-title">{goal.title}</div>
-          <div className="goal-body">{goal.body}</div>
-          <div className="goal-completed_date">{completed_date}</div>
-          <div className="goal-category">{goal.category.name}</div>
-          <div className="goal-language">{goal.language.name}</div>
+        <div key={goal.id} className="goal__entry">
+          <div className="goal__entry-title">{goal.title}</div>
+          <div className="goal__entry-details">{goal.body}</div>
+          <div className="goal__entry-completed_date">{completed_date}</div>
+          <div className="goal__entry-category">{goal.category.name}</div>
+          <div className="goal__entry-language">{goal.language.name}</div>
         </div>
       );
     }
@@ -109,39 +106,41 @@ class Goals extends Component {
 
     return (
       <>
-        <h1>Active Goals</h1>
-        <NewGoal
-          getUsersEntries={this.props.getUsersEntries}
-          renderCategoriesList={this.props.renderCategoriesList}
-          categoryOptions={this.props.categoryOptions}
-          renderLanguageList={this.props.renderLanguageList}
-          languageOptions={this.props.languageOptions}
-        />
-        <div className="goals-table">
-          <div className="goal">
-            <div className="goal-title" onClick={() => this.props.sortByType('title', page)}>
-              Goal
+        <div className="goal">
+          <h1 className="page-header">Active Goals</h1>
+          <NewGoal
+            getUsersEntries={this.props.getUsersEntries}
+            renderCategoriesList={this.props.renderCategoriesList}
+            categoryOptions={this.props.categoryOptions}
+            renderLanguageList={this.props.renderLanguageList}
+            languageOptions={this.props.languageOptions}
+          />
+          <div className="goal__entries">
+            <div className="pagination-btns">
+              <button onClick={() => prevPage(page)}>Prev</button>
+              <div className="total-pages">
+                {currPage} / {totalPages}
+              </div>
+              <button onClick={() => nextPage(page)}>Next</button>
             </div>
-            <div className="goal-body">Details</div>
-            <div className="goal-due_date" onClick={() => this.props.sortByType('due_date', page)}>
-              Due Date
+            <div className="goal__columns">
+              <div className="goal__title" onClick={() => this.props.sortByType('title', page)}>
+                Goal
+              </div>
+              <div className="goal__details">Details</div>
+              <div className="goal__due-date" onClick={() => this.props.sortByType('due_date', page)}>
+                Due Date
+              </div>
+              <div className="goal__category" onClick={() => this.props.sortByType('category', page)}>
+                Category
+              </div>
+              <div className="goal__language" onClick={() => this.props.sortByType('language', page)}>
+                Language
+              </div>
+              <div className="goal__completed">Completed</div>
             </div>
-            <div className="goal-category" onClick={() => this.props.sortByType('category', page)}>
-              Category
-            </div>
-            <div className="goal-language" onClick={() => this.props.sortByType('language', page)}>
-              Language
-            </div>
-            <div className="goal-completed">Mark Completed</div>
+            {goals && goals.map((goal) => this.renderActiveGoals(goal))}
           </div>
-          {goals && goals.map((goal) => this.renderActiveGoals(goal))}
-        </div>
-        <div className="pagination-btns">
-          <button onClick={() => prevPage(page)}>Prev</button>
-          <div className="total-pages">
-            {currPage} / {totalPages}
-          </div>
-          <button onClick={() => nextPage(page)}>Next</button>
         </div>
 
         <br />
@@ -150,23 +149,25 @@ class Goals extends Component {
         <br />
         <br />
 
-        <h1>Completed Goals</h1>
-        <div className="goals-table">
-          <div className="goal">
-            <div className="goal-title">Goal</div>
-            <div className="goal-body">Details</div>
-            <div className="goal-completed_date">Completed Date</div>
-            <div className="goal-category">Category</div>
-            <div className="goal-language">Language</div>
+        <div className="goal">
+          <h1 className="page-header">Completed Goals</h1>
+          <div className="goal__entries">
+            <div className="goal__columns">
+              <div className="goal__title">Goal</div>
+              <div className="goal__details">Details</div>
+              <div className="goal__completed_date">Completed</div>
+              <div className="goal__category">Category</div>
+              <div className="goal__language">Language</div>
+            </div>
+            {goals && goals.map((goal) => this.renderCompleteGoals(goal))}
           </div>
-          {goals && goals.map((goal) => this.renderCompleteGoals(goal))}
-        </div>
-        <div className="pagination-btns">
-          <button onClick={() => prevPage(page)}>Prev</button>
-          <div className="total-pages">
-            {currPage} / {totalPages}
+          <div className="pagination-btns">
+            <button onClick={() => prevPage(page)}>Prev</button>
+            <div className="total-pages">
+              {currPage} / {totalPages}
+            </div>
+            <button onClick={() => nextPage(page)}>Next</button>
           </div>
-          <button onClick={() => nextPage(page)}>Next</button>
         </div>
       </>
     );

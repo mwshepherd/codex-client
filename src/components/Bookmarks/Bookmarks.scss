@@ -1,46 +1,53 @@
 .bookmark {
-  h1 {
-    font-size: 7vw;
-    color: #333;
-  }
-
   &__columns {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    // padding: 10px;
     grid-gap: 10px;
+    margin-bottom: 10px;
 
     & > * {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #fff;
+      background: var(--color-white);
       border-radius: 5px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--color-border);
       padding: 10px;
       cursor: pointer;
-      transition: background 0.2s;
 
       &:hover {
-        color: #fff;
-        background: #252525;
+        color: var(--color-white);
+        background: var(--color-dark);
       }
     }
   }
 
   &__title {
-    grid-column: 1 / 5;
+    grid-column: 1 / 4;
   }
 
   &__description {
-    grid-column: 5 / 8;
+    grid-column: 4 / 7;
+
+    &:hover {
+      background: var(--color-white);
+      color: var(--color-dark);
+    }
+  }
+
+  &__category {
+    grid-column: 7 / 9;
+  }
+
+  &__language {
+    grid-column: 9 / 12;
   }
 
   &__entries {
     margin-top: 10px;
     padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
     border-radius: 5px;
   }
 
@@ -53,7 +60,11 @@
     transition: background 0.2s;
 
     &:hover {
-      background: #eee;
+      background: var(--color-background);
+
+      & > .bookmark__entry-title > .bookmark__entry-delete {
+        opacity: 1;
+      }
     }
 
     & > * {
@@ -63,28 +74,30 @@
     }
 
     &-title {
-      grid-column: 1 / 5;
+      grid-column: 1 / 4;
+      display: flex;
+      justify-content: space-between;
+
+      a {
+        font-weight: bold;
+      }
     }
 
     &-description {
-      grid-column: 5 / 8;
+      grid-column: 4 / 7;
+    }
+
+    &-category {
+      grid-column: 7 / 9;
+    }
+
+    &-language {
+      grid-column: 9 / 12;
     }
 
     &-delete {
-      justify-content: flex-end;
-    }
-  }
-
-  &__form {
-    // display: flex;
-    margin: 20px 0;
-
-    form {
-      display: flex;
-      width: 100%;
-      input {
-        width: 100%;
-      }
+      opacity: 0;
+      transition: all 0.2s;
     }
   }
 }

@@ -25,6 +25,7 @@ class Dashboard extends Component {
       currentPage: 'home',
       navState: 'collapsed',
       navExpanded: false,
+      // bookmarkPopUp: false,
       currentJournal: [],
     };
 
@@ -66,13 +67,17 @@ class Dashboard extends Component {
     this.setState({ currentJournal: journal });
   }
 
+  // toggleBookmarkPopUp = () => {
+  //   this.setState({ bookmarkPopUp: true });
+  // };
+
   logOut() {
     localStorage.removeItem('token');
     this.props.history.push('/');
   }
 
   render() {
-    // console.log(this.props);
+    console.log(this.state);
     const { currentPage } = this.props || 'home';
     // console.log(currentPage);
 
@@ -112,7 +117,7 @@ class Dashboard extends Component {
       <>
         <TopPanel toggleNav={this.toggleNav} logOut={this.logOut} />
         <div className="container">
-          <Nav setCurrentPage={this.setCurrentPage} navState={this.state.navState} navExpanded={this.state.navExpanded} />
+          <Nav setCurrentPage={this.setCurrentPage} navState={this.state.navState} navExpanded={this.state.navExpanded} toggleBookmarkPopUp={this.toggleBookmarkPopUp} />
           <div className="main-panel">
             <div className="main-panel__container">{mainWindow}</div>
           </div>

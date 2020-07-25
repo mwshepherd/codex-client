@@ -1,20 +1,40 @@
-.post-btn {
+.btn,
+input[type='submit'] {
   background: none;
-  border: 1px solid #777;
-  color: #777;
+  border: 1px solid var(--color-border);
+  color: var(--color-border);
   padding: 5px;
   border-radius: 5px;
-  font-size: 20px;
   cursor: pointer;
+}
+
+.post-btn {
+  @extend .btn;
+  font-size: 20px;
 
   &:hover {
-    border-color: #333;
-    color: #333;
+    border-color: var(--color-dark);
+    color: var(--color-dark);
   }
 }
 
+.complete-btn {
+  @extend .btn;
+  background: var(--color-green);
+  color: var(--color-white);
+  border: 0;
+  padding: 8px;
+}
+
+.delete-btn {
+  @extend .btn;
+  background: var(--color-red);
+  color: var(--color-white);
+  border: 0;
+  padding: 8px;
+}
+
 .pagination-btns {
-  // position: fixed;
   width: 100%;
   bottom: 0;
   display: flex;
@@ -24,9 +44,9 @@
 
   button {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-border);
     border-radius: 5px;
-    background: #fff;
+    background: var(--color-white);
     cursor: pointer;
   }
 }

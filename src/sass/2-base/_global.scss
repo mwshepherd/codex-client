@@ -4,6 +4,17 @@
   box-sizing: border-box;
 }
 
+:root {
+  --color-white: #fff;
+  --color-background: #eee;
+  --color-nav-icons: #d3d3d3;
+  --color-dark: #333;
+  --color-dark-highlight: #222;
+  --color-border: #ccc;
+  --color-red: #ff5d5d;
+  --color-green: #5dc78c;
+}
+
 body {
   margin: 0;
   font-family: 'Lato', sans-serif;
@@ -17,7 +28,7 @@ code {
 }
 
 a {
-  color: #000;
+  color: var(--color-dark);
   text-decoration: none;
 }
 
@@ -26,6 +37,14 @@ a {
 }
 
 button:focus,
-input:focus {
+input:focus,
+select:focus {
   outline: none;
+}
+
+.page-header {
+  font-size: 6vw;
+  font-weight: 100;
+  letter-spacing: -0.29vw;
+  color: var(--color-dark);
 }
