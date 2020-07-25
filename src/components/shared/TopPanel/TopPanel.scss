@@ -59,10 +59,18 @@
 
   &__settings {
     margin-left: 20px;
-    width: 30px;
-    height: 30px;
-    background: var(--color-dark-highlight);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    color: var(--color-white);
     border-radius: 7px;
     cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: var(--color-dark-highlight);
+    }
   }
 }
