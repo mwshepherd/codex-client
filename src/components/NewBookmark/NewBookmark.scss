@@ -1,0 +1,40 @@
+.bookmark__form {
+  //   position: absolute;
+  //   z-index: 90;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //   background: #0000007d;
+  //   padding: 10px;
+  //   backdrop-filter: blur(12px);
+  //   height: 100%;
+  //   width: 100%;
+
+  form {
+    width: 100%;
+    background: #333;
+    border-radius: 5px;
+    padding: 20px;
+    // height: 200px;
+    display: flex;
+    input,
+    select {
+      width: 100%;
+      margin-right: 10px;
+      border: 1px solid #444;
+      border-radius: 5px;
+      color: #fff;
+      background: none;
+      padding: 8px;
+    }
+
+    input[type='submit'] {
+      width: 10%;
+      &:hover {
+        background: #5dc78c;
+      }
+    }
+  }
+}

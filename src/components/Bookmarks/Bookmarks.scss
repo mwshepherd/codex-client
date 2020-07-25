@@ -1,7 +1,11 @@
 .bookmark {
-  h1 {
-    font-size: 7vw;
-    color: #333;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    h1 {
+      font-size: 7vw;
+      color: #333;
+    }
   }
 
   &__columns {
@@ -19,7 +23,7 @@
       border: 1px solid #ccc;
       padding: 10px;
       cursor: pointer;
-      transition: background 0.2s;
+      // transition: background 0.2s;
 
       &:hover {
         color: #fff;
@@ -63,7 +67,7 @@
     grid-gap: 10px;
     padding: 10px;
     // border-radius: 5px;
-    transition: background 0.2s;
+    // transition: background 0.2s;
 
     &:hover {
       background: #eee;
@@ -104,20 +108,7 @@
 
     &-delete {
       opacity: 0;
-      transition: all 0.2s;
-    }
-  }
-
-  &__form {
-    // display: flex;
-    margin: 20px 0;
-
-    form {
-      display: flex;
-      width: 100%;
-      input {
-        width: 100%;
-      }
+      // transition: all 0.2s;
     }
   }
 }

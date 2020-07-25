@@ -158,6 +158,8 @@ class DynamicComponent extends Component {
         sortByType={this.sortByType}
         user={this.props.user}
         locationProps={this.props.locationProps}
+        bookmarkPopUp={this.props.bookmarkPopUp}
+        toggleBookmarkPopUp={this.props.toggleBookmarkPopUp}
       />
     );
   }

@@ -19,7 +19,7 @@ class Nav extends Component {
                 </div>
               </li>
             </Link>
-            <Link to={{ pathname: '/dashboard/bookmarks', state: { currentPage: 'bookmarks' } }} className="nav-quick-link">
+            <Link to="/dashboard/bookmarks" className="nav-quick-link">
               <li>
                 <div className="link-wrapper">
                   <div className="icon">

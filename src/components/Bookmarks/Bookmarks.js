@@ -12,11 +12,12 @@ class Bookmarks extends Component {
       bookmarks: [],
       category_id: 1,
       language_id: 1,
+      popUp: false,
     };
 
     this.renderBookmarks = this.renderBookmarks.bind(this);
     this.deleteBookmark = this.deleteBookmark.bind(this);
-    // this.sortByCategories = this.sortByCategories.bind(this);
+    this.togglePopUp = this.togglePopUp.bind(this);
   }
 
   async componentDidMount() {
@@ -26,7 +27,6 @@ class Bookmarks extends Component {
   }
 
   async deleteBookmark(id) {
-    // console.log('inside deleteBookmark');
     await fetch(`${backendServer}/${page}/${id}`, {
       method: 'DELETE',
       headers: {
@@ -34,6 +34,10 @@ class Bookmarks extends Component {
       },
     });
     this.props.getUsersEntries(page);
+  }
+
+  togglePopUp() {
+    this.setState({ popUp: !this.state.popUp });
   }
 
   renderBookmarks(bookmark) {
@@ -59,12 +63,22 @@ class Bookmarks extends Component {
   render() {
     const { bookmarks, totalPages } = this.props.state;
     const { currPage, prevPage, nextPage } = this.props;
-    // console.log(this.props.state);
 
     return (
       <>
         <div className="bookmark">
-          <h1>Bookmarks</h1>
+          <div className="bookmark__header">
+            <h1>Bookmarks</h1>
+          </div>
+          {/* <h3 onClick={this.togglePopUp}>Add</h3> */}
+          <NewBookmark
+            getUsersEntries={this.props.getUsersEntries}
+            renderCategoriesList={this.props.renderCategoriesList}
+            categoryOptions={this.props.categoryOptions}
+            renderLanguageList={this.props.renderLanguageList}
+            languageOptions={this.props.languageOptions}
+            togglePopUp={this.togglePopUp}
+          />
           <div className="pagination-btns">
             <button onClick={() => prevPage(page)}>Prev</button>
             <div className="total-pages">
@@ -73,13 +87,6 @@ class Bookmarks extends Component {
             <button onClick={() => nextPage(page)}>Next</button>
           </div>
 
-          <NewBookmark
-            getUsersEntries={this.props.getUsersEntries}
-            renderCategoriesList={this.props.renderCategoriesList}
-            categoryOptions={this.props.categoryOptions}
-            renderLanguageList={this.props.renderLanguageList}
-            languageOptions={this.props.languageOptions}
-          />
           <div className="bookmark__columns">
             <div className="bookmark__title" onClick={() => this.props.sortByType('title', page)}>
               <span>Title & Bookmark Link</span>

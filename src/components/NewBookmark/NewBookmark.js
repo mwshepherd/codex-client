@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../Bookmarks/Bookmarks.scss';
+import './NewBookmark.scss';
 
 class NewBookmark extends Component {
   onInputChange = (event) => {
@@ -37,7 +37,7 @@ class NewBookmark extends Component {
   };
 
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     return (
       <div className="bookmark__form">
         <form onSubmit={this.onFormSubmit}>
@@ -52,13 +52,14 @@ class NewBookmark extends Component {
           {/* <label htmlFor="description">Description:</label> */}
           <input className="bookmark__form-description" type="text" name="description" id="description" placeholder="Description" onChange={this.onInputChange} />
 
-          <label htmlFor="categories">Category:</label>
+          {/* <label htmlFor="categories">Category:</label> */}
           <select onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
 
-          <label htmlFor="languages">Language:</label>
+          {/* <label htmlFor="languages">Language:</label> */}
           <select onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
 
           <input type="submit" value=" + " />
+          {/* <h3 onClick={this.props.togglePopUp}>Close</h3> */}
         </form>
       </div>
     );
