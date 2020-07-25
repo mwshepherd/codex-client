@@ -20,7 +20,6 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 10px;
-    // background: #fff;
     border-radius: 5px;
     margin-bottom: 10px;
 
@@ -36,8 +35,8 @@
       transition: background 0.2s;
 
       &:hover {
-        color: #fff;
-        background: #252525;
+        color: var(--color-white);
+        background: var(--color-dark);
       }
     }
   }
@@ -52,8 +51,8 @@
   &__entries {
     margin-top: 10px;
     padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
     border-radius: 5px;
   }
 
@@ -61,14 +60,14 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 10px;
-    background: #fff;
+    background: var(--color-white);
     border-radius: 5px;
     // padding: 20px;
     // margin: 10px 0;
     transition: background 0.2s;
 
     &:hover {
-      background: #eee;
+      background: var(--color-background);
     }
 
     & > * {

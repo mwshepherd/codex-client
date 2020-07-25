@@ -2,7 +2,6 @@
   &__columns {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    // padding: 10px;
     grid-gap: 10px;
     margin-bottom: 10px;
 
@@ -10,16 +9,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #fff;
+      background: var(--color-white);
       border-radius: 5px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--color-border);
       padding: 10px;
       cursor: pointer;
-      // transition: background 0.2s;
 
       &:hover {
-        color: #fff;
-        background: #252525;
+        color: var(--color-white);
+        background: var(--color-dark);
       }
     }
   }
@@ -32,8 +30,8 @@
     grid-column: 4 / 7;
 
     &:hover {
-      background: #fff;
-      color: #252525;
+      background: var(--color-white);
+      color: var(--color-dark);
     }
   }
 
@@ -48,8 +46,8 @@
   &__entries {
     margin-top: 10px;
     padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
     border-radius: 5px;
   }
 
@@ -62,7 +60,7 @@
     transition: background 0.2s;
 
     &:hover {
-      background: #eee;
+      background: var(--color-background);
 
       & > .bookmark__entry-title > .bookmark__entry-delete {
         opacity: 1;
@@ -95,7 +93,6 @@
 
     &-language {
       grid-column: 9 / 12;
-      // justify-content: flex-end;
     }
 
     &-delete {

@@ -28,7 +28,7 @@ code {
 }
 
 a {
-  color: #000;
+  color: var(--color-dark);
   text-decoration: none;
 }
 
@@ -46,5 +46,5 @@ select:focus {
   font-size: 6vw;
   font-weight: 100;
   letter-spacing: -0.29vw;
-  color: #333;
+  color: var(--color-dark);
 }
