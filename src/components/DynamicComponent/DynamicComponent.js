@@ -16,7 +16,6 @@ const components = {
   goals: Goals,
   analytics: Analytics,
   editJournal: EditJournal,
-
 };
 
 class DynamicComponent extends Component {

@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import moment from "moment";
-import "./Journal.scss";
-import { backendServer } from "../shared/constants";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import './Journal.scss';
 
-const page = "journals";
+const page = 'journals';
 
 class Journals extends Component {
   constructor(props) {
@@ -21,66 +20,58 @@ class Journals extends Component {
   }
 
   renderJournalEntries(journal) {
-    // console.log(journal);
-    const date = moment(journal.created_at).format(
-      "dddd, MMMM Do YYYY, h:mm:ss a"
-    );
+    const date = moment(journal.created_at).format('D/MM/YYYY');
 
     return (
-      <div key={journal.id} className="journal-entry">
-        <Link
-          to={{
-            pathname: `/dashboard/journals/${journal.id}`,
-            state: { currentPage: "single-journal", currentJournal: journal },
-          }}
-        >
-          {journal.title}
-        </Link>
-        <div className="journal-entry__date">{date}</div>
-        <div className="journal-entry__categories">{journal.category.name}</div>
-      </div>
+      <Link
+        to={{
+          pathname: `/dashboard/journals/${journal.id}`,
+        }}
+        key={journal.id}
+        className="journal__entry"
+      >
+        <div className="journal__entry-title">{journal.title}</div>
+        <div className="journal__entry-categories">{journal.category.name}</div>
+        <div className="journal__entry-date">{date}</div>
+      </Link>
     );
   }
 
   render() {
-    // console.log(this.state);
     const { journals, totalPages } = this.props.state;
     const { currPage, prevPage, nextPage } = this.props;
-    // console.log(journals);
+
     return (
       <>
-        <h1>Journals</h1>
-        <div className="journals-table">
-          <div className="journal-entry">
-            <div
-              className="journal-title"
-              onClick={() => this.props.sortByType("title", page)}
-            >
-              Title
+        <div className="journal">
+          <div className="journal__header">
+            <h1>Journals</h1>
+            <Link to="/dashboard/journals/new" className="add-journal">
+              Add
+            </Link>
+          </div>
+          <div className="pagination-btns">
+            <button onClick={() => prevPage('journals')}>Prev</button>
+            <div className="total-pages">
+              {currPage} / {totalPages}
             </div>
-            <div
-              className="journal-date"
-              onClick={() => this.props.sortByType("created_at", page)}
-            >
-              Date
+            <button onClick={() => nextPage('journals')}>Next</button>
+          </div>
+          <div className="journal__columns">
+            <div className="journal__title" onClick={() => this.props.sortByType('title', page)}>
+              <span>Title</span>
+              <i className="fas fa-sort"></i>
             </div>
-            <div
-              className="journal-category"
-              onClick={() => this.props.sortByType("category", page)}
-            >
-              Category
+            <div className="journal__category" onClick={() => this.props.sortByType('category', page)}>
+              <span>Category</span>
+              <i className="fas fa-sort"></i>
+            </div>
+            <div className="journal-date" onClick={() => this.props.sortByType('created_at', page)}>
+              <span>Date</span>
+              <i className="fas fa-sort"></i>
             </div>
           </div>
-
-          {journals &&
-            journals.map((journal) => this.renderJournalEntries(journal))}
-        </div>
-        <div className="pagination-btns">
-          <button onClick={() => prevPage("journals")}>Prev</button>
-          <div className="total-pages">
-            {currPage} / {totalPages}
-          </div>
-          <button onClick={() => nextPage("journals")}>Next</button>
+          <div className="journal__entries">{journals && journals.map((journal) => this.renderJournalEntries(journal))}</div>
         </div>
       </>
     );

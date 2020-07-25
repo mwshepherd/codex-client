@@ -38,16 +38,16 @@ class Bookmarks extends Component {
 
   renderBookmarks(bookmark) {
     return (
-      <div key={bookmark.id} className="bookmark">
-        <div className="bookmark-title">
+      <div key={bookmark.id} className="bookmark__entry">
+        <div className="bookmark__entry-title">
           <a href={bookmark.url} target="_blank">
             {bookmark.title}
           </a>
         </div>
-        <div className="bookmark-description">{bookmark.description}</div>
-        <div className="bookmark-category">{bookmark.category.name}</div>
-        <div className="bookmark-language">{bookmark.language.name}</div>
-        <div className="bookmark-delete">
+        <div className="bookmark__entry-description">{bookmark.description}</div>
+        <div className="bookmark__entry-category">{bookmark.category.name}</div>
+        <div className="bookmark__entry-language">{bookmark.language.name}</div>
+        <div className="bookmark__entry-delete">
           <button onClick={() => this.deleteBookmark(bookmark.id)}>Delete</button>
         </div>
       </div>
@@ -61,22 +61,28 @@ class Bookmarks extends Component {
 
     return (
       <>
-        <h1>Bookmarks</h1>
+        <div className="bookmark">
+          <h1>Bookmarks</h1>
+          <div className="pagination-btns">
+            <button onClick={() => prevPage(page)}>Prev</button>
+            <div className="total-pages">
+              {currPage} / {totalPages}
+            </div>
+            <button onClick={() => nextPage(page)}>Next</button>
+          </div>
 
-        <NewBookmark
-          getUsersEntries={this.props.getUsersEntries}
-          renderCategoriesList={this.props.renderCategoriesList}
-          categoryOptions={this.props.categoryOptions}
-          renderLanguageList={this.props.renderLanguageList}
-          languageOptions={this.props.languageOptions}
-        />
-
-        <div className="bookmarks-table">
-          <div className="bookmark">
-            <div className="bookmark-title" onClick={() => this.props.sortByType('title', page)}>
+          <NewBookmark
+            getUsersEntries={this.props.getUsersEntries}
+            renderCategoriesList={this.props.renderCategoriesList}
+            categoryOptions={this.props.categoryOptions}
+            renderLanguageList={this.props.renderLanguageList}
+            languageOptions={this.props.languageOptions}
+          />
+          <div className="bookmark__columns">
+            <div className="bookmark__title" onClick={() => this.props.sortByType('title', page)}>
               Title & Bookmark Link
             </div>
-            <div className="bookmark-description">Description</div>
+            <div className="bookmark__description">Description</div>
             <div className="bookmark-category" onClick={() => this.props.sortByType('category', page)}>
               Category
             </div>
@@ -84,14 +90,7 @@ class Bookmarks extends Component {
               Language
             </div>
           </div>
-          {bookmarks && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
-        </div>
-        <div className="pagination-btns">
-          <button onClick={() => prevPage(page)}>Prev</button>
-          <div className="total-pages">
-            {currPage} / {totalPages}
-          </div>
-          <button onClick={() => nextPage(page)}>Next</button>
+          <div className="bookmark__entries">{bookmarks && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}</div>
         </div>
       </>
     );

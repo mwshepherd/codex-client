@@ -59,7 +59,7 @@ export default class Analytics extends Component {
         <div className="demo-chart">
           <div className="all-activity">
             <h2>All Activity</h2>
-            {this.state?.activity.total_entries_by_date ? <LineChart data={this.state.activity.total_entries_by_date} width="100%" /> : null}
+            {this.state?.activity.total_entries_by_date && <LineChart data={this.state.activity.total_entries_by_date} width="100%" />}
           </div>
 
           <div className="all-activity">

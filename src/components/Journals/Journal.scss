@@ -1,4 +1,98 @@
-.journal-entry {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.journal {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h1 {
+      font-size: 7vw;
+      color: #333;
+    }
+
+    .add-journal {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+  }
+
+  &__columns {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 10px;
+    // background: #fff;
+    border-radius: 5px;
+
+    & > * {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        color: #fff;
+        background: #252525;
+      }
+    }
+  }
+
+  &__title {
+    grid-column: 1 / 4;
+  }
+  &__category {
+    grid-column: 4 / 6;
+  }
+
+  &__entries {
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  &__entry {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 10px;
+    background: #fff;
+    border-radius: 5px;
+    // padding: 20px;
+    // margin: 10px 0;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #eee;
+    }
+
+    & > * {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    &-title {
+      grid-column: 1 / 4;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    &-categories {
+      grid-column: 4 / 6;
+    }
+
+    &-date {
+      justify-content: flex-end;
+    }
+  }
 }

@@ -6,9 +6,11 @@
 .main-panel {
   display: flex;
   width: 100%;
-  margin-top: 100px;
+  margin-top: 60px;
+  background: #eee;
 
   &__container {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 50px;

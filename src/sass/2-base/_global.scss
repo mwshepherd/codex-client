@@ -17,9 +17,15 @@ code {
 }
 
 a {
+  color: #000;
   text-decoration: none;
 }
 
 .pagination-btns {
   display: flex;
+}
+
+button:focus,
+input:focus {
+  outline: none;
 }
