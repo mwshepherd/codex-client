@@ -67,10 +67,7 @@ class Bookmarks extends Component {
     return (
       <>
         <div className="bookmark">
-          <div className="bookmark__header">
-            <h1>Bookmarks</h1>
-          </div>
-          {/* <h3 onClick={this.togglePopUp}>Add</h3> */}
+          <h1>Bookmarks</h1>
           <NewBookmark
             getUsersEntries={this.props.getUsersEntries}
             renderCategoriesList={this.props.renderCategoriesList}
@@ -79,6 +76,7 @@ class Bookmarks extends Component {
             languageOptions={this.props.languageOptions}
             togglePopUp={this.togglePopUp}
           />
+
           <div className="pagination-btns">
             <button onClick={() => prevPage(page)}>Prev</button>
             <div className="total-pages">

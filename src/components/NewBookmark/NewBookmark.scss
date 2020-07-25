@@ -14,7 +14,8 @@
 
   form {
     width: 100%;
-    background: #333;
+    background: #fff;
+    border: 1px solid #ddd;
     border-radius: 5px;
     padding: 20px;
     // height: 200px;
@@ -23,9 +24,9 @@
     select {
       width: 100%;
       margin-right: 10px;
-      border: 1px solid #444;
+      border: 1px solid #ddd;
       border-radius: 5px;
-      color: #fff;
+      //   color: #fff;
       background: none;
       padding: 8px;
     }
