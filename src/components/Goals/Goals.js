@@ -89,12 +89,12 @@ class Goals extends Component {
 
     if (goal.completed === true) {
       return (
-        <div key={goal.id} className="goal">
-          <div className="goal-title">{goal.title}</div>
-          <div className="goal-body">{goal.body}</div>
-          <div className="goal-completed_date">{completed_date}</div>
-          <div className="goal-category">{goal.category.name}</div>
-          <div className="goal-language">{goal.language.name}</div>
+        <div key={goal.id} className="goal__entry">
+          <div className="goal__entry-title">{goal.title}</div>
+          <div className="goal__entry-details">{goal.body}</div>
+          <div className="goal__entry-completed_date">{completed_date}</div>
+          <div className="goal__entry-category">{goal.category.name}</div>
+          <div className="goal__entry-language">{goal.language.name}</div>
         </div>
       );
     }
@@ -149,23 +149,25 @@ class Goals extends Component {
         <br />
         <br />
 
-        <h1>Completed Goals</h1>
-        <div className="goals-table">
-          <div className="goal">
-            <div className="goal-title">Goal</div>
-            <div className="goal-body">Details</div>
-            <div className="goal-completed_date">Completed Date</div>
-            <div className="goal-category">Category</div>
-            <div className="goal-language">Language</div>
+        <div className="goal">
+          <h1 className="page-header">Completed Goals</h1>
+          <div className="goal__entries">
+            <div className="goal__columns">
+              <div className="goal__title">Goal</div>
+              <div className="goal__details">Details</div>
+              <div className="goal__completed_date">Completed</div>
+              <div className="goal__category">Category</div>
+              <div className="goal__language">Language</div>
+            </div>
+            {goals && goals.map((goal) => this.renderCompleteGoals(goal))}
           </div>
-          {goals && goals.map((goal) => this.renderCompleteGoals(goal))}
-        </div>
-        <div className="pagination-btns">
-          <button onClick={() => prevPage(page)}>Prev</button>
-          <div className="total-pages">
-            {currPage} / {totalPages}
+          <div className="pagination-btns">
+            <button onClick={() => prevPage(page)}>Prev</button>
+            <div className="total-pages">
+              {currPage} / {totalPages}
+            </div>
+            <button onClick={() => nextPage(page)}>Next</button>
           </div>
-          <button onClick={() => nextPage(page)}>Next</button>
         </div>
       </>
     );
