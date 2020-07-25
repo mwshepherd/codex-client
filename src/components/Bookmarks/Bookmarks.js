@@ -43,15 +43,15 @@ class Bookmarks extends Component {
           <a href={bookmark.url} target="_blank">
             {bookmark.title}
           </a>
+          <div className="bookmark__entry-delete">
+            <button className="delete-btn" onClick={() => this.deleteBookmark(bookmark.id)}>
+              <i className="far fa-trash-alt"></i>
+            </button>
+          </div>
         </div>
         <div className="bookmark__entry-description">{bookmark.description}</div>
         <div className="bookmark__entry-category">{bookmark.category.name}</div>
         <div className="bookmark__entry-language">{bookmark.language.name}</div>
-        <div className="bookmark__entry-delete">
-          <button className="delete-btn" onClick={() => this.deleteBookmark(bookmark.id)}>
-            Delete
-          </button>
-        </div>
       </div>
     );
   }

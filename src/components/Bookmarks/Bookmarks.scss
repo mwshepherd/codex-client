@@ -42,7 +42,7 @@
   }
 
   &__category {
-    grid-column: 8 / 9;
+    grid-column: 8 / 10;
   }
 
   &__entries {
@@ -63,6 +63,10 @@
 
     &:hover {
       background: #eee;
+
+      & > .bookmark__entry-title > .bookmark__entry-delete {
+        opacity: 1;
+      }
     }
 
     & > * {
@@ -73,14 +77,22 @@
 
     &-title {
       grid-column: 1 / 5;
+      display: flex;
+      justify-content: space-between;
     }
 
     &-description {
       grid-column: 5 / 8;
     }
 
+    &-category {
+      grid-column: 8 / 10;
+    }
+
     &-delete {
       justify-content: flex-end;
+      opacity: 0;
+      transition: all 0.2s;
     }
   }
 
