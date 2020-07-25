@@ -5,8 +5,25 @@ const userBuilder = build('User', {
     email: fake((f) => f.internet.email()),
     password: fake((f) => f.internet.password())
   }
-})
+});
+
+const bookmarkBuilder = build('Bookmark', {
+  fields: {
+    title: fake((f) => f.internet.domainName()),
+    url: fake((f) => f.internet.url()),
+    description: fake((f) => f.lorem.words()),
+    category_id: fake((f) => f.random.number({
+      'min': 1,
+      'max': 16
+    })),
+    language_id: fake((f) => f.random.number({
+      'min': 1,
+      'max': 26
+    })),
+  }
+});
 
 export {
-  userBuilder
+  userBuilder,
+  bookmarkBuilder
 }
