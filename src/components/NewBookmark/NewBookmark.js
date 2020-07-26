@@ -71,10 +71,10 @@ class NewBookmark extends Component {
             onChange={this.onInputChange}
           />
 
-          <label htmlFor="categories">Category:</label>
+          {/* <label htmlFor="categories">Category:</label> */}
           <select id="categories" onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
 
-          <label htmlFor="languages">Language:</label>
+          {/* <label htmlFor="languages">Language:</label> */}
           <select id="languages" onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
 
           <input type="submit" value=" + " />

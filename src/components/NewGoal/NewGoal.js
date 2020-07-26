@@ -64,10 +64,10 @@ class NewGoal extends Component {
           {/* </select> */}
 
           {/* <label htmlFor="categories">Category:</label> */}
-          <select onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
+          <select id="categories" onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
 
           {/* <label htmlFor="languages">Language:</label> */}
-          <select onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
+          <select id="languages" onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
 
           <input type="submit" value=" + " />
         </form>
