@@ -36,6 +36,7 @@ class Goals extends Component {
       },
     });
     this.props.getUsersEntries(page);
+    this.props.getCompletedGoals();
   }
 
   async completeGoal(id) {
@@ -92,7 +93,14 @@ class Goals extends Component {
     if (goal.completed === true) {
       return (
         <div key={goal.id} className="goal__entry">
-          <div className="goal__entry-title">{goal.title}</div>
+          <div className="goal__entry-title">
+            <span>{goal.title}</span>
+            <div className="goal__entry-delete">
+              <button className="delete-btn" onClick={() => this.deleteGoal(goal.id)}>
+                <i className="far fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
           <div className="goal__entry-details">{goal.body}</div>
           <div className="goal__entry-completed_date">{completed_date}</div>
           <div className="goal__entry-category">{goal.category.name}</div>
