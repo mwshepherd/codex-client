@@ -2,7 +2,7 @@
   &__columns {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    padding: 10px;
+    // padding: 10px;
     grid-gap: 10px;
     margin-bottom: 10px;
 
@@ -51,7 +51,7 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-gap: 10px;
-    padding: 20px;
+    // padding: 20px;
     border-radius: 5px;
     transition: background 0.2s;
 
@@ -66,7 +66,7 @@
     & > * {
       display: flex;
       align-items: center;
-      // padding: 20px;
+      padding: 20px;
     }
 
     &-title {
