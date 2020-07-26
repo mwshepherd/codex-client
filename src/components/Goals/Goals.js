@@ -66,14 +66,18 @@ class Goals extends Component {
       return (
         <div key={goal.id} className="goal__entry">
           <div className="goal__entry-title">
-            <span>{goal.title}</span>
+            <span>
+              <div className="goal__entry-title-bld">{goal.title}</div>
+              <div className="goal__entry-details">{goal.body}</div>
+            </span>
+
             <div className="goal__entry-delete">
               <button className="delete-btn" onClick={() => this.deleteGoal(goal.id)}>
                 <i className="far fa-trash-alt"></i>
               </button>
             </div>
           </div>
-          <div className="goal__entry-details">{goal.body}</div>
+
           <div className="goal__entry-due-date">{due_date}</div>
           <div className="goal__entry-category">{goal.category.name}</div>
           <div className="goal__entry-language">{goal.language.name}</div>
@@ -94,14 +98,17 @@ class Goals extends Component {
       return (
         <div key={goal.id} className="goal__entry">
           <div className="goal__entry-title">
-            <span>{goal.title}</span>
+            <span>
+              <div className="goal__entry-title-bld">{goal.title}</div>
+              <div className="goal__entry-details">{goal.body}</div>
+            </span>
             <div className="goal__entry-delete">
               <button className="delete-btn" onClick={() => this.deleteGoal(goal.id)}>
                 <i className="far fa-trash-alt"></i>
               </button>
             </div>
           </div>
-          <div className="goal__entry-details">{goal.body}</div>
+
           <div className="goal__entry-completed_date">{completed_date}</div>
           <div className="goal__entry-category">{goal.category.name}</div>
           <div className="goal__entry-language">{goal.language.name}</div>
@@ -144,7 +151,7 @@ class Goals extends Component {
                 <span>Goal</span>
                 <i className="fas fa-sort"></i>
               </div>
-              <div className="goal__details">Details</div>
+              {/* <div className="goal__details">Details</div> */}
               <div className="goal__due-date" onClick={() => this.props.sortByType('due_date', page)}>
                 <span>Due Date</span>
                 <i className="fas fa-sort"></i>
@@ -184,7 +191,7 @@ class Goals extends Component {
                 <span>Goal</span>
                 <i className="fas fa-sort"></i>
               </div>
-              <div className="goal__details">Details</div>
+
               <div className="goal__completed_date">
                 <span>Completed</span>
                 <i className="fas fa-sort"></i>
@@ -197,7 +204,7 @@ class Goals extends Component {
                 <span>Language</span>
                 <i className="fas fa-sort"></i>
               </div>
-              <div className="goal__language">
+              <div className="goal__completed">
                 <span>Complete</span>
               </div>
             </div>
