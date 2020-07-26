@@ -23,7 +23,16 @@ const bookmarkBuilder = build('Bookmark', {
   }
 });
 
+const goalBuilder = build('Goal', {
+  fields: {
+    title: fake((f) => f.name.findName()),
+    body: fake((f) => f.lorem.words()),
+    due_date: fake((f) => f.date.between('2020-08-01', '2021-12-12')),
+  }
+});
+
 export {
   userBuilder,
-  bookmarkBuilder
+  bookmarkBuilder,
+  goalBuilder
 }

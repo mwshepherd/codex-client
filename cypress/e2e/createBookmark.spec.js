@@ -1,6 +1,6 @@
 import { bookmarkBuilder } from '../support/generate'
 
-describe("when adding text to make a new bookmark user", () => {
+describe("when adding text to make a new bookmark", () => {
   beforeEach(() => {
     cy.fixture("user").then((user) => {
       window.localStorage.setItem("token", user.token);
@@ -8,7 +8,7 @@ describe("when adding text to make a new bookmark user", () => {
     });
   });
 
-  it("should be able to submit the form and be redirected to the /bookmarks page", () => {
+  it("should be able to submit the form and remain on the /bookmarks page", () => {
     const bookmark = bookmarkBuilder()
     cy.visit("dashboard/bookmarks");
     cy.url().should("include", "dashboard/bookmarks");
