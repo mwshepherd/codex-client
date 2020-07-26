@@ -18,6 +18,16 @@ input[type='submit'] {
   }
 }
 
+.close-btn {
+  @extend .btn;
+  border: 0;
+  font-size: 25px;
+
+  &:hover {
+    color: var(--color-red);
+  }
+}
+
 .complete-btn {
   @extend .btn;
   padding: 8px;
