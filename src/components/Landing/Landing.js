@@ -121,14 +121,21 @@ class Landing extends Component {
             </div>
             <div className="landingpage__preview"></div>
           </div>
-
-          {/* <h6>capture journal entries including code snippets</h6>
-          <h6>collect & categorize your bookmarks for easy reference</h6>
-          <h6>track your goals and due date milestones</h6>
-          <h6>view your learning & productivity statistics</h6> */}
-
-          {this.state.show === 'login' ? <Login landingProps={this.props} closePopUp={this.closePopUp} /> : null}
         </div>
+        <div className="landingpage__about" id="about">
+          <div className="landingpage__intro">
+            <div className="landingpage__title-about">
+              <h2 class="about-title">About</h2>
+            </div>
+            <div className="landingpage__info">
+              <h3>capture journal entries including code snippets</h3>
+              <h3>collect & categorize your bookmarks for easy reference</h3>
+              <h3>track your goals and due date milestones</h3>
+              <h3>view your learning & productivity statistics</h3>
+            </div>
+          </div>
+        </div>
+        {this.state.show === 'login' ? <Login landingProps={this.props} closePopUp={this.closePopUp} /> : null}
       </div>
     );
   }

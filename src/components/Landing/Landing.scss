@@ -54,6 +54,30 @@
     box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.1);
   }
 
+  &__about {
+    @extend .landingpage__start;
+  }
+
+  &__title-about {
+    @extend .landingpage__title;
+    // align-items: flex-end;
+    padding: 20px;
+
+    .about-title {
+      font-family: 'Red Hat Display';
+      font-weight: 100;
+      font-size: 8vw;
+      text-transform: lowercase;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
+
   .popup {
     position: absolute;
     top: 0;
