@@ -16,10 +16,15 @@
       padding: 10px;
       cursor: pointer;
 
-      &:hover {
+      &:hover:not(:nth-child(2)):not(:nth-child(6)) {
         color: var(--color-white);
         background: var(--color-dark);
       }
+    }
+
+    & > :last-child {
+      display: flex;
+      justify-content: center;
     }
   }
 

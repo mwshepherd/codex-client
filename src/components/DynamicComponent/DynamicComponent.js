@@ -24,9 +24,11 @@ class DynamicComponent extends Component {
     this.state = {};
 
     this.currPage = 1;
+    this.currPageCompletedGoals = 1;
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.getUsersEntries = this.getUsersEntries.bind(this);
+    this.getCompletedGoals = this.getCompletedGoals.bind(this);
     this.getCategoryList = this.getCategoryList.bind(this);
     this.getLanguageList = this.getLanguageList.bind(this);
     this.renderCategoriesList = this.renderCategoriesList.bind(this);
@@ -42,7 +44,21 @@ class DynamicComponent extends Component {
       },
     });
     const data = await response.json();
+    console.log(data);
+
     this.setState({ [page]: data[page], total: data.total_entries, totalPages: Math.ceil(data.total_entries / 5) });
+  }
+
+  async getCompletedGoals() {
+    const response = await fetch(`${backendServer}/goals-complete?page=${this.currPageCompletedGoals}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+
+    this.setState({ goalsComplete: data.goalsComplete, totalCompletedGoals: data.total_entries, totalCompletedGoalsPages: Math.ceil(data.total_entries / 5) });
   }
 
   async getCategoryList() {
@@ -145,6 +161,7 @@ class DynamicComponent extends Component {
     return (
       <SelectedPage
         getUsersEntries={this.getUsersEntries}
+        getCompletedGoals={this.getCompletedGoals}
         getCategoryList={this.getCategoryList}
         renderCategoriesList={this.renderCategoriesList}
         categoryOptions={this.state.categoryOptions}
@@ -152,6 +169,7 @@ class DynamicComponent extends Component {
         renderLanguageList={this.renderLanguageList}
         languageOptions={this.state.languageOptions}
         state={this.state}
+        currPageCompletedGoals={this.currPageCompletedGoals}
         currPage={this.currPage}
         nextPage={this.nextPage}
         prevPage={this.prevPage}
