@@ -72,14 +72,10 @@ class NewBookmark extends Component {
           />
 
           {/* <label htmlFor="categories">Category:</label> */}
-          <select value={this.state.category_id} onChange={this.onCategoryChange}>
-            {this.props.categoryOptions && this.props.renderCategoriesList()}
-          </select>
+          <select id="categories" onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
 
           {/* <label htmlFor="languages">Language:</label> */}
-          <select value={this.state.language_id} onChange={this.onLanguageChange}>
-            {this.props.languageOptions && this.props.renderLanguageList()}
-          </select>
+          <select id="languages" onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
 
           <input type="submit" value=" + " />
           {/* <h3 onClick={this.props.togglePopUp}>Close</h3> */}
