@@ -12,14 +12,14 @@ const bookmarkBuilder = build('Bookmark', {
     title: fake((f) => f.internet.domainName()),
     url: fake((f) => f.internet.url()),
     description: fake((f) => f.lorem.words()),
-    category_id: fake((f) => f.random.number({
-      'min': 1,
-      'max': 16
-    })),
-    language_id: fake((f) => f.random.number({
-      'min': 1,
-      'max': 26
-    })),
+  //   category_id: fake((f) => f.random.number({
+  //     'min': 1,
+  //     'max': 16
+  //   })),
+  //   language_id: fake((f) => f.random.number({
+  //     'min': 1,
+  //     'max': 26
+  //   })),
   }
 });
 
