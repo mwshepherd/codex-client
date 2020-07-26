@@ -107,16 +107,35 @@ class DynamicComponent extends Component {
   }
 
   nextPage(page) {
-    if (this.currPage < this.state.totalPages) {
-      this.currPage += 1;
-      this.getUsersEntries(page);
+    if (page === 'goals-complete') {
+      if (this.currPageCompletedGoals < this.state.totalCompletedGoalsPages) {
+        this.currPageCompletedGoals += 1;
+        this.getCompletedGoals();
+      }
+    } else {
+      if (this.currPage < this.state.totalPages) {
+        this.currPage += 1;
+        this.getUsersEntries(page);
+      }
     }
   }
 
   prevPage(page) {
-    if (this.currPage > 1) {
-      this.currPage -= 1;
-      this.getUsersEntries(page);
+    // if (this.currPage > 1) {
+    //   this.currPage -= 1;
+    //   this.getUsersEntries(page);
+    // }
+
+    if (page === 'goals-complete') {
+      if (this.currPageCompletedGoals > 1) {
+        this.currPageCompletedGoals -= 1;
+        this.getCompletedGoals();
+      }
+    } else {
+      if (this.currPage > 1) {
+        this.currPage -= 1;
+        this.getUsersEntries(page);
+      }
     }
   }
 

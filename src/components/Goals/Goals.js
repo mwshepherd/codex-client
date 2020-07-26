@@ -164,6 +164,13 @@ class Goals extends Component {
         <div className="goal">
           <h1 className="page-header">Completed Goals</h1>
           <div className="goal__entries">
+            <div className="pagination-btns">
+              <button onClick={() => prevPage('goals-complete')}>Prev</button>
+              <div className="total-pages">
+                {currPageCompletedGoals} / {totalCompletedGoalsPages}
+              </div>
+              <button onClick={() => nextPage('goals-complete')}>Next</button>
+            </div>
             <div className="goal__columns">
               <div className="goal__title">
                 <span>Goal</span>
@@ -187,13 +194,6 @@ class Goals extends Component {
               </div>
             </div>
             {goalsComplete && goalsComplete.map((goal) => this.renderCompleteGoals(goal))}
-          </div>
-          <div className="pagination-btns">
-            <button onClick={() => prevPage(page)}>Prev</button>
-            <div className="total-pages">
-              {currPageCompletedGoals} / {totalCompletedGoalsPages}
-            </div>
-            <button onClick={() => nextPage(page)}>Next</button>
           </div>
         </div>
       </>
