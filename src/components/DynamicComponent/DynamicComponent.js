@@ -33,7 +33,6 @@ class DynamicComponent extends Component {
     this.getLanguageList = this.getLanguageList.bind(this);
     this.renderCategoriesList = this.renderCategoriesList.bind(this);
     this.renderLanguageList = this.renderLanguageList.bind(this);
-    // this.sortByTitle = this.sortByTitle.bind(this);
     this.sortByType = this.sortByType.bind(this);
   }
 
@@ -96,7 +95,6 @@ class DynamicComponent extends Component {
 
   renderLanguageList() {
     const { languageOptions } = this.state;
-    // console.log(languageOptions);
     return languageOptions.map((lan, index) => {
       return (
         <option key={index} value={lan.id}>
@@ -121,11 +119,6 @@ class DynamicComponent extends Component {
   }
 
   prevPage(page) {
-    // if (this.currPage > 1) {
-    //   this.currPage -= 1;
-    //   this.getUsersEntries(page);
-    // }
-
     if (page === 'goals-complete') {
       if (this.currPageCompletedGoals > 1) {
         this.currPageCompletedGoals -= 1;
@@ -175,7 +168,6 @@ class DynamicComponent extends Component {
   }
 
   render() {
-    // console.log(this.state);
     const SelectedPage = components[this.props.page];
     return (
       <SelectedPage
