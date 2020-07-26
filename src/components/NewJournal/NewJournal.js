@@ -125,11 +125,11 @@ class NewJournal extends Component {
           <div className="new-journal__options">
             <div className="new-journal__option">
               <label htmlFor="categories">Category:</label>
-              <select onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
+              <select id="categories" onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
             </div>
             <div className="new-journal__option">
               <label htmlFor="languages">Language:</label>
-              <select onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
+              <select id="languages"  onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
             </div>
           </div>
 
@@ -140,12 +140,12 @@ class NewJournal extends Component {
             <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
           </div>
 
-          <div style={styles.editor} onClick={this.focusEditor}>
+          <div id="journal-body" style={styles.editor} onClick={this.focusEditor}>
             <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
           </div>
 
           <div className="new-journal__submit">
-            <button className="post-btn" onClick={this.createPost}>
+            <button id="post-btn" className="post-btn" onClick={this.createPost}>
               Post
             </button>
           </div>
