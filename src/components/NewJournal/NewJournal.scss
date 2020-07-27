@@ -1,16 +1,16 @@
 .new-journal {
+  padding: 0 15%;
+
   &__title {
     width: 100%;
     background: none;
     border: none;
     font-size: 50px;
     margin-bottom: 10px;
+    font-family: 'Libre Baskerville', serif;
 
     &:focus {
       outline: none;
-      //   outline-color: #ccc;
-      //   outline-width: 1px;
-      //   outline-style: double;
     }
   }
 

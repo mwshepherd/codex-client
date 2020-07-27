@@ -13,6 +13,7 @@ const styles = {
     minHeight: '12em',
     marginBottom: '20px',
     padding: '20px',
+    fontFamily: 'Libre Baskerville, serif',
   },
 };
 
@@ -173,7 +174,7 @@ class EditJournal extends Component {
 
             <div className="edit-journal__submit">
               <button className="post-btn" onClick={this.updatePost}>
-                Post
+                Update
               </button>
             </div>
           </div>

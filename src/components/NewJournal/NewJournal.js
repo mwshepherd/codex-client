@@ -12,6 +12,7 @@ const styles = {
     minHeight: '12em',
     marginBottom: '20px',
     padding: '20px',
+    fontFamily: 'Libre Baskerville, serif',
   },
 };
 
