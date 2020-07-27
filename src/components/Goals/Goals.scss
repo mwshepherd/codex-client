@@ -49,11 +49,18 @@
   }
 
   &__entries {
-    margin-top: 10px;
+    // margin-top: 10px;
     padding: 20px;
     background-color: var(--color-white);
     border: 1px solid var(--color-border);
     border-radius: 5px;
+
+    &.completed {
+      border-radius: 0;
+      border-top: 0;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
   }
 
   &__entry {

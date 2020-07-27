@@ -76,7 +76,7 @@ class SingleJournal extends Component {
           <h3 className="single-journal__date">{date}</h3>
           {/* <div>{body}</div> */}
           <div className="single-journal__body">
-            <Editor editorState={editorState} readOnly={false} />
+            <Editor editorState={editorState} readOnly={true} />
           </div>
         </div>
       );

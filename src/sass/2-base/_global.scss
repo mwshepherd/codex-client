@@ -5,8 +5,8 @@
 }
 
 :root {
-  --color-white: #fff;
-  --color-background: #fbfbfb;
+  --color-white: #fafafa;
+  --color-background: #efefef;
   --color-nav-icons: #d3d3d3;
   --color-dark: #333;
   --color-dark-highlight: #222;
@@ -20,7 +20,6 @@ body {
   background: var(--color-dark);
   margin: 0;
   font-family: 'Lato', sans-serif;
-  //   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -45,10 +44,16 @@ select:focus {
 }
 
 .page-header {
-  font-family: 'Red Hat Display';
-  font-size: 5vw;
-  font-weight: 100;
-  letter-spacing: -0.25vw;
-  // text-transform: lowercase;
-  color: var(--color-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-white);
+  background: var(--color-dark);
+  padding: 28px;
+
+  h1 {
+    font-size: 3vw;
+    font-weight: 100;
+    text-transform: uppercase;
+  }
 }

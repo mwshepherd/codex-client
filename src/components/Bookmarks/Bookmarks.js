@@ -67,7 +67,9 @@ class Bookmarks extends Component {
     return (
       <>
         <div className="bookmark">
-          <h1 className="page-header">Bookmarks</h1>
+          <div className="page-header">
+            <h1>Bookmarks</h1>
+          </div>
           <NewBookmark
             getUsersEntries={this.props.getUsersEntries}
             renderCategoriesList={this.props.renderCategoriesList}

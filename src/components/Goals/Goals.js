@@ -130,7 +130,9 @@ class Goals extends Component {
     return (
       <>
         <div className="goal">
-          <h1 className="page-header">Active Goals</h1>
+          <div className="page-header">
+            <h1>Active Goals</h1>
+          </div>
           <NewGoal
             getUsersEntries={this.props.getUsersEntries}
             renderCategoriesList={this.props.renderCategoriesList}
@@ -177,8 +179,10 @@ class Goals extends Component {
         <br />
 
         <div className="goal">
-          <h1 className="page-header">Completed Goals</h1>
-          <div className="goal__entries">
+          <div className="page-header">
+            <h1>Completed Goals</h1>
+          </div>
+          <div className="goal__entries completed">
             <div className="pagination-btns">
               <button onClick={() => prevPage('goals-complete')}>Prev</button>
               <div className="total-pages">

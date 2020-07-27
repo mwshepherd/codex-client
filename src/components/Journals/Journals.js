@@ -44,10 +44,10 @@ class Journals extends Component {
     return (
       <>
         <div className="journal">
-          <div className="journal__header">
-            <h1 className="page-header">Journals</h1>
-            <Link to="/dashboard/journals/new" className="add-journal">
-              Add
+          <div className="page-header">
+            <h1>Journals</h1>
+            <Link to="/dashboard/journals/new" className="btn add-journal">
+              <i className="fas fa-plus-circle"></i>
             </Link>
           </div>
 
