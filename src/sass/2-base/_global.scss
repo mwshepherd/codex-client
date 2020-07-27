@@ -56,4 +56,8 @@ select:focus {
     font-weight: 100;
     text-transform: uppercase;
   }
+
+  &.home-title h1 {
+    text-transform: capitalize;
+  }
 }

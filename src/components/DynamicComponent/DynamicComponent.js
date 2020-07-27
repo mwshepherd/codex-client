@@ -57,7 +57,7 @@ class DynamicComponent extends Component {
     const data = await response.json();
     console.log(data);
 
-    this.setState({ goalsComplete: data.goalsComplete, totalCompletedGoals: data.total_entries, totalCompletedGoalsPages: Math.ceil(data.total_entries / 5) });
+    this.setState({ goalsComplete: data.goals_complete, totalCompletedGoals: data.total_entries, totalCompletedGoalsPages: Math.ceil(data.total_entries / 5) });
   }
 
   async getCategoryList() {
