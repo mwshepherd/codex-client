@@ -13,7 +13,7 @@ class Login extends Component {
       loading: false,
     };
 
-    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onLoginFormSubmit = this.onLoginFormSubmit.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
 
@@ -24,7 +24,7 @@ class Login extends Component {
     });
   }
 
-  async onFormSubmit(event) {
+  async onLoginFormSubmit(event) {
     event.preventDefault();
     this.setState({ loading: true });
     const { email, password } = this.state;
@@ -71,10 +71,99 @@ class Login extends Component {
               </button>
             </div>
             {errMessage && <span>{errMessage}</span>}
-            <form className="user-form" onSubmit={this.onFormSubmit}>
+            <form className="user-form" onSubmit={this.onLoginFormSubmit}>
               <input type="text" name="email" id="email" value={email} placeholder="email" onChange={this.onInputChange} />
               <input type="password" name="password" id="password" value={password} placeholder="password" onChange={this.onInputChange} />
               <button>Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class SignUp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      email: '',
+      password: '',
+      errMessage: '',
+      loading: false,
+    };
+
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+  }
+
+  onInputChange(event) {
+    const key = event.target.id;
+    this.setState({
+      [key]: event.target.value,
+    });
+  }
+
+  async onFormSubmit(event) {
+    event.preventDefault();
+    this.setState({ loading: true });
+    const { username, email, password } = this.state;
+    const body = {
+      user: { email, password, username },
+    };
+    try {
+      const response = await fetch(`${backendServer}/sign-up`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+      if (response.status >= 400) {
+        throw new Error('incorrect credentials');
+      } else {
+        const response = await fetch(`${backendServer}/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({auth: { email, password }}),
+        });
+        const { jwt } = await response.json();
+        localStorage.setItem('token', jwt);
+        this.props.landingProps.history.push('/dashboard');
+      }
+    } catch (err) {
+      this.setState({
+        errMessage: err.message,
+        loading: false,
+      });
+    }
+  }
+
+  render() {
+    // console.log(this.state);
+    // console.log(this.props);
+    const { username, email, password, errMessage } = this.state;
+    const { closePopUp } = this.props;
+    return (
+      <div className="popup">
+        <div onClick={closePopUp} className="popup__close"></div>
+        <div className="popup__wrapper">
+          <div className="popup__inner">
+            <div className="header">
+              <h1>Sign Up</h1>
+              <button className="close-btn" onClick={closePopUp}>
+                <i className="far fa-times-circle"></i>
+              </button>
+            </div>
+            {errMessage && <span>{errMessage}</span>}
+            <form className="user-form" onSubmit={this.onFormSubmit}>
+              <input type="text" name="username" id="username" value={username} placeholder="username" onChange={this.onInputChange} />
+              <input type="text" name="email" id="email" value={email} placeholder="email" onChange={this.onInputChange} />
+              <input type="password" name="password" id="password" value={password} placeholder="password" onChange={this.onInputChange} />
+              <button>Sign Up</button>
             </form>
           </div>
         </div>
@@ -111,7 +200,7 @@ class Landing extends Component {
           <button className="btn" onClick={() => this.showPopUp('login')}>
             Login
           </button>
-          <button className="btn">Sign up</button>
+          <button className="btn"onClick={() => this.showPopUp('signup')} >Sign up</button>
         </nav>
         <div className="landingpage__start">
           <div className="landingpage__intro">
@@ -136,6 +225,7 @@ class Landing extends Component {
           </div>
         </div>
         {this.state.show === 'login' ? <Login landingProps={this.props} closePopUp={this.closePopUp} /> : null}
+        {this.state.show === 'signup' ? <SignUp landingProps={this.props} closePopUp={this.closePopUp} /> : null}
       </div>
     );
   }
