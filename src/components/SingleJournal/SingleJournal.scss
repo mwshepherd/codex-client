@@ -1,0 +1,27 @@
+.single-journal {
+  padding: 20px 20%;
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__options {
+    display: flex;
+
+    & > * {
+      margin-left: 10px;
+    }
+  }
+
+  &__title {
+    margin: 20px 0;
+    font-family: 'Libre Baskerville', serif;
+    // font-style: italic;
+  }
+
+  &__body {
+    margin: 20px 0;
+    font-family: 'Libre Baskerville';
+  }
+}
