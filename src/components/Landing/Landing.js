@@ -64,10 +64,12 @@ class Login extends Component {
         <div onClick={closePopUp} className="popup__close"></div>
         <div className="popup__wrapper">
           <div className="popup__inner">
-            <button className="close-btn" onClick={closePopUp}>
-              x
-            </button>
-            <h1>Login</h1>
+            <div className="header">
+              <h1>Login</h1>
+              <button className="close-btn" onClick={closePopUp}>
+                <i className="far fa-times-circle"></i>
+              </button>
+            </div>
             {errMessage && <span>{errMessage}</span>}
             <form className="user-form" onSubmit={this.onFormSubmit}>
               <input type="text" name="email" id="email" value={email} placeholder="email" onChange={this.onInputChange} />
@@ -104,13 +106,35 @@ class Landing extends Component {
     // console.log(this.props);
     return (
       <div className="landingpage">
-        <h1>Codex</h1>
-        <h5>the learning & productivity app for devs</h5>
-        <h6>capture journal entries including code snippets</h6>
-        <h6>collect & categorize your bookmarks for easy reference</h6>
-        <h6>track your goals and due date milestones</h6>
-        <h6>view your learning & productivity statistics</h6>
-        <button onClick={() => this.showPopUp('login')}>Login</button>
+        <nav className="landingpage__nav">
+          <button className="btn">About</button>
+          <button className="btn" onClick={() => this.showPopUp('login')}>
+            Login
+          </button>
+          <button className="btn">Sign up</button>
+        </nav>
+        <div className="landingpage__start">
+          <div className="landingpage__intro">
+            <div className="landingpage__title">
+              <h1 className="landingpage__site-name">Codex</h1>
+              <h2 className="landingpage__tagline">The learning & productivity app for devs</h2>
+            </div>
+            <div className="landingpage__preview"></div>
+          </div>
+        </div>
+        <div className="landingpage__about" id="about">
+          <div className="landingpage__intro">
+            <div className="landingpage__title-about">
+              <h2 class="about-title">About</h2>
+            </div>
+            <div className="landingpage__info">
+              <h3>capture journal entries including code snippets</h3>
+              <h3>collect & categorize your bookmarks for easy reference</h3>
+              <h3>track your goals and due date milestones</h3>
+              <h3>view your learning & productivity statistics</h3>
+            </div>
+          </div>
+        </div>
         {this.state.show === 'login' ? <Login landingProps={this.props} closePopUp={this.closePopUp} /> : null}
       </div>
     );

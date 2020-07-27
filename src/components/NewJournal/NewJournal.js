@@ -12,6 +12,7 @@ const styles = {
     minHeight: '12em',
     marginBottom: '20px',
     padding: '20px',
+    fontFamily: 'Libre Baskerville, serif',
   },
 };
 
@@ -121,15 +122,18 @@ class NewJournal extends Component {
     } else {
       return (
         <div class="new-journal">
-          {/* <h1>New Journal Page</h1> */}
           <div className="new-journal__options">
             <div className="new-journal__option">
               <label htmlFor="categories">Category:</label>
-              <select id="categories" onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
+              <select id="categories" onChange={this.onCategoryChange}>
+                {this.props.categoryOptions && this.props.renderCategoriesList()}
+              </select>
             </div>
             <div className="new-journal__option">
               <label htmlFor="languages">Language:</label>
-              <select id="languages"  onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
+              <select id="languages" onChange={this.onLanguageChange}>
+                {this.props.languageOptions && this.props.renderLanguageList()}
+              </select>
             </div>
           </div>
 

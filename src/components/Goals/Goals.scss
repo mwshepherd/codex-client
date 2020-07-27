@@ -1,8 +1,8 @@
 .goal {
   &__columns {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    padding: 10px;
+    grid-template-columns: repeat(10, 1fr);
+    // padding: 10px;
     grid-gap: 10px;
     margin-bottom: 10px;
 
@@ -16,42 +16,58 @@
       padding: 10px;
       cursor: pointer;
 
-      &:hover {
+      &:hover:not(:nth-child(5)) {
         color: var(--color-white);
         background: var(--color-dark);
       }
     }
+
+    & > :last-child {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   &__title {
-    grid-column: 1 / 4;
+    grid-column: 1 / 5;
   }
 
-  &__details {
-    grid-column: 4 / 9;
-  }
+  // &__details {
+  //   grid-column: 4 / 9;
+  // }
 
   &__due-date {
-    grid-column: 9 / 10;
+    grid-column: 5 / 6;
   }
 
   &__category {
-    grid-column: 10 / 11;
+    grid-column: 6 / 8;
+  }
+
+  &__language {
+    grid-column: 8 / 10;
   }
 
   &__entries {
-    margin-top: 10px;
+    // margin-top: 10px;
     padding: 20px;
     background-color: var(--color-white);
     border: 1px solid var(--color-border);
     border-radius: 5px;
+
+    &.completed {
+      border-radius: 0;
+      border-top: 0;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
   }
 
   &__entry {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     grid-gap: 10px;
-    padding: 20px;
+    // padding: 20px;
     border-radius: 5px;
     transition: background 0.2s;
 
@@ -66,26 +82,29 @@
     & > * {
       display: flex;
       align-items: center;
-      // padding: 20px;
+      padding: 20px;
     }
 
     &-title {
       display: flex;
       justify-content: space-between;
-      grid-column: 1 / 4;
-    }
+      grid-column: 1 / 5;
 
-    &-details {
-      grid-column: 4 / 9;
-      padding: 20px;
+      &-bld {
+        font-weight: bold;
+      }
     }
 
     &-due-date {
-      grid-column: 9 / 10;
+      grid-column: 5 / 6;
     }
 
     &-category {
-      grid-column: 10 / 11;
+      grid-column: 6 / 8;
+    }
+
+    &-language {
+      grid-column: 8 / 10;
     }
 
     &-completed {
