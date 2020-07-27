@@ -7,13 +7,13 @@
   display: flex;
   width: 100%;
   margin-top: 60px;
-  background: #eee;
+  background: var(--color-background);
 
   &__container {
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 50px 5%;
     width: 100%;
   }
 
