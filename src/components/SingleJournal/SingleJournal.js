@@ -60,15 +60,15 @@ class SingleJournal extends Component {
         <div className="single-journal">
           <div className="single-journal__controls">
             <Link to="/dashboard/journals" className="btn">
-              Back
+              <i className="fas fa-arrow-left"></i>
             </Link>
             <div className="single-journal__options">
-              <Link to={`/dashboard/journals/edit/${this.state.journal.id}`} className="btn">
-                Edit
+              <Link to={`/dashboard/journals/edit/${this.state.journal.id}`} className="btn edit">
+                <i className="far fa-edit"></i>
               </Link>
 
-              <button onClick={() => this.deleteJournal(this.state.journal.id)} className="btn">
-                Delete
+              <button onClick={() => this.deleteJournal(this.state.journal.id)} className="btn delete">
+                <i className="far fa-trash-alt"></i>
               </button>
             </div>
           </div>
