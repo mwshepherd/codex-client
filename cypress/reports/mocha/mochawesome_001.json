@@ -1,0 +1,107 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2020-07-28T09:31:48.344Z",
+    "end": "2020-07-28T09:32:01.849Z",
+    "duration": 13505,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "0eeb2fac-13c0-447a-9698-6df8ea12dedd",
+      "title": "",
+      "fullFile": "cypress/e2e/createGoal.spec.js",
+      "file": "cypress/e2e/createGoal.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "89e35a04-6289-48a3-80bf-57872b38afb3",
+          "title": "when adding data to make a new goal",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should be able to submit the form and be remain on the /goals page",
+              "fullTitle": "when adding data to make a new goal should be able to submit the form and be remain on the /goals page",
+              "timedOut": null,
+              "duration": 13039,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "var goal = (0, _generate.goalBuilder)();\ncy.visit(\"dashboard/goals\");\ncy.url().should(\"include\", \"dashboard/goals\");\ncy.get(\"#title\").should(\"be.visible\");\ncy.findByPlaceholderText(/Goal/i).type(goal.title).should(\"contain.value\", goal.title);\ncy.findByPlaceholderText(/Details/i).type(goal.body).should(\"contain.value\", goal.body);\ncy.get('#due_date').type('2021-01-01');\ncy.get('#categories').select('Front End').should(\"have.value\", '1');\ncy.get('#languages').select('JavaScript').should(\"have.value\", '1');\ncy.get('form').submit().url().should('contain', 'http://localhost:8080/dashboard/goals');",
+              "err": {},
+              "uuid": "e4e5c4bd-d592-41d0-959c-fe6d21484ccc",
+              "parentUUID": "89e35a04-6289-48a3-80bf-57872b38afb3",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "e4e5c4bd-d592-41d0-959c-fe6d21484ccc"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 13039,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.1.1"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mocha",
+        "quite": true,
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "5.1.0"
+    }
+  }
+}

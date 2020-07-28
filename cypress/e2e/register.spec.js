@@ -16,6 +16,6 @@ describe("visiting the site as a guest", () => {
     cy.findByPlaceholderText(/email/i).type(user.email)
     cy.findByPlaceholderText(/password/i).type(user.password)
     cy.get('form').submit()
-    cy.url().should("eq", "http://localhost:8080/dashboard");
+    cy.url().should("eql", "http://localhost:8080/dashboard");
   })
 })
