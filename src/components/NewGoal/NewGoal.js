@@ -1,24 +1,27 @@
-import React, { Component } from 'react';
-import './NewGoal.scss';
+import React, { Component } from "react";
+import "./NewGoal.scss";
+
+const defaultState = {
+  category_id: "15",
+  language_id: "25",
+};
 
 class NewGoal extends Component {
+  state = { ...defaultState };
+
   onInputChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
+      errorMessage: "",
     });
-    // console.log(this.state);
   };
 
   onCategoryChange = (event) => {
-    // console.log(this.state)
     this.setState({ category_id: event.target.value });
-    // console.log(this.state)
   };
 
   onLanguageChange = (event) => {
-    // console.log(this.state)
     this.setState({ language_id: event.target.value });
-    // console.log(this.state);
   };
 
   onFormSubmit = async (event) => {
@@ -28,46 +31,73 @@ class NewGoal extends Component {
       goal: this.state,
     };
 
-    await fetch('http://localhost:3000/goals', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify(body),
-    });
-    this.props.getUsersEntries('goals');
+    try {
+      if (!body.goal.title) {
+        console.log(body.goal);
+        throw "Goal must have a title";
+      } else if (!body.goal.body) {
+        throw "Goal must have a short description";
+      } else if (!body.goal.due_date) {
+        throw "Goal must have a due date selected";
+      }
+      await fetch("http://localhost:3000/goals", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(body),
+      });
+      this.props.getUsersEntries("goals");
+      this.setState({ ...defaultState });
+    } catch (err) {
+      this.setState({ errorMessage: err });
+      console.log(this.state);
+    }
   };
 
   render() {
-    // console.log(this.props);
     return (
       <div className="goal__form">
         <form onSubmit={this.onFormSubmit}>
-          {/* <h1>Add a goal</h1> */}
+          {this.state.errorMessage && window.alert(this.state.errorMessage)}
 
-          {/* <label htmlFor="title">Title:</label> */}
-          <input className="goal-title" type="text" name="title" id="title" placeholder="Goal" onChange={this.onInputChange} />
+          <input
+            className="goal-title"
+            type="text"
+            value={this.state.title}
+            name="title"
+            id="title"
+            placeholder="Goal"
+            onChange={this.onInputChange}
+          />
 
-          {/* <label htmlFor="body">Body:</label> */}
-          <input className="goal-body" type="text" name="body" id="body" placeholder="Details" onChange={this.onInputChange} />
+          <input
+            className="goal-body"
+            type="text"
+            value={this.state.body}
+            name="body"
+            id="body"
+            placeholder="Details"
+            onChange={this.onInputChange}
+          />
 
-          {/* <label htmlFor="due_date">Due Date:</label> */}
-          <input className="goal-due_date" type="date" name="due_date" id="due_date" onChange={this.onInputChange} />
+          <input
+            className="goal-due_date"
+            type="date"
+            value={this.state.due_date}
+            name="due_date"
+            id="due_date"
+            onChange={this.onInputChange}
+          />
 
-          {/* this is not necessary - it defaults to not yet complete as per back end logic  */}
-          {/* <label htmlFor="completed">Completed?</label> */}
-          {/* this event handler might not work */}
-          {/* <select onChange={this.onInputChange}> */}
-          {/* <option value="true">Completed</option>
-            <option defaultValue="false">Not Yet Completed</option> */}
-          {/* </select> */}
+          <select id="categories" onChange={this.onCategoryChange}>
+            {this.props.categoryOptions && this.props.renderCategoriesList()}
+          </select>
 
-          {/* <label htmlFor="categories">Category:</label> */}
-          <select id="categories" onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
-
-          {/* <label htmlFor="languages">Language:</label> */}
-          <select id="languages" onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
+          <select id="languages" onChange={this.onLanguageChange}>
+            {this.props.languageOptions && this.props.renderLanguageList()}
+          </select>
 
           <input type="submit" value=" + " />
         </form>

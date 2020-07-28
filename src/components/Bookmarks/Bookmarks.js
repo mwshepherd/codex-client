@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Bookmarks.scss';
 import NewBookmark from '../NewBookmark/NewBookmark';
 import { backendServer } from '../shared/constants';
+import Spinner from '../shared/Spinner/Spinner';
 
 const page = 'bookmarks';
 
@@ -62,12 +63,14 @@ class Bookmarks extends Component {
 
   render() {
     const { bookmarks, totalPages } = this.props.state;
-    const { currPage, prevPage, nextPage } = this.props;
+    const { currPage, prevPage, nextPage, loading } = this.props;
 
     return (
       <>
         <div className="bookmark">
-          <h1 className="page-header">Bookmarks</h1>
+          <div className="page-header">
+            <h1>Bookmarks</h1>
+          </div>
           <NewBookmark
             getUsersEntries={this.props.getUsersEntries}
             renderCategoriesList={this.props.renderCategoriesList}
@@ -102,7 +105,7 @@ class Bookmarks extends Component {
                 <i className="fas fa-sort"></i>
               </div>
             </div>
-            {bookmarks && bookmarks.map((bookmark) => this.renderBookmarks(bookmark))}
+            {loading === false && bookmarks ? bookmarks.map((bookmark) => this.renderBookmarks(bookmark)) : <Spinner />}
           </div>
         </div>
       </>

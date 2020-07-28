@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import './Journal.scss';
+import Spinner from '../shared/Spinner/Spinner';
 
 const page = 'journals';
 
@@ -39,15 +40,15 @@ class Journals extends Component {
 
   render() {
     const { journals, totalPages } = this.props.state;
-    const { currPage, prevPage, nextPage } = this.props;
+    const { currPage, prevPage, nextPage, loading } = this.props;
 
     return (
       <>
         <div className="journal">
-          <div className="journal__header">
-            <h1 className="page-header">Journals</h1>
-            <Link to="/dashboard/journals/new" className="add-journal">
-              Add
+          <div className="page-header">
+            <h1>Journals</h1>
+            <Link to="/dashboard/journals/new" className="btn add-journal">
+              <i className="fas fa-plus-circle"></i>
             </Link>
           </div>
 
@@ -73,7 +74,7 @@ class Journals extends Component {
                 <i className="fas fa-sort"></i>
               </div>
             </div>
-            {journals && journals.map((journal) => this.renderJournalEntries(journal))}
+            {loading === false && journals ? journals.map((journal) => this.renderJournalEntries(journal)) : <Spinner />}
           </div>
         </div>
       </>

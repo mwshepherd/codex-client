@@ -21,17 +21,20 @@ const components = {
 class DynamicComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      loading: true,
+    };
 
     this.currPage = 1;
+    this.currPageCompletedGoals = 1;
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.getUsersEntries = this.getUsersEntries.bind(this);
+    this.getCompletedGoals = this.getCompletedGoals.bind(this);
     this.getCategoryList = this.getCategoryList.bind(this);
     this.getLanguageList = this.getLanguageList.bind(this);
     this.renderCategoriesList = this.renderCategoriesList.bind(this);
     this.renderLanguageList = this.renderLanguageList.bind(this);
-    // this.sortByTitle = this.sortByTitle.bind(this);
     this.sortByType = this.sortByType.bind(this);
   }
 
@@ -42,7 +45,21 @@ class DynamicComponent extends Component {
       },
     });
     const data = await response.json();
-    this.setState({ [page]: data[page], total: data.total_entries, totalPages: Math.ceil(data.total_entries / 5) });
+    console.log(data);
+
+    this.setState({ [page]: data[page], total: data.total_entries, totalPages: Math.ceil(data.total_entries / 5), loading: false });
+  }
+
+  async getCompletedGoals() {
+    const response = await fetch(`${backendServer}/goals-complete?page=${this.currPageCompletedGoals}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+
+    this.setState({ goalsComplete: data.goals_complete, totalCompletedGoals: data.total_entries, totalCompletedGoalsPages: Math.ceil(data.total_entries / 5), loading: false });
   }
 
   async getCategoryList() {
@@ -80,7 +97,6 @@ class DynamicComponent extends Component {
 
   renderLanguageList() {
     const { languageOptions } = this.state;
-    // console.log(languageOptions);
     return languageOptions.map((lan, index) => {
       return (
         <option key={index} value={lan.id}>
@@ -91,16 +107,30 @@ class DynamicComponent extends Component {
   }
 
   nextPage(page) {
-    if (this.currPage < this.state.totalPages) {
-      this.currPage += 1;
-      this.getUsersEntries(page);
+    if (page === 'goals-complete') {
+      if (this.currPageCompletedGoals < this.state.totalCompletedGoalsPages) {
+        this.currPageCompletedGoals += 1;
+        this.getCompletedGoals();
+      }
+    } else {
+      if (this.currPage < this.state.totalPages) {
+        this.currPage += 1;
+        this.getUsersEntries(page);
+      }
     }
   }
 
   prevPage(page) {
-    if (this.currPage > 1) {
-      this.currPage -= 1;
-      this.getUsersEntries(page);
+    if (page === 'goals-complete') {
+      if (this.currPageCompletedGoals > 1) {
+        this.currPageCompletedGoals -= 1;
+        this.getCompletedGoals();
+      }
+    } else {
+      if (this.currPage > 1) {
+        this.currPage -= 1;
+        this.getUsersEntries(page);
+      }
     }
   }
 
@@ -140,11 +170,11 @@ class DynamicComponent extends Component {
   }
 
   render() {
-    // console.log(this.state);
     const SelectedPage = components[this.props.page];
     return (
       <SelectedPage
         getUsersEntries={this.getUsersEntries}
+        getCompletedGoals={this.getCompletedGoals}
         getCategoryList={this.getCategoryList}
         renderCategoriesList={this.renderCategoriesList}
         categoryOptions={this.state.categoryOptions}
@@ -152,6 +182,7 @@ class DynamicComponent extends Component {
         renderLanguageList={this.renderLanguageList}
         languageOptions={this.state.languageOptions}
         state={this.state}
+        currPageCompletedGoals={this.currPageCompletedGoals}
         currPage={this.currPage}
         nextPage={this.nextPage}
         prevPage={this.prevPage}
@@ -160,6 +191,7 @@ class DynamicComponent extends Component {
         locationProps={this.props.locationProps}
         bookmarkPopUp={this.props.bookmarkPopUp}
         toggleBookmarkPopUp={this.props.toggleBookmarkPopUp}
+        loading={this.state.loading}
       />
     );
   }

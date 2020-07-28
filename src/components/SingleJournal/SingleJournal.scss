@@ -1,0 +1,61 @@
+.single-journal {
+  padding: 0 15%;
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      width: 31px;
+      padding: 4px 3px 6px 7px;
+      transition: all 0.2s;
+
+      &:hover {
+        border-color: var(--color-dark);
+        background: var(--color-dark);
+        color: var(--color-white);
+      }
+    }
+  }
+
+  &__options {
+    display: flex;
+
+    & > * {
+      margin-left: 10px;
+      width: 31px;
+      transition: all 0.2s;
+    }
+
+    .edit {
+      padding: 4px 3px 6px 7px;
+
+      &:hover {
+        border-color: var(--color-yellow);
+        background: var(--color-yellow);
+        color: var(--color-white);
+      }
+    }
+
+    .delete {
+      padding: 4px 5px 6px;
+
+      &:hover {
+        border-color: var(--color-red);
+        background: var(--color-red);
+        color: var(--color-white);
+      }
+    }
+  }
+
+  &__title {
+    margin: 20px 0;
+    font-family: 'Libre Baskerville', serif;
+    // font-style: italic;
+  }
+
+  &__body {
+    margin: 20px 0;
+    font-family: 'Libre Baskerville';
+  }
+}

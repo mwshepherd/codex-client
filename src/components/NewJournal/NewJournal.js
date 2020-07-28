@@ -12,6 +12,7 @@ const styles = {
     minHeight: '12em',
     marginBottom: '20px',
     padding: '20px',
+    fontFamily: 'Libre Baskerville, serif',
   },
 };
 
@@ -45,26 +46,21 @@ class NewJournal extends Component {
   }
 
   onCategoryChange = (event) => {
-    // console.log(this.state);
     this.setState({ category_id: parseInt(event.target.value) });
   };
 
   onLanguageChange = (event) => {
     this.setState({ language_id: parseInt(event.target.value) });
-    // console.log(this.state);
   };
 
   handleJournalTitle(e) {
-    // console.log(e.target.value);
-    this.setState({ journalTitle: e.target.value });
+    this.setState({ journalTitle: e.target.value, errorMessage: '' });
   }
 
   async createPost() {
     const converted = convertToRaw(this.state.editorState.getCurrentContent());
-    // console.log(converted);
     const jsonString = JSON.stringify(converted);
     const jsonConvert = JSON.parse(jsonString);
-    // console.log(jsonConvert);
 
     const body = {
       journal: {
@@ -75,19 +71,28 @@ class NewJournal extends Component {
       },
     };
 
-    const response = await fetch(`${backendServer}/journals`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify(body),
-    });
+    try {
+      if (!body.journal.title) {
+        throw 'Journal must have a title';
+      }
 
-    const newJournal = await response.json();
+      const response = await fetch(`${backendServer}/journals`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(body),
+      });
 
-    console.log(newJournal);
-    this.setState({ redirect: true, newJournalID: newJournal.id });
+      const newJournal = await response.json();
+
+      console.log(newJournal);
+
+      this.setState({ redirect: true, newJournalID: newJournal.id });
+    } catch (err) {
+      this.setState({ errorMessage: err });
+    }
   }
 
   handleKeyCommand(command, editorState) {
@@ -121,18 +126,21 @@ class NewJournal extends Component {
     } else {
       return (
         <div class="new-journal">
-          {/* <h1>New Journal Page</h1> */}
           <div className="new-journal__options">
             <div className="new-journal__option">
               <label htmlFor="categories">Category:</label>
-              <select id="categories" onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
+              <select id="categories" onChange={this.onCategoryChange}>
+                {this.props.categoryOptions && this.props.renderCategoriesList()}
+              </select>
             </div>
             <div className="new-journal__option">
               <label htmlFor="languages">Language:</label>
-              <select id="languages"  onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
+              <select id="languages" onChange={this.onLanguageChange}>
+                {this.props.languageOptions && this.props.renderLanguageList()}
+              </select>
             </div>
           </div>
-
+          {this.state.errorMessage && <div style={{ color: 'red' }}>{this.state.errorMessage}</div>}
           <input className="new-journal__title" type="text" placeholder="Title..." id="title" onChange={this.handleJournalTitle} />
           <div className="rich-utils">
             <button onClick={this._onBoldClick.bind(this)}>Bold</button>

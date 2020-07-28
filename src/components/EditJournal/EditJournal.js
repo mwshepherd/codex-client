@@ -1,20 +1,19 @@
-import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
-import {
-  Editor,
-  EditorState,
-  RichUtils,
-  convertToRaw,
-  convertFromRaw,
-} from "draft-js";
-import "draft-js/dist/Draft.css";
-import { backendServer } from "../shared/constants";
-import moment from "moment";
+import React, { Component } from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import 'draft-js/dist/Draft.css';
+import { backendServer } from '../shared/constants';
+import moment from 'moment';
+import './EditJournal.scss';
 
 const styles = {
   editor: {
-    border: "1px solid gray",
-    minHeight: "6em",
+    border: '1px solid #ddd',
+    borderRadius: '5px',
+    minHeight: '12em',
+    marginBottom: '20px',
+    padding: '20px',
+    fontFamily: 'Libre Baskerville, serif',
   },
 };
 
@@ -54,10 +53,10 @@ class EditJournal extends Component {
   async getSingleJournal() {
     const { id } = this.props.locationProps.match.params;
     const response = await fetch(`${backendServer}/journals/${id}`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
     const journal = await response.json();
@@ -91,24 +90,23 @@ class EditJournal extends Component {
         language_id: this.state.language_id,
       },
     };
-    console.log(this.state)
+    console.log(this.state);
     const { id } = this.props.locationProps.match.params;
-    console.log(this.props)
+    console.log(this.props);
     const response = await fetch(`${backendServer}/journals/${id}`, {
-      method: "PUT",
+      method: 'PUT',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(body),
     });
     // const updatedJournal = await response.json();
     // console.log(updatedJournal);
 
-    this.setState({ redirect: true});
+    this.setState({ redirect: true });
     // console.log(this.state.updatedJournalID)
     // this.props.locationProps.history.push(`/dashboard/journals${id}`);
-
   }
 
   handleKeyCommand(command, editorState) {
@@ -116,31 +114,29 @@ class EditJournal extends Component {
 
     if (newState) {
       this.onChange(newState);
-      return "handled";
+      return 'handled';
     }
 
-    return "not-handled";
+    return 'not-handled';
   }
 
   _onBoldClick() {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "BOLD"));
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
   }
 
   _onItalicClick() {
-    this.onChange(
-      RichUtils.toggleInlineStyle(this.state.editorState, "ITALIC")
-    );
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
   }
 
   _onCodeClick() {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "CODE"));
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'CODE'));
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.state);
     if (this.state.journal) {
       const { title, body, created_at } = this.state.journal;
-      const date = moment(created_at).format("dddd, MMMM Do YYYY, h:mm:ss a");
+      const date = moment(created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
       const parsedBody = JSON.parse(body);
       const contentState = convertFromRaw(parsedBody);
       const editorState = EditorState.createWithContent(contentState);
@@ -148,51 +144,45 @@ class EditJournal extends Component {
       console.log(this.props);
       // console.log(this.state);
       if (this.state.redirect) {
-        return (
-          <Redirect to={`/dashboard/journals/${this.state.journal.id}`} />
-        );
+        return <Redirect to={`/dashboard/journals/${this.state.journal.id}`} />;
       } else {
         return (
-          <div>
-            {/* <h1>New Journal Page</h1> */}
-            <input
-              type="text"
-              placeholder="New Journal Title"
-              id="title"
-              value={title}
-              onChange={this.handleJournalTitle}
-            />
-            <button onClick={this._onBoldClick.bind(this)}>Bold</button>
-            <button onClick={this._onItalicClick.bind(this)}>Italic</button>
-            <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
+          <div className="edit-journal">
+            <div className="edit-journal__options">
+              <div className="edit-journal__option">
+                <label htmlFor="categories">Category:</label>
+                <select id="categories" onChange={this.onOptionChange}>
+                  {this.props.categoryOptions && this.props.renderCategoriesList()}
+                </select>
+              </div>
+              <div className="edit-journal__option">
+                <label htmlFor="languages">Language:</label>
+                <select id="languages" onChange={this.onLanguageChange}>
+                  {this.props.languageOptions && this.props.renderLanguageList()}
+                </select>
+              </div>
+            </div>
+            <input className="edit-journal__title" type="text" placeholder="New Journal Title" id="title" value={title} onChange={this.handleJournalTitle} />
+            <div className="rich-utils">
+              <button onClick={this._onBoldClick.bind(this)}>Bold</button>
+              <button onClick={this._onItalicClick.bind(this)}>Italic</button>
+              <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
+            </div>
             <div style={styles.editor} onClick={this.focusEditor}>
-              <Editor
-                ref={this.setEditor}
-                editorState={this.state.editorState}
-                handleKeyCommand={this.handleKeyCommand}
-                onChange={this.onChange}
-              />
+              <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
             </div>
 
-            <label htmlFor="categories">Category:</label>
-            <select onChange={this.onOptionChange}>
-              {this.props.categoryOptions && this.props.renderCategoriesList()}
-            </select>
-
-            <label htmlFor="languages">Language:</label>
-            <select onChange={this.onLanguageChange}>
-              {this.props.languageOptions && this.props.renderLanguageList()}
-            </select>
-
-            <div className="post-btn">
-              <button onClick={this.updatePost}>Post</button>
+            <div className="edit-journal__submit">
+              <button className="post-btn" onClick={this.updatePost}>
+                Update
+              </button>
             </div>
           </div>
         );
       }
-    } return (
-    <p>Loading..</p>
-  )
-}}
+    }
+    return <p>Loading..</p>;
+  }
+}
 
 export default EditJournal;

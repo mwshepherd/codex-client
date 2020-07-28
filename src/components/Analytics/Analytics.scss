@@ -1,14 +1,48 @@
-.demo-chart {
-  display: grid;
-  // grid-template-columns: repeat(2, 1fr);
-  //   padding: 100px;
+.analytics {
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-gap: 20px;
+    height: 300px;
+    margin: 20px 0;
 
-  & > * {
+    &-item {
+      height: 100%;
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: 5px;
+      color: var(--color-dark);
+      font-family: 'Red Hat Display';
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .active-goals {
+        font-size: 8vw;
+      }
+    }
+  }
+  &__chart {
+    display: grid;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+
     width: 100%;
     & > div {
       & > canvas {
         width: 100% !important;
       }
     }
+  }
+
+  &__languages-categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
   }
 }

@@ -4,7 +4,7 @@ const userBuilder = build('User', {
   fields: {
     email: fake((f) => f.internet.email()),
     password: fake((f) => f.internet.password()),
-    username: fake((f) => f.name.findName())
+    username: fake((f) => f.name.firstName()),
   }
 });
 
