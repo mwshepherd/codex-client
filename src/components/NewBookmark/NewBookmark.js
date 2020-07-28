@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
-import './NewBookmark.scss';
+import React, { Component } from "react";
+import "./NewBookmark.scss";
 
 const defaultState = {
-  title: '',
-  url: '',
-  description: '',
-  category_id: '15',
-  language_id: '25',
+  category_id: "15",
+  language_id: "25",
 };
 
 class NewBookmark extends Component {
@@ -15,6 +12,7 @@ class NewBookmark extends Component {
   onInputChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
+      errorMessage: '',
     });
   };
 
@@ -23,9 +21,7 @@ class NewBookmark extends Component {
   };
 
   onLanguageChange = (event) => {
-    // console.log(this.state)
     this.setState({ language_id: event.target.value });
-    console.log(this.state);
   };
 
   onFormSubmit = async (event) => {
@@ -35,16 +31,29 @@ class NewBookmark extends Component {
       bookmark: this.state,
     };
 
-    await fetch('http://localhost:3000/bookmarks', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify(body),
-    });
-    this.props.getUsersEntries('bookmarks');
-    this.setState({ ...defaultState });
+    try {
+      if (!body.bookmark.title) {
+        throw 'Bookmark must have a title'
+      } else if (!body.bookmark.url) {
+        throw 'Bookmark must have a URL'
+      } else if (!body.bookmark.description) {
+        throw 'Bookmark must have a short description'
+      }
+
+      await fetch("http://localhost:3000/bookmarks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(body),
+      });
+      this.props.getUsersEntries("bookmarks");
+      this.setState({ ...defaultState });
+    } catch (err) {
+      this.setState({ errorMessage: err });
+      console.log(this.state)
+    }
   };
 
   render() {
@@ -52,15 +61,27 @@ class NewBookmark extends Component {
     return (
       <div className="bookmark__form">
         <form onSubmit={this.onFormSubmit}>
-          {/* <h1>Add a Bookmark</h1> */}
+          {/* {this.state.errorMessage && <div style={{ color: 'red' }}>{this.state.errorMessage}</div>} */}
+          {this.state.errorMessage && window.alert(this.state.errorMessage)}
+          <input
+            className="bookmark__form-title"
+            type="text"
+            value={this.state.title}
+            name="title"
+            id="title"
+            placeholder="Title"
+            onChange={this.onInputChange}
+          />
+          <input
+            className="bookmark__form-url"
+            type="text"
+            value={this.state.url}
+            name="url"
+            id="url"
+            placeholder="URL"
+            onChange={this.onInputChange}
+          />
 
-          {/* <label htmlFor="title">Title:</label> */}
-          <input className="bookmark__form-title" type="text" value={this.state.title} name="title" id="title" placeholder="Title" onChange={this.onInputChange} />
-
-          {/* <label htmlFor="url">URL:</label> */}
-          <input className="bookmark__form-url" type="text" value={this.state.url} name="url" id="url" placeholder="URL" onChange={this.onInputChange} />
-
-          {/* <label htmlFor="description">Description:</label> */}
           <input
             className="bookmark__form-description"
             value={this.state.description}
@@ -71,11 +92,13 @@ class NewBookmark extends Component {
             onChange={this.onInputChange}
           />
 
-          {/* <label htmlFor="categories">Category:</label> */}
-          <select id="categories" onChange={this.onCategoryChange}>{this.props.categoryOptions && this.props.renderCategoriesList()}</select>
+          <select id="categories" onChange={this.onCategoryChange}>
+            {this.props.categoryOptions && this.props.renderCategoriesList()}
+          </select>
 
-          {/* <label htmlFor="languages">Language:</label> */}
-          <select id="languages" onChange={this.onLanguageChange}>{this.props.languageOptions && this.props.renderLanguageList()}</select>
+          <select id="languages" onChange={this.onLanguageChange}>
+            {this.props.languageOptions && this.props.renderLanguageList()}
+          </select>
 
           <input type="submit" value=" + " />
           {/* <h3 onClick={this.props.togglePopUp}>Close</h3> */}

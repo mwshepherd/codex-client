@@ -46,26 +46,21 @@ class NewJournal extends Component {
   }
 
   onCategoryChange = (event) => {
-    // console.log(this.state);
     this.setState({ category_id: parseInt(event.target.value) });
   };
 
   onLanguageChange = (event) => {
     this.setState({ language_id: parseInt(event.target.value) });
-    // console.log(this.state);
   };
 
   handleJournalTitle(e) {
-    // console.log(e.target.value);
     this.setState({ journalTitle: e.target.value, errorMessage: '' });
   }
 
   async createPost() {
     const converted = convertToRaw(this.state.editorState.getCurrentContent());
-    // console.log(converted);
     const jsonString = JSON.stringify(converted);
     const jsonConvert = JSON.parse(jsonString);
-    // console.log(jsonConvert);
 
     const body = {
       journal: {
