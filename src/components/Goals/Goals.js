@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './Goals.scss';
-import { backendServer } from '../shared/constants';
-import NewGoal from '../NewGoal/NewGoal';
 import moment from 'moment';
+import NewGoal from '../NewGoal/NewGoal';
+import Spinner from '../shared/Spinner/Spinner';
+import { backendServer } from '../shared/constants';
+import './Goals.scss';
 
 const page = 'goals';
 
@@ -125,8 +126,9 @@ class Goals extends Component {
   render() {
     console.log(this.props);
     const { goals, totalPages, goalsComplete, totalCompletedGoalsPages } = this.props.state;
-    const { currPage, currPageCompletedGoals, prevPage, nextPage } = this.props;
+    const { currPage, currPageCompletedGoals, prevPage, nextPage, loading } = this.props;
 
+    console.log(loading);
     return (
       <>
         <div className="goal">
@@ -168,7 +170,7 @@ class Goals extends Component {
               </div>
               <div className="goal__completed">Complete</div>
             </div>
-            {goals && goals.map((goal) => this.renderActiveGoals(goal))}
+            {loading === false && goals ? goals.map((goal) => this.renderActiveGoals(goal)) : <Spinner />}
           </div>
         </div>
 
@@ -212,7 +214,7 @@ class Goals extends Component {
                 <span>Complete</span>
               </div>
             </div>
-            {goalsComplete && goalsComplete.map((goal) => this.renderCompleteGoals(goal))}
+            {loading == false && goalsComplete ? goalsComplete.map((goal) => this.renderCompleteGoals(goal)) : <Spinner />}
           </div>
         </div>
       </>

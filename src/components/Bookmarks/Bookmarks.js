@@ -105,7 +105,7 @@ class Bookmarks extends Component {
                 <i className="fas fa-sort"></i>
               </div>
             </div>
-            {loading === false ? bookmarks.map((bookmark) => this.renderBookmarks(bookmark)) : <Spinner />}
+            {loading === false && bookmarks ? bookmarks.map((bookmark) => this.renderBookmarks(bookmark)) : <Spinner />}
           </div>
         </div>
       </>
