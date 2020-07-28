@@ -21,7 +21,9 @@ const components = {
 class DynamicComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      loading: true,
+    };
 
     this.currPage = 1;
     this.currPageCompletedGoals = 1;
@@ -45,7 +47,7 @@ class DynamicComponent extends Component {
     const data = await response.json();
     console.log(data);
 
-    this.setState({ [page]: data[page], total: data.total_entries, totalPages: Math.ceil(data.total_entries / 5) });
+    this.setState({ [page]: data[page], total: data.total_entries, totalPages: Math.ceil(data.total_entries / 5), loading: false });
   }
 
   async getCompletedGoals() {
@@ -57,7 +59,7 @@ class DynamicComponent extends Component {
     const data = await response.json();
     console.log(data);
 
-    this.setState({ goalsComplete: data.goals_complete, totalCompletedGoals: data.total_entries, totalCompletedGoalsPages: Math.ceil(data.total_entries / 5) });
+    this.setState({ goalsComplete: data.goals_complete, totalCompletedGoals: data.total_entries, totalCompletedGoalsPages: Math.ceil(data.total_entries / 5), loading: false });
   }
 
   async getCategoryList() {
@@ -189,6 +191,7 @@ class DynamicComponent extends Component {
         locationProps={this.props.locationProps}
         bookmarkPopUp={this.props.bookmarkPopUp}
         toggleBookmarkPopUp={this.props.toggleBookmarkPopUp}
+        loading={this.state.loading}
       />
     );
   }

@@ -57,7 +57,7 @@ class NewJournal extends Component {
 
   handleJournalTitle(e) {
     // console.log(e.target.value);
-    this.setState({ journalTitle: e.target.value });
+    this.setState({ journalTitle: e.target.value, errorMessage: '' });
   }
 
   async createPost() {
@@ -76,19 +76,28 @@ class NewJournal extends Component {
       },
     };
 
-    const response = await fetch(`${backendServer}/journals`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify(body),
-    });
+    try {
+      if (!body.journal.title) {
+        throw 'Journal must have a title';
+      }
 
-    const newJournal = await response.json();
+      const response = await fetch(`${backendServer}/journals`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(body),
+      });
 
-    console.log(newJournal);
-    this.setState({ redirect: true, newJournalID: newJournal.id });
+      const newJournal = await response.json();
+
+      console.log(newJournal);
+
+      this.setState({ redirect: true, newJournalID: newJournal.id });
+    } catch (err) {
+      this.setState({ errorMessage: err });
+    }
   }
 
   handleKeyCommand(command, editorState) {
@@ -136,7 +145,7 @@ class NewJournal extends Component {
               </select>
             </div>
           </div>
-
+          {this.state.errorMessage && <div style={{ color: 'red' }}>{this.state.errorMessage}</div>}
           <input className="new-journal__title" type="text" placeholder="Title..." id="title" onChange={this.handleJournalTitle} />
           <div className="rich-utils">
             <button onClick={this._onBoldClick.bind(this)}>Bold</button>

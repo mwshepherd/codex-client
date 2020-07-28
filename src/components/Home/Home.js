@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { LineChart, PieChart, ColumnChart } from 'react-chartkick';
+import moment from 'moment';
+import { LineChart } from 'react-chartkick';
 import 'chart.js';
 import './Home.scss';
 
@@ -48,10 +49,37 @@ class Home extends Component {
           <h1>Welcome, {user.username}!</h1>
         </div>
         <div className="home__grid">
+          <div className="home__grid-item">
+            <h2>Latest Journals</h2>
+            {this.state?.userData.latest_journals &&
+              this.state.userData.latest_journals.map((journal) => {
+                return (
+                  <a href={`/dashboard/journals/${journal.id}`} key={journal.id} className="latest-journal">
+                    <h3 className="title">{journal.title}</h3>
+                    <h4 className="date">{moment(journal.created_at).format('D/MM/YYYY')}</h4>
+                  </a>
+                );
+              })}
+          </div>
           <div className="home__grid-item"></div>
-          <div className="home__grid-item"></div>
-          <div className="home__grid-item"></div>
-          <div className="home__grid-item chart">{this.state?.userData.total_entries_by_date && <LineChart data={this.state.userData.total_entries_by_date} width="100%" />}</div>
+          <div className="home__grid-item">
+            <h2>Latest Goals</h2>
+            {this.state?.userData.goals_due_soonest &&
+              this.state.userData.goals_due_soonest.map((goal) => {
+                return (
+                  <a href="/dashboard/goals" key={goal.id} className="latest-goal">
+                    <h3>{goal.title}</h3>
+                    <div className="due-date">
+                      Due: <h4>{moment(goal.due_date).format('D/MM/YYYY')}</h4>
+                    </div>
+                  </a>
+                );
+              })}
+          </div>
+          <div className="home__grid-item chart">
+            <h2>Current activity</h2>
+            {this.state?.userData.total_entries_by_date && <LineChart data={this.state.userData.total_entries_by_date} width="100%" />}
+          </div>
           {this.state?.randomQuote && (
             <div className="home__grid-item">
               <div className="random-quote">
