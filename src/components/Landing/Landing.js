@@ -67,7 +67,7 @@ class Login extends Component {
           <div className="popup__inner">
             <div className="header">
               <h1>Login</h1>
-              <button className="close-btn" onClick={closePopUp}>
+              <button id="Login" className="close-btn" onClick={closePopUp}>
                 <i className="far fa-times-circle"></i>
               </button>
             </div>
@@ -156,7 +156,7 @@ class SignUp extends Component {
           <div className="popup__inner">
             <div className="header">
               <h1>Sign Up</h1>
-              <button className="close-btn" onClick={closePopUp}>
+              <button id="SignUp" className="close-btn" onClick={closePopUp}>
                 <i className="far fa-times-circle"></i>
               </button>
             </div>

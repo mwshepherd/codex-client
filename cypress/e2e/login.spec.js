@@ -3,7 +3,7 @@ import { userBuilder } from '../support/generate'
 describe("when clicking on login from the homepage user", () => {
   beforeEach(() => {
     cy.visit("/");
-    cy.get("button").click();
+    cy.contains('Login').click() 
   });
 
   it("should load a login popup", () => {
@@ -33,7 +33,7 @@ describe("with the correct login credentials user", () => {
   before(() => {
     cy.fixture("user").then((user) => {
       cy.visit("/")
-      cy.get("button").click();
+      cy.contains('Login').click() 
       cy.findByPlaceholderText(/email/i).type(user.email)
       cy.findByPlaceholderText(/password/i).type(user.password)
     })
