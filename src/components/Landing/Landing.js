@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Landing.scss';
 import { backendServer } from '../shared/constants';
+import Spinner from '../shared/Spinner/Spinner';
 
 class Login extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ class Login extends Component {
   render() {
     // console.log(this.state);
     // console.log(this.props);
-    const { username, email, password, errMessage } = this.state;
+    const { username, email, password, errMessage, loading } = this.state;
     const { closePopUp } = this.props;
     return (
       <div className="popup">
@@ -74,7 +75,8 @@ class Login extends Component {
             <form className="user-form" onSubmit={this.onLoginFormSubmit}>
               <input type="text" name="email" id="email" value={email} placeholder="email" onChange={this.onInputChange} />
               <input type="password" name="password" id="password" value={password} placeholder="password" onChange={this.onInputChange} />
-              <button>Login</button>
+              <button>{loading ? 'Loading...' : 'Login'}</button>
+              {loading && <Spinner />}
             </form>
           </div>
         </div>
@@ -128,7 +130,7 @@ class SignUp extends Component {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({auth: { email, password }}),
+          body: JSON.stringify({ auth: { email, password } }),
         });
         const { jwt } = await response.json();
         localStorage.setItem('token', jwt);
@@ -145,7 +147,7 @@ class SignUp extends Component {
   render() {
     // console.log(this.state);
     // console.log(this.props);
-    const { username, email, password, errMessage } = this.state;
+    const { username, email, password, errMessage, loading } = this.state;
     const { closePopUp } = this.props;
     return (
       <div className="popup">
@@ -163,7 +165,8 @@ class SignUp extends Component {
               <input type="text" name="username" id="username" value={username} placeholder="username" onChange={this.onInputChange} />
               <input type="text" name="email" id="email" value={email} placeholder="email" onChange={this.onInputChange} />
               <input type="password" name="password" id="password" value={password} placeholder="password" onChange={this.onInputChange} />
-              <button>Sign Up</button>
+              <button>{loading ? 'Loading...' : 'Sign Up'}</button>
+              {loading && <Spinner />}
             </form>
           </div>
         </div>
@@ -200,7 +203,9 @@ class Landing extends Component {
           <button className="btn" onClick={() => this.showPopUp('login')}>
             Login
           </button>
-          <button className="btn"onClick={() => this.showPopUp('signup')} >Sign up</button>
+          <button className="btn" onClick={() => this.showPopUp('signup')}>
+            Sign up
+          </button>
         </nav>
         <div className="landingpage__start">
           <div className="landingpage__intro">
