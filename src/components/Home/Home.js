@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import momentDurationFormatSetup from 'moment-duration-format';
 import { LineChart } from 'react-chartkick';
 import 'chart.js';
 import './Home.scss';
-
 import { backendServer } from '../shared/constants';
+
+momentDurationFormatSetup(moment);
 
 class Home extends Component {
   constructor() {
@@ -12,10 +14,12 @@ class Home extends Component {
 
     this.getUserData = this.getUserData.bind(this);
     this.getRandomQuote = this.getRandomQuote.bind(this);
+    this.getTimer = this.getTimer.bind(this);
   }
 
   async componentDidMount() {
     await this.getUserData();
+    await this.getTimer();
     await this.getRandomQuote();
   }
 
@@ -29,6 +33,18 @@ class Home extends Component {
     console.log(data);
 
     this.setState({ userData: data });
+  }
+
+  async getTimer() {
+    const response = await fetch(`${backendServer}/timer`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+
+    this.setState({ timer: data });
   }
 
   async getRandomQuote() {
@@ -61,7 +77,10 @@ class Home extends Component {
                 );
               })}
           </div>
-          <div className="home__grid-item"></div>
+          <div className="home__grid-item total-time">
+            {this.state?.timer && <div className="time">{moment.duration(this.state.timer.time_length, 'minutes').format('h')}</div>}
+            <div className="spent-studying">Total hours studying</div>
+          </div>
           <div className="home__grid-item">
             <h2>Latest Goals</h2>
             {this.state?.userData &&

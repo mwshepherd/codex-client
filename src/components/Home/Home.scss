@@ -23,6 +23,22 @@
         grid-column: 1 / 3;
       }
 
+      &.total-time {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .time {
+          // height: 100%;
+          font-size: 8vw;
+        }
+
+        .spent-studying {
+          font-size: 2vw;
+        }
+      }
+
       &.chart {
         display: flex;
         flex-direction: column;
