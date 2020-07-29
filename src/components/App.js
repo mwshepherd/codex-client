@@ -5,6 +5,33 @@ import Landing from './Landing/Landing';
 import Dashboard from './Dashboard/Dashboard';
 
 class App extends Component {
+  state = {
+    totalTime: 0,
+    started: false,
+    stopped: false,
+  };
+
+  start = () => {
+    this.setState({ stopped: false });
+    if (this.state.started === false) {
+      this.setState({
+        started: true,
+        interval: setInterval(() => {
+          this.setState({ totalTime: this.state.totalTime + 1 });
+        }, 1000),
+      });
+    }
+  };
+
+  stop = () => {
+    clearInterval(this.state.interval);
+    this.setState({ started: false, stopped: true });
+  };
+
+  submit = () => {
+    console.log('submit timer to database');
+  };
+
   render() {
     // console.log(this.props);
     return (
@@ -18,7 +45,7 @@ class App extends Component {
           <ProtectedRoute exact path="/dashboard/journals/:id" component={Dashboard} currentPage={'single-journal'} />
           <ProtectedRoute exact path="/dashboard/bookmarks" component={Dashboard} currentPage={'bookmarks'} />
           <ProtectedRoute exact path="/dashboard/goals" component={Dashboard} currentPage={'goals'} />
-          <ProtectedRoute exact path="/dashboard/timer" component={Dashboard} currentPage={'timer'} />
+          <ProtectedRoute exact path="/dashboard/timer" component={Dashboard} currentPage={'timer'} start={this.start} stop={this.stop} submit={this.submit} state={this.state} />
           <ProtectedRoute exact path="/dashboard/analytics" component={Dashboard} currentPage={'analytics'} />
         </Switch>
       </>

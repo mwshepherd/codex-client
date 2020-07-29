@@ -8,12 +8,8 @@ import './Dashboard.scss';
 import Nav from '../shared/Nav/Nav';
 import TopPanel from '../shared/TopPanel/TopPanel';
 import Home from '../Home/Home';
-import NewJournal from '../NewJournal/NewJournal';
-import EditJournal from '../EditJournal/EditJournal';
-import Journals from '../Journals/Journals';
 import SingleJournal from '../SingleJournal/SingleJournal';
-import Bookmarks from '../Bookmarks/Bookmarks';
-import Goals from '../Goals/Goals';
+import Timer from '../Timer/Timer';
 import DynamicComponent from '../DynamicComponent/DynamicComponent';
 import { backendServer } from '../shared/constants';
 
@@ -105,6 +101,9 @@ class Dashboard extends Component {
         break;
       case 'goals':
         mainWindow = <DynamicComponent page={'goals'} />;
+        break;
+      case 'timer':
+        mainWindow = <Timer start={this.props.start} stop={this.props.stop} submit={this.props.submit} state={this.props.state} />;
         break;
       case 'analytics':
         mainWindow = <DynamicComponent page={'analytics'} user={this.state.user} />;
