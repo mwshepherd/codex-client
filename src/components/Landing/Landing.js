@@ -194,7 +194,9 @@ class Landing extends Component {
     return (
       <div className="landingpage">
         <nav className="landingpage__nav">
-          <button className="btn">About</button>
+          <a href="#about" className="btn">
+            About
+          </a>
           <button className="btn" onClick={() => this.showPopUp('login')}>
             Login
           </button>

@@ -16,6 +16,10 @@
   --color-yellow: #fcd12e;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--color-dark);
   margin: 0;

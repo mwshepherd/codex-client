@@ -18,7 +18,7 @@ class Nav extends Component {
               }}
               className="nav-quick-link"
             >
-              <Tooltip title="New Journal" position="right-bottom" trigger="mouseenter" style={{ display: 'block' }}>
+              <Tooltip title="New Journal" position="right-bottom" trigger="mouseenter" style={{ display: 'block' }} arrow="true" theme="light">
                 <li>
                   <div className="link-wrapper">
                     <div className="icon">
@@ -58,7 +58,7 @@ class Nav extends Component {
           </ul>
 
           <ul className="regular-links">
-            <Link to={{ pathname: '/dashboard', state: { currentPage: 'home' } }} className="nav-link-icon">
+            <Link to={{ pathname: '/dashboard', state: { currentPage: 'home' } }} className="nav-link-icon" arrow="true">
               <li>
                 <div className="link-wrapper">
                   <div className="icon">
