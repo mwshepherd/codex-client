@@ -87,8 +87,6 @@ class NewJournal extends Component {
 
       const newJournal = await response.json();
 
-      console.log(newJournal);
-
       this.setState({ redirect: true, newJournalID: newJournal.id });
     } catch (err) {
       this.setState({ errorMessage: err });
@@ -119,8 +117,6 @@ class NewJournal extends Component {
   }
 
   render() {
-    // console.log(this.props);
-    console.log(this.state);
     if (this.state.redirect) {
       return <Redirect to={`/dashboard/journals/${this.state.newJournalID}`} />;
     } else {

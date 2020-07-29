@@ -76,9 +76,6 @@ export default class Analytics extends Component {
   }
 
   render() {
-    // console.log(this.props.user);
-    // console.log(this.state?.languages);
-    console.log(this.state);
     return (
       <div className="analytics">
         <div className="page-header">

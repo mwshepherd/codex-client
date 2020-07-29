@@ -6,7 +6,6 @@ import Dashboard from './Dashboard/Dashboard';
 
 class App extends Component {
   render() {
-    // console.log(this.props);
     return (
       <>
         <Switch>

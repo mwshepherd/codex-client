@@ -60,7 +60,6 @@ class EditJournal extends Component {
       },
     });
     const journal = await response.json();
-    console.log(journal);
     this.setState({ editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(journal.body))), journal: journal });
   }
 
@@ -70,7 +69,6 @@ class EditJournal extends Component {
 
   onLanguageChange = (event) => {
     this.setState({ language_id: event.target.value });
-    console.log(this.state);
   };
 
   handleJournalTitle(e) {
@@ -90,9 +88,7 @@ class EditJournal extends Component {
         language_id: this.state.language_id,
       },
     };
-    console.log(this.state);
     const { id } = this.props.locationProps.match.params;
-    console.log(this.props);
     const response = await fetch(`${backendServer}/journals/${id}`, {
       method: 'PUT',
       headers: {
@@ -102,10 +98,8 @@ class EditJournal extends Component {
       body: JSON.stringify(body),
     });
     // const updatedJournal = await response.json();
-    // console.log(updatedJournal);
 
     this.setState({ redirect: true });
-    // console.log(this.state.updatedJournalID)
     // this.props.locationProps.history.push(`/dashboard/journals${id}`);
   }
 
@@ -133,7 +127,6 @@ class EditJournal extends Component {
   }
 
   render() {
-    console.log(this.state);
     if (this.state.journal) {
       const { title, body, created_at } = this.state.journal;
       const date = moment(created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
@@ -141,8 +134,6 @@ class EditJournal extends Component {
       const contentState = convertFromRaw(parsedBody);
       const editorState = EditorState.createWithContent(contentState);
 
-      console.log(this.props);
-      // console.log(this.state);
       if (this.state.redirect) {
         return <Redirect to={`/dashboard/journals/${this.state.journal.id}`} />;
       } else {

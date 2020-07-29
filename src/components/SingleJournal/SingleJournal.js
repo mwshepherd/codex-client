@@ -32,7 +32,6 @@ class SingleJournal extends Component {
       },
     });
     const journal = await response.json();
-    console.log(journal);
     this.setState({ journal: journal });
   }
 
@@ -43,12 +42,10 @@ class SingleJournal extends Component {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
-    // console.log(this.props);
     this.props.locationProps.history.push('/dashboard/journals');
   }
 
   render() {
-    console.log(this.props);
     if (this.state.journal) {
       const { title, body, created_at } = this.state.journal;
       const date = moment(created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');

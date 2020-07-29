@@ -26,7 +26,6 @@ class Home extends Component {
       },
     });
     const data = await response.json();
-    console.log(data);
 
     this.setState({ userData: data });
   }
@@ -35,13 +34,9 @@ class Home extends Component {
     const response = await fetch('https://programming-quotes-api.herokuapp.com/quotes/random/lang/en');
     const data = await response.json();
 
-    console.log(data);
-
     this.setState({ randomQuote: data });
   }
   render() {
-    console.log(this.state);
-
     const { user } = this.props;
     return (
       <div className="home">

@@ -33,7 +33,6 @@ class NewGoal extends Component {
 
     try {
       if (!body.goal.title) {
-        console.log(body.goal);
         throw "Goal must have a title";
       } else if (!body.goal.body) {
         throw "Goal must have a short description";
@@ -52,7 +51,6 @@ class NewGoal extends Component {
       this.setState({ ...defaultState });
     } catch (err) {
       this.setState({ errorMessage: err });
-      console.log(this.state);
     }
   };
 

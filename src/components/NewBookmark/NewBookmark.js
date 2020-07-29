@@ -52,12 +52,10 @@ class NewBookmark extends Component {
       this.setState({ ...defaultState });
     } catch (err) {
       this.setState({ errorMessage: err });
-      console.log(this.state)
     }
   };
 
   render() {
-    console.log(this.state);
     return (
       <div className="bookmark__form">
         <form onSubmit={this.onFormSubmit}>
