@@ -1,0 +1,53 @@
+.timer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  &__wrapper {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    padding: 50px;
+  }
+
+  &__time {
+    // font-family: 'Red Hat Display';
+    font-size: 8vw;
+    color: var(--color-dark);
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // grid-template-columns: repeat(3, 1fr);
+    // grid-gap: 20px;
+    // background: var(--color-background);
+    padding-top: 30px;
+    border-radius: 5px;
+
+    & > * {
+      margin: 0 10px;
+      // width: 70px;
+      // height: 70px;
+      border-radius: 50%;
+      // padding: 4px 5px 6px 5px;
+      padding: 0;
+      font-size: 50px;
+      border: 0;
+    }
+  }
+
+  &__submit {
+    color: var(--color-green);
+    border-color: var(--color-green);
+    // background: var(--color-green);
+    &:disabled {
+      color: var(--color-border);
+      background: none;
+      border-color: var(--color-border);
+    }
+  }
+}

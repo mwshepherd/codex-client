@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import momentDurationFormatSetup from 'moment-duration-format';
 import { LineChart } from 'react-chartkick';
 import 'chart.js';
 import './Home.scss';
-
 import { backendServer } from '../shared/constants';
+
+momentDurationFormatSetup(moment);
 
 class Home extends Component {
   constructor() {
@@ -12,10 +14,12 @@ class Home extends Component {
 
     this.getUserData = this.getUserData.bind(this);
     this.getRandomQuote = this.getRandomQuote.bind(this);
+    this.getTimer = this.getTimer.bind(this);
   }
 
   async componentDidMount() {
     await this.getUserData();
+    await this.getTimer();
     await this.getRandomQuote();
   }
 
@@ -28,6 +32,18 @@ class Home extends Component {
     const data = await response.json();
 
     this.setState({ userData: data });
+  }
+
+  async getTimer() {
+    const response = await fetch(`${backendServer}/timer`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+
+    this.setState({ timer: data });
   }
 
   async getRandomQuote() {
@@ -46,7 +62,7 @@ class Home extends Component {
         <div className="home__grid">
           <div className="home__grid-item">
             <h2>Latest Journals</h2>
-            {this.state?.userData.latest_journals &&
+            {this.state?.userData &&
               this.state.userData.latest_journals.map((journal) => {
                 return (
                   <a href={`/dashboard/journals/${journal.id}`} key={journal.id} className="latest-journal">
@@ -56,10 +72,13 @@ class Home extends Component {
                 );
               })}
           </div>
-          <div className="home__grid-item"></div>
+          <div className="home__grid-item total-time">
+            {this.state?.timer && <div className="time">{moment.duration(this.state.timer.time_length, 'minutes').format('h')}</div>}
+            <div className="spent-studying">Total hours studying</div>
+          </div>
           <div className="home__grid-item">
             <h2>Latest Goals</h2>
-            {this.state?.userData.goals_due_soonest &&
+            {this.state?.userData &&
               this.state.userData.goals_due_soonest.map((goal) => {
                 return (
                   <a href="/dashboard/goals" key={goal.id} className="latest-goal">
@@ -73,7 +92,7 @@ class Home extends Component {
           </div>
           <div className="home__grid-item chart">
             <h2>Current activity</h2>
-            {this.state?.userData.total_entries_by_date && <LineChart data={this.state.userData.total_entries_by_date} width="100%" />}
+            {this.state?.userData && <LineChart data={this.state.userData.total_entries_by_date} width="100%" />}
           </div>
           {this.state?.randomQuote && (
             <div className="home__grid-item">

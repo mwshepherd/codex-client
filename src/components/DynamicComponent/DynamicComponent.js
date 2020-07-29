@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import Home from '../Home/Home';
 import Journals from '../Journals/Journals';
 import NewJournal from '../NewJournal/NewJournal';
 import EditJournal from '../EditJournal/EditJournal';
@@ -10,6 +11,7 @@ import Analytics from '../Analytics/Analytics';
 import { backendServer } from '../shared/constants';
 
 const components = {
+  home: Home,
   journals: Journals,
   newJournal: NewJournal,
   bookmarks: Bookmarks,
