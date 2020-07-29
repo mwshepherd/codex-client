@@ -1,9 +1,11 @@
-import React, { Component } from "react";
-import "./NewBookmark.scss";
+import React, { Component } from 'react';
+import './NewBookmark.scss';
+import 'react-tippy/dist/tippy.css';
+import { Tooltip } from 'react-tippy';
 
 const defaultState = {
-  category_id: "15",
-  language_id: "25",
+  category_id: '15',
+  language_id: '25',
 };
 
 class NewBookmark extends Component {
@@ -33,22 +35,22 @@ class NewBookmark extends Component {
 
     try {
       if (!body.bookmark.title) {
-        throw 'Bookmark must have a title'
+        throw 'Bookmark must have a title';
       } else if (!body.bookmark.url) {
-        throw 'Bookmark must have a URL'
+        throw 'Bookmark must have a URL';
       } else if (!body.bookmark.description) {
-        throw 'Bookmark must have a short description'
+        throw 'Bookmark must have a short description';
       }
 
-      await fetch("http://localhost:3000/bookmarks", {
-        method: "POST",
+      await fetch('http://localhost:3000/bookmarks', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify(body),
       });
-      this.props.getUsersEntries("bookmarks");
+      this.props.getUsersEntries('bookmarks');
       this.setState({ ...defaultState });
     } catch (err) {
       this.setState({ errorMessage: err });
