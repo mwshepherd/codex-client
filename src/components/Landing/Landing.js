@@ -219,7 +219,7 @@ class Landing extends Component {
         <div className="landingpage__about" id="about">
           <div className="landingpage__intro">
             <div className="landingpage__title-about">
-              <h2 class="about-title">About</h2>
+              <h2 className="about-title">About</h2>
             </div>
             <div className="landingpage__info">
               <h3>capture journal entries including code snippets</h3>

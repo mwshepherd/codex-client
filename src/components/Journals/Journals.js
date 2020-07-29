@@ -39,6 +39,7 @@ class Journals extends Component {
   }
 
   render() {
+    console.log(this.state);
     const { journals, totalPages } = this.props.state;
     const { currPage, prevPage, nextPage, loading } = this.props;
 
