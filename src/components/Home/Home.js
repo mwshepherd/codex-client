@@ -51,7 +51,7 @@ class Home extends Component {
         <div className="home__grid">
           <div className="home__grid-item">
             <h2>Latest Journals</h2>
-            {this.state?.userData.latest_journals &&
+            {this.state?.userData &&
               this.state.userData.latest_journals.map((journal) => {
                 return (
                   <a href={`/dashboard/journals/${journal.id}`} key={journal.id} className="latest-journal">
@@ -64,7 +64,7 @@ class Home extends Component {
           <div className="home__grid-item"></div>
           <div className="home__grid-item">
             <h2>Latest Goals</h2>
-            {this.state?.userData.goals_due_soonest &&
+            {this.state?.userData &&
               this.state.userData.goals_due_soonest.map((goal) => {
                 return (
                   <a href="/dashboard/goals" key={goal.id} className="latest-goal">
@@ -78,7 +78,7 @@ class Home extends Component {
           </div>
           <div className="home__grid-item chart">
             <h2>Current activity</h2>
-            {this.state?.userData.total_entries_by_date && <LineChart data={this.state.userData.total_entries_by_date} width="100%" />}
+            {this.state?.userData && <LineChart data={this.state.userData.total_entries_by_date} width="100%" />}
           </div>
           {this.state?.randomQuote && (
             <div className="home__grid-item">

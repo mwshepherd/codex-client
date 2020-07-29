@@ -73,7 +73,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const { currentPage } = this.props || 'home';
     // console.log(currentPage);
 
@@ -81,7 +81,8 @@ class Dashboard extends Component {
 
     switch (currentPage) {
       case 'home':
-        mainWindow = <Home user={this.state.user} />;
+        // mainWindow = <Home user={this.state.user} />;
+        mainWindow = <DynamicComponent page={'home'} user={this.state.user} />;
         break;
       case 'new-journal':
         mainWindow = <DynamicComponent page={'newJournal'} user={this.state.user} />;
@@ -109,7 +110,7 @@ class Dashboard extends Component {
         mainWindow = <DynamicComponent page={'analytics'} user={this.state.user} />;
         break;
       default:
-        mainWindow = <Home user={this.state.user} />;
+        mainWindow = <div>Not found</div>;
     }
 
     return (

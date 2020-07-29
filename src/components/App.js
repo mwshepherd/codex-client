@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Landing from './Landing/Landing';
 import Dashboard from './Dashboard/Dashboard';
+import { backendServer } from './shared/constants';
 
 class App extends Component {
   state = {
@@ -28,8 +29,40 @@ class App extends Component {
     this.setState({ started: false, stopped: true });
   };
 
-  submit = () => {
+  submit = async () => {
     console.log('submit timer to database');
+    await this.createTimer();
+  };
+
+  createTimer = async () => {
+    const body = {
+      timer: {
+        time_length: this.state.totalTime,
+      },
+    };
+
+    try {
+      if (this.state.totalTime === 0) {
+        throw 'Timer needs to be greater than 0';
+      }
+
+      const response = await fetch(`${backendServer}/timer`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(body),
+      });
+
+      const newTimer = await response.json();
+
+      console.log(newTimer);
+
+      this.setState({ totalTime: 0, started: false, stopped: false });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   render() {
