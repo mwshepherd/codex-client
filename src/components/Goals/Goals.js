@@ -42,7 +42,6 @@ class Goals extends Component {
 
   async completeGoal(id) {
     const date = moment(Date.now()).format('YYYY-MM-DD');
-    console.log(date);
 
     await fetch(`${backendServer}/${page}/${id}`, {
       method: 'PUT',
@@ -124,11 +123,9 @@ class Goals extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { goals, totalPages, goalsComplete, totalCompletedGoalsPages } = this.props.state;
     const { currPage, currPageCompletedGoals, prevPage, nextPage, loading } = this.props;
 
-    console.log(loading);
     return (
       <>
         <div className="goal">

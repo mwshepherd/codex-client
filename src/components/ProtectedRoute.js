@@ -26,7 +26,6 @@ class ProtectedRoute extends React.Component {
         });
       }
     } catch (err) {
-      // console.log(err.message);
       this.setState({
         loading: false,
       });
@@ -36,7 +35,6 @@ class ProtectedRoute extends React.Component {
   render() {
     const { loading, auth } = this.state;
     const Component = this.props.component;
-    // console.log(Component);
     // debugger;
     if (!loading && !auth) {
       return <Redirect to="/" />;

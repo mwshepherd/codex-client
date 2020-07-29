@@ -56,8 +56,6 @@ class Login extends Component {
   }
 
   render() {
-    // console.log(this.state);
-    // console.log(this.props);
     const { username, email, password, errMessage, loading } = this.state;
     const { closePopUp } = this.props;
     return (
@@ -145,8 +143,6 @@ class SignUp extends Component {
   }
 
   render() {
-    // console.log(this.state);
-    // console.log(this.props);
     const { username, email, password, errMessage, loading } = this.state;
     const { closePopUp } = this.props;
     return (
@@ -195,7 +191,6 @@ class Landing extends Component {
   }
 
   render() {
-    // console.log(this.props);
     return (
       <div className="landingpage">
         <nav className="landingpage__nav">

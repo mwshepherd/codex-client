@@ -73,9 +73,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    // console.log(this.state);
     const { currentPage } = this.props || 'home';
-    // console.log(currentPage);
 
     let mainWindow;
 

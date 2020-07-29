@@ -47,7 +47,6 @@ class DynamicComponent extends Component {
       },
     });
     const data = await response.json();
-    console.log(data);
 
     this.setState({ [page]: data[page], total: data.total_entries, totalPages: Math.ceil(data.total_entries / 5), loading: false });
   }
@@ -59,7 +58,6 @@ class DynamicComponent extends Component {
       },
     });
     const data = await response.json();
-    console.log(data);
 
     this.setState({ goalsComplete: data.goals_complete, totalCompletedGoals: data.total_entries, totalCompletedGoalsPages: Math.ceil(data.total_entries / 5), loading: false });
   }
@@ -82,7 +80,6 @@ class DynamicComponent extends Component {
       },
     });
     const data = await response.json();
-    console.log(data);
     this.setState({ languageOptions: data });
   }
 
