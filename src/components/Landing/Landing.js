@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Landing.scss';
 import { backendServer } from '../shared/constants';
 import Spinner from '../shared/Spinner/Spinner';
+import landingIMG from '../../images/landing.png';
 
 class Login extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ class Login extends Component {
   }
 
   render() {
-    const { username, email, password, errMessage, loading } = this.state;
+    const { email, password, errMessage, loading } = this.state;
     const { closePopUp } = this.props;
     return (
       <div className="popup">
@@ -71,8 +72,22 @@ class Login extends Component {
             </div>
             {errMessage && <span>{errMessage}</span>}
             <form className="user-form" onSubmit={this.onLoginFormSubmit}>
-              <input type="text" name="email" id="email" value={email} placeholder="email" onChange={this.onInputChange} />
-              <input type="password" name="password" id="password" value={password} placeholder="password" onChange={this.onInputChange} />
+              <input
+                type="text"
+                name="email"
+                id="email"
+                value={email}
+                placeholder="email"
+                onChange={this.onInputChange}
+              />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={password}
+                placeholder="password"
+                onChange={this.onInputChange}
+              />
               <button>{loading ? 'Loading...' : 'Login'}</button>
               {loading && <Spinner />}
             </form>
@@ -158,9 +173,30 @@ class SignUp extends Component {
             </div>
             {errMessage && <span>{errMessage}</span>}
             <form className="user-form" onSubmit={this.onFormSubmit}>
-              <input type="text" name="username" id="username" value={username} placeholder="username" onChange={this.onInputChange} />
-              <input type="text" name="email" id="email" value={email} placeholder="email" onChange={this.onInputChange} />
-              <input type="password" name="password" id="password" value={password} placeholder="password" onChange={this.onInputChange} />
+              <input
+                type="text"
+                name="username"
+                id="username"
+                value={username}
+                placeholder="username"
+                onChange={this.onInputChange}
+              />
+              <input
+                type="text"
+                name="email"
+                id="email"
+                value={email}
+                placeholder="email"
+                onChange={this.onInputChange}
+              />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={password}
+                placeholder="password"
+                onChange={this.onInputChange}
+              />
               <button>{loading ? 'Loading...' : 'Sign Up'}</button>
               {loading && <Spinner />}
             </form>
@@ -194,7 +230,12 @@ class Landing extends Component {
     return (
       <div className="landingpage">
         <nav className="landingpage__nav">
-          <button className="btn">About</button>
+          <a href="#about" className="btn">
+            About
+          </a>
+          <a href="#features" className="btn">
+            Features
+          </a>
           <button className="btn" onClick={() => this.showPopUp('login')}>
             Login
           </button>
@@ -208,21 +249,88 @@ class Landing extends Component {
               <h1 className="landingpage__site-name">Codex</h1>
               <h2 className="landingpage__tagline">The learning & productivity app for devs</h2>
             </div>
-            <div className="landingpage__preview"></div>
+            <div className="landingpage__preview">
+              <img src={landingIMG} style={{ width: '100%', borderRadius: '5px' }} alt="App Preview" />
+            </div>
           </div>
         </div>
         <div className="landingpage__about" id="about">
-          <div className="landingpage__intro">
+          <div className="landingpage__intro blurb">
             <div className="landingpage__title-about">
               <h2 className="about-title">About</h2>
             </div>
             <div className="landingpage__info">
-              <h3>capture journal entries including code snippets</h3>
-              <h3>collect & categorize your bookmarks for easy reference</h3>
-              <h3>track your goals and due date milestones</h3>
-              <h3>view your learning & productivity statistics</h3>
+              <p>
+                To become a better coder, you have to be intentional — in how you read and write code, in how you study
+                new concepts, and even in the way you take breaks and refresh your mind.
+              </p>
+              <p>
+                <b>Intention is key to progress.</b>
+              </p>
+              <p>
+                A journal gives you a place to work through your thoughts (e.g. algorithm steps, design process, or
+                whatever else) in a concrete way. You can see everything before you. Not only does it make you less
+                prone to errors, but it’ll help solidify those concepts in your mind.
+              </p>
+              <p>
+                <b>It records a history of your progress and development.</b> This may be the biggest benefit of
+                journaling, especially for new coders. The hardest part about being a newbie is being blind to your own
+                progress and feeling like you aren’t moving forward. But each journal entry represents a discrete
+                achievement. It feels good, and that’s priceless when learning.
+              </p>
+              <p>
+                It’s also useful for staying motivated on long-term projects because the journal acts as an objective
+                reminder of how far you’ve come. When you feel like you aren’t making progress, the journal tells you
+                that you have — and that can be a great motivating boost.
+              </p>
+              <p>
+                Lastly, a journal can be useful evidence when you sit down for an interview or to write that Medium
+                article you’ve been thinking of.
+              </p>
             </div>
           </div>
+        </div>
+        <div className="landingpage__features" id="features">
+          <div className="landingpage__title-features">
+            <h2 className="features-title">Features</h2>
+          </div>
+          <div className="landingpage__intro features">
+            <div className="landingpage__feature">
+              <i className="fas fa-book"></i>
+              <div className="landingpage__feature-info">
+                Capture journal entries to track daily learnings and handy hints including code snippets
+              </div>
+            </div>
+            <div className="landingpage__feature">
+              <i className="fas fa-link"></i>
+              <div className="landingpage__feature-info">
+                Collect & categorize bookmark resources for easy reference
+              </div>
+            </div>
+            <div className="landingpage__feature">
+              <i className="fas fa-clipboard-list"></i>
+              <div className="landingpage__feature-info">Track goals and due date milestones</div>
+            </div>
+            <div className="landingpage__feature">
+              <i className="far fa-clock"></i>
+              <div className="landingpage__feature-info">
+                Record time spent coding in your journey towards 10,000 hours of deliberate practise
+              </div>
+            </div>
+            <div className="landingpage__feature">
+              <i className="far fa-chart-bar"></i>
+              <div className="landingpage__feature-info">
+                View learning & productivity statistics to foster sense of achievement & motivation
+              </div>
+            </div>
+            <div className="landingpage__feature">
+              <i className="fas fa-home"></i>
+              <div className="landingpage__feature-info">Centralised dashboard featuring a daily programming quote</div>
+            </div>
+          </div>
+        </div>
+        <div className="landingpage__footer">
+          <div className="imprint">&copy; Copyright 2020 codex</div>
         </div>
         {this.state.show === 'login' ? <Login landingProps={this.props} closePopUp={this.closePopUp} /> : null}
         {this.state.show === 'signup' ? <SignUp landingProps={this.props} closePopUp={this.closePopUp} /> : null}

@@ -30,7 +30,6 @@ class App extends Component {
   };
 
   submit = async () => {
-    console.log('submit timer to database');
     await this.createTimer();
   };
 
@@ -43,10 +42,10 @@ class App extends Component {
 
     try {
       if (this.state.totalTime === 0) {
-        throw 'Timer needs to be greater than 0';
+        throw new Error('Timer needs to be greater than 0');
       }
 
-      const response = await fetch(`${backendServer}/timer`, {
+      await fetch(`${backendServer}/timer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,13 +54,9 @@ class App extends Component {
         body: JSON.stringify(body),
       });
 
-      const newTimer = await response.json();
-
-      console.log(newTimer);
-
       this.setState({ totalTime: 0, started: false, stopped: false });
     } catch (err) {
-      console.log(err);
+      this.setState({ timerErrorMessage: err });
     }
   };
 
@@ -73,11 +68,26 @@ class App extends Component {
           <ProtectedRoute exact path="/dashboard" component={Dashboard} currentPage={'home'} />
           <ProtectedRoute exact path="/dashboard/journals" component={Dashboard} currentPage={'journals'} />
           <ProtectedRoute exact path="/dashboard/journals/new" component={Dashboard} currentPage={'new-journal'} />
-          <ProtectedRoute exact path="/dashboard/journals/edit/:id" component={Dashboard} currentPage={'edit-journal'} />
+          <ProtectedRoute
+            exact
+            path="/dashboard/journals/edit/:id"
+            component={Dashboard}
+            currentPage={'edit-journal'}
+          />
           <ProtectedRoute exact path="/dashboard/journals/:id" component={Dashboard} currentPage={'single-journal'} />
           <ProtectedRoute exact path="/dashboard/bookmarks" component={Dashboard} currentPage={'bookmarks'} />
           <ProtectedRoute exact path="/dashboard/goals" component={Dashboard} currentPage={'goals'} />
-          <ProtectedRoute exact path="/dashboard/timer" component={Dashboard} currentPage={'timer'} start={this.start} stop={this.stop} submit={this.submit} state={this.state} />
+          <ProtectedRoute
+            exact
+            path="/dashboard/timer"
+            component={Dashboard}
+            currentPage={'timer'}
+            start={this.start}
+            stop={this.stop}
+            submit={this.submit}
+            state={this.state}
+            timerErrorMessage={this.state.timerErrorMessage}
+          />
           <ProtectedRoute exact path="/dashboard/analytics" component={Dashboard} currentPage={'analytics'} />
         </Switch>
       </>

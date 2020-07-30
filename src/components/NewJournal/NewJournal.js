@@ -59,8 +59,6 @@ class NewJournal extends Component {
 
   async createPost() {
     const converted = convertToRaw(this.state.editorState.getCurrentContent());
-    const jsonString = JSON.stringify(converted);
-    const jsonConvert = JSON.parse(jsonString);
 
     const body = {
       journal: {
@@ -73,7 +71,7 @@ class NewJournal extends Component {
 
     try {
       if (!body.journal.title) {
-        throw 'Journal must have a title';
+        throw new Error('Journal must have a title');
       }
 
       const response = await fetch(`${backendServer}/journals`, {
@@ -121,7 +119,7 @@ class NewJournal extends Component {
       return <Redirect to={`/dashboard/journals/${this.state.newJournalID}`} />;
     } else {
       return (
-        <div class="new-journal">
+        <div className="new-journal">
           <div className="new-journal__options">
             <div className="new-journal__option">
               <label htmlFor="categories">Category:</label>
@@ -137,7 +135,13 @@ class NewJournal extends Component {
             </div>
           </div>
           {this.state.errorMessage && <div style={{ color: 'red' }}>{this.state.errorMessage}</div>}
-          <input className="new-journal__title" type="text" placeholder="Title..." id="title" onChange={this.handleJournalTitle} />
+          <input
+            className="new-journal__title"
+            type="text"
+            placeholder="Title..."
+            id="title"
+            onChange={this.handleJournalTitle}
+          />
           <div className="rich-utils">
             <button onClick={this._onBoldClick.bind(this)}>Bold</button>
             <button onClick={this._onItalicClick.bind(this)}>Italic</button>
@@ -145,7 +149,12 @@ class NewJournal extends Component {
           </div>
 
           <div id="journal-body" style={styles.editor} onClick={this.focusEditor}>
-            <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
+            <Editor
+              ref={this.setEditor}
+              editorState={this.state.editorState}
+              handleKeyCommand={this.handleKeyCommand}
+              onChange={this.onChange}
+            />
           </div>
 
           <div className="new-journal__submit">

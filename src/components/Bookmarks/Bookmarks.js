@@ -45,7 +45,7 @@ class Bookmarks extends Component {
     return (
       <div key={bookmark.id} className="bookmark__entry">
         <div className="bookmark__entry-title">
-          <a href={bookmark.url} target="_blank">
+          <a href={bookmark.url} target="_blank" rel="noopener noreferrer">
             {bookmark.title}
           </a>
           <div className="bookmark__entry-delete">

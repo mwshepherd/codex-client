@@ -41,7 +41,6 @@ class Home extends Component {
       },
     });
     const data = await response.json();
-    console.log(data);
 
     this.setState({ timer: data });
   }
@@ -56,7 +55,7 @@ class Home extends Component {
     const { user } = this.props;
     return (
       <div className="home">
-        <div className="page-header home-title">
+        <div className="home-title">
           <h1>Welcome, {user.username}!</h1>
         </div>
         <div className="home__grid">
@@ -73,7 +72,9 @@ class Home extends Component {
               })}
           </div>
           <div className="home__grid-item total-time">
-            {this.state?.timer && <div className="time">{moment.duration(this.state.timer.time_length, 'minutes').format('h')}</div>}
+            {this.state?.timer && (
+              <div className="time">{moment.duration(this.state.timer.time_length, 'minutes').format('h')}</div>
+            )}
             <div className="spent-studying">Total hours studying</div>
           </div>
           <div className="home__grid-item">

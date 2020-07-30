@@ -16,6 +16,10 @@
   --color-yellow: #fcd12e;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--color-dark);
   margin: 0;
@@ -60,4 +64,12 @@ select:focus {
   &.home-title h1 {
     text-transform: capitalize;
   }
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 17px;
 }

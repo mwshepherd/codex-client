@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { backendServer } from '../shared/constants';
-import moment from 'moment';
 import './EditJournal.scss';
 
 const styles = {
@@ -60,7 +59,10 @@ class EditJournal extends Component {
       },
     });
     const journal = await response.json();
-    this.setState({ editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(journal.body))), journal: journal });
+    this.setState({
+      editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(journal.body))),
+      journal: journal,
+    });
   }
 
   onCategoryChange = (event) => {
@@ -77,8 +79,6 @@ class EditJournal extends Component {
 
   async updatePost() {
     const converted = convertToRaw(this.state.editorState.getCurrentContent());
-    const jsonString = JSON.stringify(converted);
-    const jsonConvert = JSON.parse(jsonString);
 
     const body = {
       journal: {
@@ -89,7 +89,7 @@ class EditJournal extends Component {
       },
     };
     const { id } = this.props.locationProps.match.params;
-    const response = await fetch(`${backendServer}/journals/${id}`, {
+    await fetch(`${backendServer}/journals/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -97,10 +97,8 @@ class EditJournal extends Component {
       },
       body: JSON.stringify(body),
     });
-    // const updatedJournal = await response.json();
 
     this.setState({ redirect: true });
-    // this.props.locationProps.history.push(`/dashboard/journals${id}`);
   }
 
   handleKeyCommand(command, editorState) {
@@ -128,11 +126,7 @@ class EditJournal extends Component {
 
   render() {
     if (this.state.journal) {
-      const { title, body, created_at } = this.state.journal;
-      const date = moment(created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
-      const parsedBody = JSON.parse(body);
-      const contentState = convertFromRaw(parsedBody);
-      const editorState = EditorState.createWithContent(contentState);
+      const { title } = this.state.journal;
 
       if (this.state.redirect) {
         return <Redirect to={`/dashboard/journals/${this.state.journal.id}`} />;
@@ -153,14 +147,26 @@ class EditJournal extends Component {
                 </select>
               </div>
             </div>
-            <input className="edit-journal__title" type="text" placeholder="New Journal Title" id="title" value={title} onChange={this.handleJournalTitle} />
+            <input
+              className="edit-journal__title"
+              type="text"
+              placeholder="New Journal Title"
+              id="title"
+              value={title}
+              onChange={this.handleJournalTitle}
+            />
             <div className="rich-utils">
               <button onClick={this._onBoldClick.bind(this)}>Bold</button>
               <button onClick={this._onItalicClick.bind(this)}>Italic</button>
               <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
             </div>
             <div style={styles.editor} onClick={this.focusEditor}>
-              <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
+              <Editor
+                ref={this.setEditor}
+                editorState={this.state.editorState}
+                handleKeyCommand={this.handleKeyCommand}
+                onChange={this.onChange}
+              />
             </div>
 
             <div className="edit-journal__submit">

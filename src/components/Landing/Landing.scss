@@ -1,14 +1,25 @@
 .landingpage {
-  background: var(--color-background);
+  background: #fafafa;
   &__nav {
     position: fixed;
+    // z-index: 99;
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    padding: 20px 5%;
+    padding: 20px 2%;
+    // background: var(--color-background);
 
     & > * {
       margin-right: 10px;
+      padding: 8px;
+      color: var(--color-dark);
+      border-color: var(--color-dark);
+      transition: all 0.2s;
+
+      &:hover {
+        color: var(--color-white);
+        background: var(--color-dark);
+      }
     }
   }
 
@@ -21,9 +32,25 @@
 
   &__intro {
     display: flex;
-    background: #fafafa;
+    background: #b1d2da;
     width: 100%;
     height: 50%;
+
+    &.blurb {
+      // justify-content: center;
+      position: relative;
+      justify-content: flex-end;
+    }
+
+    &.features {
+      position: relative;
+      // justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      height: auto;
+      grid-gap: 20px;
+      padding: 60px;
+    }
   }
 
   &__title {
@@ -31,8 +58,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    width: 42%;
+    padding-bottom: 28px;
     color: var(--color-dark);
+    user-select: none;
   }
 
   &__site-name {
@@ -40,18 +69,27 @@
     font-weight: 100;
     text-transform: lowercase;
     font-size: 8vw;
+    letter-spacing: -0.3vw;
+  }
+
+  &__tagline {
+    font-family: 'Libre Baskerville';
+    font-size: 1.2vw;
+    font-weight: 100;
+    // font-style: italic;
   }
 
   &__preview {
     position: absolute;
+    display: flex;
     background: #efefef;
-    width: 50%;
-    height: 60%;
-    right: 5%;
+    width: 60%;
+    // height: 55%;
+    right: 2%;
     top: 50%;
     border-radius: 5px;
     transform: translateY(-50%);
-    box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
   }
 
   &__about {
@@ -62,6 +100,7 @@
     @extend .landingpage__title;
     // align-items: flex-end;
     padding: 20px;
+    width: 50%;
 
     .about-title {
       font-family: 'Red Hat Display';
@@ -75,6 +114,77 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 3% 4%;
+    width: 48%;
+    background: #fbfbfb;
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translateY(-50%);
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
+    font-family: 'Libre Baskerville';
+    text-align: justify;
+
+    p {
+      margin: 10px 0;
+    }
+  }
+
+  &__features {
+    @extend .landingpage__start;
+    display: block;
+    min-height: 100vh;
+    height: auto;
+    margin-bottom: 200px;
+  }
+
+  &__title-features {
+    @extend .landingpage__title;
+    // position: absoluzte;
+    // top: -26%;
+    padding: 0;
+    width: 100%;
+
+    .features-title {
+      font-family: 'Red Hat Display';
+      font-weight: 100;
+      font-size: 8vw;
+      text-transform: lowercase;
+    }
+  }
+
+  &__feature {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10%;
+    color: var(--color-dark);
+    background: #fafafa;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s;
+
+    i {
+      font-size: 7vw;
+    }
+
+    &:hover {
+      transform: scale(1.04);
+    }
+
+    &-info {
+      font-family: 'Libre Baskerville';
+      text-align: center;
+      margin-top: 20px;
+      width: 80%;
+    }
+  }
+
+  &__footer {
+    background: var(--color-dark);
+    color: var(--color-white);
     padding: 20px;
   }
 
