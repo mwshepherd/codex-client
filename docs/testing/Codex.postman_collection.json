@@ -1,0 +1,748 @@
+{
+	"info": {
+		"_postman_id": "bf6e0f64-4469-4d05-a235-486784caad96",
+		"name": "Codex",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/user/2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"2"
+					]
+				},
+				"description": "deleting user 2"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/analytics/counts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTU2MzM1MjgsInN1YiI6MX0.7a1HC-FtXhKmHV0Qkg-VnPIxzvsIE-sUgwqUiHaI_oo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"auth\": {\n    \"email\": \"h@gmail.com\",\n    \"password\": \"password\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/analytics/counts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"analytics",
+						"counts"
+					]
+				},
+				"description": "Testing analytics end point is returning correct data"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/language/index",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTU0ODUyNjYsInN1YiI6MX0.LPIPgr1L91L9hzA0Hz1XJ8lEHpE5-trdnOlg5X_-Zmc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"auth\": {\n    \"email\": \"h@gmail.com\",\n    \"password\": \"password\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/language/index",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"language",
+						"index"
+					]
+				},
+				"description": "Test languages option list is being returned for forms"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/categories/index",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTU0MTE5MDEsInN1YiI6MX0.5EG7CPY1CSwyyiES3NdOvO2AMXBBkpMlVCvB9CGAiIo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"auth\": {\n    \"email\": \"h@gmail.com\",\n    \"password\": \"password\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/categories/index",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"categories",
+						"index"
+					]
+				},
+				"description": "Testing categories option list is being returned for form dropdowns"
+			},
+			"response": []
+		},
+		{
+			"name": "https://secure-lake-11760.herokuapp.com/bookmarks/1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTQ5NzM1NDMsInN1YiI6MX0.jkeALbknaof4Bfwtfb7fKPrauYdf3d-vNhzN7R9mQbQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://secure-lake-11760.herokuapp.com/bookmarks/1",
+					"protocol": "https",
+					"host": [
+						"secure-lake-11760",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"bookmarks",
+						"1"
+					]
+				},
+				"description": "Testing Heroku deployment has been succesful and can view bookmarks"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/journals/create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTQ5NjQzMDEsInN1YiI6MX0.Khfn4EECAvvPycjACUcBRz59zDvXWOd1g15HlUABqRQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Test\",\n  \"body\": \"Body here\",\n  \"user_id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/journals/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"journals",
+						"create"
+					]
+				},
+				"description": "Testing journal creation "
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/user/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTU3MzkzNDIsInN1YiI6MX0.GmyYT3Wcq1MLebzBL-uq26eDvfnlAuqfLvQUYsHfUlo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Test\",\n  \"body\": \"Body here\",\n  \"user_id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"1"
+					]
+				},
+				"description": "Testing user deletion"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/status/user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTU3NDA4MzgsInN1YiI6MX0.dH9ARCwVvcdyNnBT1GYxc1GdaNFBcvWHQZcWVWTNNSc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"auth\": {\n    \"email\": \"h@gmail.com\",\n    \"password\": \"password\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/status/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"status",
+						"user"
+					]
+				},
+				"description": "Testing user status end point"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTYwMDQyNzYsInN1YiI6MX0.4n5jFyW2rXYAl_yRRSFZVqvsbiCZsr5ftJQv3Ceg1Zo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"auth\": { \n    \"email\": \"h@gmail.com\",\n    \"password\": \"password\"\n  }\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/bookmarks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bookmarks"
+					]
+				},
+				"description": "Login to user 1"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/bookmarks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTYwMDQyNzYsInN1YiI6MX0.4n5jFyW2rXYAl_yRRSFZVqvsbiCZsr5ftJQv3Ceg1Zo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"auth\": { \n    \"email\": \"h@gmail.com\",\n    \"password\": \"password\"\n  }\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/bookmarks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bookmarks"
+					]
+				},
+				"description": "View user's bookmarks"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/goals",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTYwMDQyNzYsInN1YiI6MX0.4n5jFyW2rXYAl_yRRSFZVqvsbiCZsr5ftJQv3Ceg1Zo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"auth\": { \n    \"email\": \"h@gmail.com\",\n    \"password\": \"password\"\n  }\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/goals",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"goals"
+					]
+				},
+				"description": "retrieve users active goals"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/goals-complete",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTYwMDQyNzYsInN1YiI6MX0.4n5jFyW2rXYAl_yRRSFZVqvsbiCZsr5ftJQv3Ceg1Zo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"auth\": { \n    \"email\": \"h@gmail.com\",\n    \"password\": \"password\"\n  }\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/goals-complete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"goals-complete"
+					]
+				},
+				"description": "retrieve user's completed goals"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/journals",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTYwMDQyNzYsInN1YiI6MX0.4n5jFyW2rXYAl_yRRSFZVqvsbiCZsr5ftJQv3Ceg1Zo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"auth\": { \n    \"email\": \"h@gmail.com\",\n    \"password\": \"password\"\n  }\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/journals",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"journals"
+					]
+				},
+				"description": "retrieve users journals"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/bookmarks/173",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTU4OTI2MzgsInN1YiI6MX0.ZCK7OfktBGL7Km-0cR6N0vaw2bHXCDGSB0_lxdd9CIA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bookmark\": { \"id\": 173,\n  \"title\": \"Test\",\n  \"description\": \"Added in description\",\n  \"url\": \"www.google.com\",\n  \"user_id\": 1,\n  \"category_id\": 1,\n  \"language_id\": 1\n  }\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/bookmarks/173",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bookmarks",
+						"173"
+					]
+				},
+				"description": "Updating individual bookmark entry"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/sign-up",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user\": { \n    \"email\": \"newmember@gmail.com\",\n    \"username\": \"Someone New\",\n    \"password\": \"123456\"\n  }\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/sign-up",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sign-up"
+					]
+				},
+				"description": "Creating new user"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/journals/81",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTU5MDYyODUsInN1YiI6MX0.RcfnNxksod0gjNuE0I47KpNHgT4LTIR59f3hNXG34VY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"journal\": \n  {\n    \"title\": \"Updated Journal Entry Title.\",\n    \"body\": \"Updated body here\",\n    \"category_id\": 8,\n    \"language_id\": 12\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/journals/81",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"journals",
+						"81"
+					]
+				},
+				"description": "Updating/Editting existing journal entry"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/journals/80",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTU5MDYyODUsInN1YiI6MX0.RcfnNxksod0gjNuE0I47KpNHgT4LTIR59f3hNXG34VY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"journal\": \n  {\n    \"title\": \"Updated Journal Entry Title.\",\n    \"body\": \"Updated body here\",\n    \"category_id\": 8,\n    \"language_id\": 12\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/journals/80",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"journals",
+						"80"
+					]
+				},
+				"description": "Deleting individual journal entry"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/goals/45",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTU4OTI2MzgsInN1YiI6MX0.ZCK7OfktBGL7Km-0cR6N0vaw2bHXCDGSB0_lxdd9CIA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 45,\n    \"title\": \"Create a Pomodoro Clock - Updated\",\n    \"body\": \"To structure my work day and remind me to take breaks to stretch my eyes and also git commit my work. I have added extra paragraph in body.\",\n    \"due_date\": \"2021-12-10\",\n    \"completed\": false,\n    \"completed_date\": null,\n    \"category_id\": 4,\n    \"language_id\": 4\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/goals/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"goals",
+						"45"
+					]
+				},
+				"description": "Edit/Update existing goal"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
