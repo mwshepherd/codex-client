@@ -39,7 +39,6 @@ class Journals extends Component {
   }
 
   render() {
-    console.log(this.state);
     const { journals, totalPages } = this.props.state;
     const { currPage, prevPage, nextPage, loading } = this.props;
 
@@ -75,7 +74,11 @@ class Journals extends Component {
                 <i className="fas fa-sort"></i>
               </div>
             </div>
-            {loading === false && journals ? journals.map((journal) => this.renderJournalEntries(journal)) : <Spinner />}
+            {loading === false && journals ? (
+              journals.map((journal) => this.renderJournalEntries(journal))
+            ) : (
+              <Spinner />
+            )}
           </div>
         </div>
       </>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './NewBookmark.scss';
 import 'react-tippy/dist/tippy.css';
-import { Tooltip } from 'react-tippy';
+import { backendServer } from '../shared/constants';
 
 const defaultState = {
   category_id: '15',
@@ -35,14 +35,14 @@ class NewBookmark extends Component {
 
     try {
       if (!body.bookmark.title) {
-        throw 'Bookmark must have a title';
+        throw new Error('Bookmark must have a title');
       } else if (!body.bookmark.url) {
-        throw 'Bookmark must have a URL';
+        throw new Error('Bookmark must have a URL');
       } else if (!body.bookmark.description) {
-        throw 'Bookmark must have a short description';
+        throw new Error('Bookmark must have a short description');
       }
 
-      await fetch('http://localhost:3000/bookmarks', {
+      await fetch(`${backendServer}/bookmarks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

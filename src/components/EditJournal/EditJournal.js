@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { backendServer } from '../shared/constants';
@@ -60,7 +60,10 @@ class EditJournal extends Component {
       },
     });
     const journal = await response.json();
-    this.setState({ editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(journal.body))), journal: journal });
+    this.setState({
+      editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(journal.body))),
+      journal: journal,
+    });
   }
 
   onCategoryChange = (event) => {
@@ -153,14 +156,26 @@ class EditJournal extends Component {
                 </select>
               </div>
             </div>
-            <input className="edit-journal__title" type="text" placeholder="New Journal Title" id="title" value={title} onChange={this.handleJournalTitle} />
+            <input
+              className="edit-journal__title"
+              type="text"
+              placeholder="New Journal Title"
+              id="title"
+              value={title}
+              onChange={this.handleJournalTitle}
+            />
             <div className="rich-utils">
               <button onClick={this._onBoldClick.bind(this)}>Bold</button>
               <button onClick={this._onItalicClick.bind(this)}>Italic</button>
               <button onClick={this._onCodeClick.bind(this)}>Code Block</button>
             </div>
             <div style={styles.editor} onClick={this.focusEditor}>
-              <Editor ref={this.setEditor} editorState={this.state.editorState} handleKeyCommand={this.handleKeyCommand} onChange={this.onChange} />
+              <Editor
+                ref={this.setEditor}
+                editorState={this.state.editorState}
+                handleKeyCommand={this.handleKeyCommand}
+                onChange={this.onChange}
+              />
             </div>
 
             <div className="edit-journal__submit">

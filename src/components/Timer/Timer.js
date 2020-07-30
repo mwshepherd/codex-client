@@ -13,6 +13,7 @@ export default class Timer extends Component {
         <div className="timer">
           <div className="timer__wrapper">
             <div className="timer__time">{moment.utc(this.props.state.totalTime * 1000).format('HH:mm:ss')}</div>
+            {this.props.timerErrorMessage && this.props.timerErrorMessage}
             <div className="timer__controls">
               <button className="timer__start btn" onClick={this.props.start}>
                 <i className="far fa-play-circle"></i>

@@ -74,9 +74,10 @@
 
   &__preview {
     position: absolute;
+    display: flex;
     background: #efefef;
-    width: 55%;
-    height: 55%;
+    width: 60%;
+    // height: 55%;
     right: 2%;
     top: 50%;
     border-radius: 5px;

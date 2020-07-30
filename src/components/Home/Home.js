@@ -41,7 +41,6 @@ class Home extends Component {
       },
     });
     const data = await response.json();
-    console.log(data);
 
     this.setState({ timer: data });
   }

@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import ProtectedRoute from '../ProtectedRoute';
 // Styles
 import './Dashboard.scss';
 
 // Components
 import Nav from '../shared/Nav/Nav';
 import TopPanel from '../shared/TopPanel/TopPanel';
-import Home from '../Home/Home';
 import SingleJournal from '../SingleJournal/SingleJournal';
 import Timer from '../Timer/Timer';
 import DynamicComponent from '../DynamicComponent/DynamicComponent';
@@ -102,7 +99,15 @@ class Dashboard extends Component {
         mainWindow = <DynamicComponent page={'goals'} />;
         break;
       case 'timer':
-        mainWindow = <Timer start={this.props.start} stop={this.props.stop} submit={this.props.submit} state={this.props.state} />;
+        mainWindow = (
+          <Timer
+            start={this.props.start}
+            stop={this.props.stop}
+            submit={this.props.submit}
+            state={this.props.state}
+            timerErrorMessage={this.props.timerErrorMessage}
+          />
+        );
         break;
       case 'analytics':
         mainWindow = <DynamicComponent page={'analytics'} user={this.state.user} />;
@@ -115,7 +120,12 @@ class Dashboard extends Component {
       <>
         <TopPanel toggleNav={this.toggleNav} logOut={this.logOut} />
         <div className="container">
-          <Nav setCurrentPage={this.setCurrentPage} navState={this.state.navState} navExpanded={this.state.navExpanded} toggleBookmarkPopUp={this.toggleBookmarkPopUp} />
+          <Nav
+            setCurrentPage={this.setCurrentPage}
+            navState={this.state.navState}
+            navExpanded={this.state.navExpanded}
+            toggleBookmarkPopUp={this.toggleBookmarkPopUp}
+          />
           <div className="main-panel">
             <div className="main-panel__container">{mainWindow}</div>
           </div>

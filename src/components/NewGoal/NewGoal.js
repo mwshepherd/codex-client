@@ -1,9 +1,10 @@
-import React, { Component } from "react";
-import "./NewGoal.scss";
+import React, { Component } from 'react';
+import './NewGoal.scss';
+import { backendServer } from '../shared/constants';
 
 const defaultState = {
-  category_id: "15",
-  language_id: "25",
+  category_id: '15',
+  language_id: '25',
 };
 
 class NewGoal extends Component {
@@ -12,7 +13,7 @@ class NewGoal extends Component {
   onInputChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
-      errorMessage: "",
+      errorMessage: '',
     });
   };
 
@@ -33,21 +34,21 @@ class NewGoal extends Component {
 
     try {
       if (!body.goal.title) {
-        throw "Goal must have a title";
+        throw new Error('Goal must have a title');
       } else if (!body.goal.body) {
-        throw "Goal must have a short description";
+        throw new Error('Goal must have a short description');
       } else if (!body.goal.due_date) {
-        throw "Goal must have a due date selected";
+        throw new Error('Goal must have a due date selected');
       }
-      await fetch("http://localhost:3000/goals", {
-        method: "POST",
+      await fetch(`${backendServer}/goals`, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify(body),
       });
-      this.props.getUsersEntries("goals");
+      this.props.getUsersEntries('goals');
       this.setState({ ...defaultState });
     } catch (err) {
       this.setState({ errorMessage: err });

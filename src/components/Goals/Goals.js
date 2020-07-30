@@ -211,7 +211,11 @@ class Goals extends Component {
                 <span>Complete</span>
               </div>
             </div>
-            {loading == false && goalsComplete ? goalsComplete.map((goal) => this.renderCompleteGoals(goal)) : <Spinner />}
+            {loading === false && goalsComplete ? (
+              goalsComplete.map((goal) => this.renderCompleteGoals(goal))
+            ) : (
+              <Spinner />
+            )}
           </div>
         </div>
       </>
