@@ -265,12 +265,9 @@ class Landing extends Component {
                 new concepts, and even in the way you take breaks and refresh your mind.
               </p>
               <p>
-                <b>Intention is key to progress.</b>
-              </p>
-              <p>
-                A journal gives you a place to work through your thoughts (e.g. algorithm steps, design process, or
-                whatever else) in a concrete way. You can see everything before you. Not only does it make you less
-                prone to errors, but it’ll help solidify those concepts in your mind.
+                <b>Intention is key to progress.</b> A journal gives you a place to work through your thoughts (e.g.
+                algorithm steps, design process, or whatever else) in a concrete way. You can see everything before you.
+                Not only does it make you less prone to errors, but it’ll help solidify those concepts in your mind.
               </p>
               <p>
                 <b>It records a history of your progress and development.</b> This may be the biggest benefit of
