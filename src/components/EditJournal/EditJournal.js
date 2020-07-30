@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { backendServer } from '../shared/constants';
-import moment from 'moment';
 import './EditJournal.scss';
 
 const styles = {
@@ -80,8 +79,6 @@ class EditJournal extends Component {
 
   async updatePost() {
     const converted = convertToRaw(this.state.editorState.getCurrentContent());
-    const jsonString = JSON.stringify(converted);
-    const jsonConvert = JSON.parse(jsonString);
 
     const body = {
       journal: {
@@ -92,7 +89,7 @@ class EditJournal extends Component {
       },
     };
     const { id } = this.props.locationProps.match.params;
-    const response = await fetch(`${backendServer}/journals/${id}`, {
+    await fetch(`${backendServer}/journals/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -100,10 +97,8 @@ class EditJournal extends Component {
       },
       body: JSON.stringify(body),
     });
-    // const updatedJournal = await response.json();
 
     this.setState({ redirect: true });
-    // this.props.locationProps.history.push(`/dashboard/journals${id}`);
   }
 
   handleKeyCommand(command, editorState) {
@@ -131,11 +126,7 @@ class EditJournal extends Component {
 
   render() {
     if (this.state.journal) {
-      const { title, body, created_at } = this.state.journal;
-      const date = moment(created_at).format('dddd, MMMM Do YYYY, h:mm:ss a');
-      const parsedBody = JSON.parse(body);
-      const contentState = convertFromRaw(parsedBody);
-      const editorState = EditorState.createWithContent(contentState);
+      const { title } = this.state.journal;
 
       if (this.state.redirect) {
         return <Redirect to={`/dashboard/journals/${this.state.journal.id}`} />;

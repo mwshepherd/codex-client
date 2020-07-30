@@ -59,8 +59,6 @@ class NewJournal extends Component {
 
   async createPost() {
     const converted = convertToRaw(this.state.editorState.getCurrentContent());
-    const jsonString = JSON.stringify(converted);
-    const jsonConvert = JSON.parse(jsonString);
 
     const body = {
       journal: {
@@ -73,7 +71,7 @@ class NewJournal extends Component {
 
     try {
       if (!body.journal.title) {
-        throw 'Journal must have a title';
+        throw new Error('Journal must have a title');
       }
 
       const response = await fetch(`${backendServer}/journals`, {

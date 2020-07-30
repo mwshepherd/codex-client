@@ -5,12 +5,6 @@ import './Analytics.scss';
 
 import { backendServer } from '../shared/constants';
 
-const data = {
-  Journal: 2,
-  Bookmarks: 15,
-  Goals: 10,
-};
-
 export default class Analytics extends Component {
   constructor() {
     super();
@@ -98,7 +92,9 @@ export default class Analytics extends Component {
 
         <div className="analytics__chart">
           <h2>All Activity</h2>
-          {this.state?.activity.total_entries_by_date && <LineChart data={this.state.activity.total_entries_by_date} width="100%" />}
+          {this.state?.activity.total_entries_by_date && (
+            <LineChart data={this.state.activity.total_entries_by_date} width="100%" />
+          )}
         </div>
 
         <div className="analytics__chart">
@@ -109,16 +105,18 @@ export default class Analytics extends Component {
         <div className="analytics__languages-categories">
           <div className="analytics__chart">
             <h2>Languages</h2>
-            {this.state?.languages ? <PieChart data={this.state.languages.total_entries_by_language} width="100%" /> : null}
+            {this.state?.languages ? (
+              <PieChart data={this.state.languages.total_entries_by_language} width="100%" />
+            ) : null}
           </div>
 
           <div className="analytics__chart">
             <h2>Categories</h2>
-            {this.state?.categories ? <PieChart data={this.state.categories.total_entries_by_category} width="100%" /> : null}
+            {this.state?.categories ? (
+              <PieChart data={this.state.categories.total_entries_by_category} width="100%" />
+            ) : null}
           </div>
         </div>
-
-        {/* <PieChart data={data} width="100%" /> */}
       </div>
     );
   }

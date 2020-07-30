@@ -57,7 +57,7 @@ class Login extends Component {
   }
 
   render() {
-    const { username, email, password, errMessage, loading } = this.state;
+    const { email, password, errMessage, loading } = this.state;
     const { closePopUp } = this.props;
     return (
       <div className="popup">
@@ -247,7 +247,7 @@ class Landing extends Component {
               <h2 className="landingpage__tagline">The learning & productivity app for devs</h2>
             </div>
             <div className="landingpage__preview">
-              <img src={landingIMG} style={{ width: '100%', borderRadius: '5px' }} />
+              <img src={landingIMG} style={{ width: '100%', borderRadius: '5px' }} alt="App Preview" />
             </div>
           </div>
         </div>
