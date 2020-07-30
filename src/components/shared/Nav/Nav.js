@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './Nav.scss';
 import 'react-tippy/dist/tippy.css';
 import { Tooltip } from 'react-tippy';
+import './Nav.scss';
 
 class Nav extends Component {
   render() {

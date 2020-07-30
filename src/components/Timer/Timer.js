@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import 'react-tippy/dist/tippy.css';
+import { Tooltip } from 'react-tippy';
 import './Timer.scss';
 
 export default class Timer extends Component {
   render() {
-    // console.log(this.props);
     return (
       <>
         <div className="page-header">
@@ -21,11 +22,20 @@ export default class Timer extends Component {
               <button className="timer__stop btn" onClick={this.props.stop}>
                 <i className="far fa-stop-circle"></i>
               </button>
-              {/* {this.state?.stopped && ( */}
+
               <button className="timer__submit btn" onClick={this.props.submit} disabled={!this.props.state?.stopped}>
-                <i className="far fa-check-circle"></i>
+                <Tooltip
+                  title="Save timer"
+                  position="top"
+                  trigger="mouseenter"
+                  style={{ display: 'block' }}
+                  arrow="true"
+                  theme="light"
+                  disabled={!this.props.state.stopped ? true : false}
+                >
+                  <i className="far fa-check-circle"></i>
+                </Tooltip>
               </button>
-              {/* )} */}
             </div>
           </div>
         </div>
