@@ -37,12 +37,19 @@
     height: 50%;
 
     &.blurb {
-      justify-content: center;
+      // justify-content: center;
+      position: relative;
+      justify-content: flex-end;
     }
 
     &.features {
       position: relative;
-      justify-content: center;
+      // justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      height: auto;
+      grid-gap: 20px;
+      padding: 60px;
     }
   }
 
@@ -93,6 +100,7 @@
     @extend .landingpage__title;
     // align-items: flex-end;
     padding: 20px;
+    width: 50%;
 
     .about-title {
       font-family: 'Red Hat Display';
@@ -106,8 +114,17 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 20px;
-    width: 50%;
+    padding: 3% 4%;
+    width: 48%;
+    background: #fbfbfb;
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translateY(-50%);
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
+    font-family: 'Libre Baskerville';
+    text-align: justify;
 
     p {
       margin: 10px 0;
@@ -117,6 +134,9 @@
   &__features {
     @extend .landingpage__start;
     display: block;
+    min-height: 100vh;
+    height: auto;
+    margin-bottom: 200px;
   }
 
   &__title-features {
@@ -135,10 +155,31 @@
   }
 
   &__feature {
-    width: 33%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 10%;
+    color: var(--color-dark);
+    background: #fafafa;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s;
+
+    i {
+      font-size: 7vw;
+    }
+
+    &:hover {
+      transform: scale(1.04);
+    }
+
+    &-info {
+      font-family: 'Libre Baskerville';
+      text-align: center;
+      margin-top: 20px;
+      width: 80%;
+    }
   }
 
   &__footer {
